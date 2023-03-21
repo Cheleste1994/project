@@ -392,3 +392,96 @@ color: #545454;
 
   color: #545454;
 }
+
+
+.donation-title-h3 {
+  font-family: 'Georgia';
+font-style: normal;
+font-weight: 400;
+font-size: 35px;
+line-height: 130%;
+
+letter-spacing: 0.06em;
+
+/* color-dark-l */
+
+color: #545454;
+}
+
+
+.donation-bank {
+  font-family: 'Georgia';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 110%;
+/* identical to box height, or 17px */
+
+letter-spacing: 0.06em;
+
+/* color-dark-l */
+
+color: #545454;
+}
+
+
+.number-cards-btn {
+  font-family: 'Georgia';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 115%;
+/* identical to box height, or 23px */
+
+letter-spacing: 0.06em;
+
+/* color-dark-l */
+
+color: #545454;
+
+}
+
+
+.legal-inforamtion-text {
+  font-family: 'Arial';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  /* or 150% */
+
+
+  /* color-dark-m */
+
+  color: #B2B2B2;
+}
+
+
+.footer-content {
+  font-family: 'Georgia';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 115%;
+/* or 23px */
+
+letter-spacing: 0.06em;
+
+/* color-primary */
+
+color: #F1CDB3;
+}
+
+.footer-h3 {
+  font-family: 'Georgia';
+font-style: normal;
+font-weight: 400;
+font-size: 35px;
+/* or 45px */
+
+
+/* color-light-xl */
+
+color: #FFFFFF;
+}
+
