@@ -2,8 +2,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  scroll-behavior: smooth;
-
 }
 
 li {
@@ -56,7 +54,6 @@ body {
   display: flex;
   flex-direction: column;
   margin: auto auto auto 0;
-  cursor: pointer;
 }
 
 .title-subtitile {
@@ -72,29 +69,6 @@ body {
 
 .nav-li {
   margin-left: 35px;
-}
-
-.menu-link {
-  position: relative;
-  transition: all 0.5s;
-}
-
-.menu-link:hover {
-  color: #F1CDB3;
-}
-
-.menu-link::before {
-	content: '';
-	left: 0; bottom: -5px;
-  position: absolute;
-	width: 0;
-	height: 1.5px;
-	background-color: #F1CDB3;
-  transition: width 0.35s;
-}
-
-.menu-link:hover:before {
-	width: 110%;
 }
 
 .nav-about {
@@ -151,12 +125,6 @@ body {
   background-color: transparent;
   border-radius: 100px;
   cursor: pointer;
-  transition: all 0.5s;
-}
-
-.content-btn-click:hover {
-  background: #FAFAFA;
-  box-shadow: 0px 2px 10px 2px rgba(0, 88, 155, 0.582);
 }
 
 .puppy {
@@ -196,7 +164,7 @@ body {
 
 .about-content {
   width: 430px;
-  height: 380px;
+height: 380px;
   margin-top: 12px;
   margin-left: 0;
 }
@@ -263,12 +231,7 @@ body {
   border-radius: 100px;
   font-size: 24px;
   cursor: pointer;
-  transition: all 0.5s;
-}
 
-.slider-prev:hover {
-  background: #F1CDB3;
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
 }
 
 /* start pets cards */
@@ -288,11 +251,6 @@ body {
   height: 435px;
   background: #FAFAFA;
   border-radius: 9px;
-  transition: all 0.5s;
-}
-
-.slider-cards:hover {
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
 }
 
 .cards-img {
@@ -329,14 +287,8 @@ body {
   border: 2px solid #F1CDB3;
   border-radius: 100px;
   cursor: pointer;
-  transition: all 0.5s;
-
 }
 
-.cards-btn-click:hover {
-  background: #F1CDB3;
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-}
 
 /* end pets cards */
 
@@ -348,12 +300,7 @@ body {
   border-radius: 100px;
   font-size: 24px;
   cursor: pointer;
-  transition: all 0.5s;
-}
 
-.slider-next:hover {
-  background: #F1CDB3;
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
 }
 
 .pets-rest {
@@ -372,12 +319,6 @@ body {
   border: none;
   border-radius: 100px;
   cursor: pointer;
-  transition: all 0.5s;
-}
-
-.pets-btn-click:hover {
-  background: #FAFAFA;
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
 }
 
 /*start help */
@@ -463,8 +404,8 @@ body {
   background-image: url(../../assets/images/donation-dog.png);
   background-repeat: no-repeat;
   width: 505px;
-  height: 261px;
-  margin: auto auto auto 0;
+height: 261px;
+margin: auto auto auto 0;
 }
 
 
@@ -472,13 +413,13 @@ body {
   display: flex;
   flex-direction: column;
   width: 380px;
-  height: 282px;
-  margin-left: 4px;
+height: 282px;
+margin-left: 4px;
 }
 
 .donation-title {
   width: 300px;
-  height: 90px;
+height: 90px;
 }
 
 
@@ -511,14 +452,14 @@ body {
 
 }
 
-.number-cards-btn::before {
-  content: url('../../assets/icons/credit-card.svg');
+.number-cards-btn::before{
+  content:  url('../../assets/icons/credit-card.svg');
   width: 30px;
   height: 23px;
-  position: absolute;
-  top: 10px;
-  bottom: 0px;
-  left: 15px;
+    position: absolute;
+    top: 10px;
+    bottom: 0px;
+    left: 15px;
 }
 
 
@@ -542,8 +483,8 @@ body {
   display: flex;
   flex-direction: column;
   width: 302px;
-  height: 234px;
-  margin-top: 17px;
+height: 234px;
+margin-top: 17px;
 }
 
 .questions-email {
@@ -623,4 +564,6 @@ body {
 }
 
 
-@media (max-width: 1280px) {}
+@media (max-width: 1280px) {
+
+}

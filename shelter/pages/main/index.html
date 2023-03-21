@@ -12,23 +12,26 @@
 </head>
 
 <body class="body">
-
+  <!-- start block <header> -->
   <header class="header">
     <div class="wrapper header-menu">
-      <div class="title">
+      <div class="title" onclick="document.location='#'">
         <h1 class="title-logo">Cozy House</h1>
         <p class="title-subtitile">Shelter for pets in Boston</p>
       </div>
       <ul class="nav-menu">
-        <li class="nav-li nav-about"><a href="" class="menu-link">About the shelter</a></li>
-        <li class="nav-li"><a href="" class="menu-link">Our pets</a></li>
-        <li class="nav-li"><a href="" class="menu-link">Help the shelter</a></li>
-        <li class="nav-li"><a href="" class="menu-link">Contacts</a></li>
+        <li class="nav-li nav-about"><a href="../main/index.html" class="menu-link-start">About the shelter</a></li>
+        <li class="nav-li"><a href="../pets/index.html" class="menu-link">Our pets</a></li>
+        <li class="nav-li"><a href="#help" class="menu-link">Help the shelter</a></li>
+        <li class="nav-li"><a href="#contacts" class="menu-link">Contacts</a></li>
       </ul>
     </div>
   </header>
+  <!-- end block <header> -->
 
   <main class="main">
+
+    <!-- start block Not only -->
 
     <div class="container-not-only">
       <div class="wrapper not-only">
@@ -36,23 +39,27 @@
           <h2 class="content-title">Not only people need a house</h2>
           <p class="content-subtitile">We offer to give a chance to a little and nice puppy with an extremely wide and
             open heart. He or she will love you more than anybody else in the world, you will see!</p>
-          <div class="content-btn"><button class="content-btn-click">Make a friend</button></div>
+          <div class="content-btn">
+            <button class="content-btn-click" onclick="document.location='#our-friends'">Make a friend</button></div>
         </div>
-        <div class="screen-content"><img src="../../assets/images/start-screen-puppy.png" alt="puppy" class="puppy">
+        <div class="screen-content">
+          <div class="puppy"></div>
         </div>
       </div>
     </div>
+    <!-- end block Not only -->
 
+    <!-- start block About -->
     <div class="container-about">
       <div class="wrapper about">
         <div class="about-pets">
-          <img src="../../assets/images/about-pets.png" alt="pets" class="about-pets-images">
+          <div class="about-pets-images"></div>
         </div>
         <div class="about-content">
 
-          <h2 class="about-content-title">
+          <h3 class="about-content-title">
             About the shelter “Cozy House”
-          </h2>
+          </h3>
 
           <p class="about-content-subtitile">
             Currently we have 121 dogs and 342 cats on our hands and statistics show that only 20% of them will find a
@@ -71,19 +78,21 @@
 
       </div>
     </div>
+    <!-- end block About -->
 
-    <div class="container-our-friends">
+    <!-- start block Our Friends -->
+    <div class="container-our-friends" id="our-friends">
       <div class="wrapper wrapper-pets">
         <div class="pets-title">
           <div class="title-pets">
-            <h2 class="h2-pets">Our friends who
-              are looking for a house</h2>
+            <h3 class="h3-pets">Our friends who<br>
+              are looking for a house</h3>
           </div>
         </div>
         <div class="pets-slider">
 
           <div class="pets-slider-btn">
-            <button class="slider-prev">&#129044</button>
+            <button class="slider-prev">&#129044;</button>
           </div>
 
           <div class="pets-slider-cards">
@@ -105,22 +114,25 @@
           </div>
 
           <div class="pets-slider-btn">
-            <button class="slider-next">&#129046</button>
+            <button class="slider-next">&#129046;</button>
           </div>
 
         </div>
         <div class="pets-rest">
-          <div class="pets-btn"><button class="pets-btn-click">Get to know the rest</button></div>
+          <div class="pets-btn">
+            <button class="pets-btn-click" onclick="document.location='../pets/index.html'">Get to know the rest</button></div>
 
         </div>
 
       </div>
     </div>
+    <!-- end block Our Friends -->
 
-    <div class="container-help">
+    <!-- start block Help -->
+    <div class="container-help" id="help">
       <div class="wrapper wrapper-help">
         <div class="help-title">
-          <h3 class="helpt-title-h2">How you can help
+          <h3 class="helpt-title-h3">How you can help
             our shelter</h3>
         </div>
         <div class="help-list">
@@ -164,7 +176,9 @@
 
       </div>
     </div>
+    <!-- end block Help -->
 
+    <!-- start block In addition -->
     <div class="container-in-addition">
       <div class="wrapper wrapper-addition">
         <div class="addition-images">
@@ -183,9 +197,10 @@
           </div>
           <div class="donation-number-cards">
             <div class="number-cards-icon">
-              <button class="number-cards-btn">
-                      8380 2880 8028 8791 7435
-            </button></div>
+              <button class="number-cards-btn"  onclick="document.location='#'">
+                8380 2880 8028 8791 7435
+              </button>
+            </div>
           </div>
 
           <div class="donation-legal-information">
@@ -197,13 +212,20 @@
           </div>
 
 
+        </div>
       </div>
     </div>
+    <!-- end block In addition -->
+
   </main>
-  <footer class="footer">
+
+  <!-- start block In <footer> -->
+  <footer class="footer" id="contacts">
     <div class="wrapper wrapper-footer">
       <div class="footer-content footer-contacts">
-        <div class="questions-title"><h3 class="footer-h3">For questions and suggestions</h3></div>
+        <div class="questions-title">
+          <h3 class="footer-h3">For questions and suggestions</h3>
+        </div>
         <div class="questions-email">
           <div class="email-logo"></div>
           <div class="email">email@shelter.com</div>
@@ -214,7 +236,9 @@
         </div>
       </div>
       <div class="footer-content footer-locations">
-        <div class="locations-title"><h3 class="footer-h3">We are waiting for your visit</h3></div>
+        <div class="locations-title">
+          <h3 class="footer-h3">We are waiting for your visit</h3>
+        </div>
         <div class="locations-street address1">
           <div class="address-logo"></div>
           <div class="address1-title">1 Central Street, Boston (entrance from the store)</div>
@@ -230,6 +254,8 @@
 
     </div>
   </footer>
+  <!-- end block In <footer> -->
+
   <script type="module" src="script.js"></script>
 
 </body>
