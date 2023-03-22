@@ -2,10 +2,10 @@
   font-family: 'Georgia';
   src: url('../../assets/fonts/georgia/Georgia.eot');
   src: local('Georgia'),
-      url('../../assets/fonts/georgia/Georgia.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/georgia/Georgia.woff2') format('woff2'),
-      url('../../assets/fonts/georgia/Georgia.woff') format('woff'),
-      url('../../assets/fonts/georgia/Georgia.ttf') format('truetype');
+    url('../../assets/fonts/georgia/Georgia.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/georgia/Georgia.woff2') format('woff2'),
+    url('../../assets/fonts/georgia/Georgia.woff') format('woff'),
+    url('../../assets/fonts/georgia/Georgia.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,10 +14,10 @@
   font-family: 'Georgia';
   src: url('../../assets/fonts/georgia/Georgia-Bold.eot');
   src: local('Georgia Bold'), local('Georgia-Bold'),
-      url('../../assets/fonts/georgia/Georgia-Bold.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/georgia/Georgia-Bold.woff2') format('woff2'),
-      url('../../assets/fonts/georgia/Georgia-Bold.woff') format('woff'),
-      url('../../assets/fonts/georgia/Georgia-Bold.ttf') format('truetype');
+    url('../../assets/fonts/georgia/Georgia-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/georgia/Georgia-Bold.woff2') format('woff2'),
+    url('../../assets/fonts/georgia/Georgia-Bold.woff') format('woff'),
+    url('../../assets/fonts/georgia/Georgia-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
@@ -26,10 +26,10 @@
   font-family: 'Georgia';
   src: url('Georgia-Italic.eot');
   src: local('Georgia Italic'), local('Georgia-Italic'),
-      url('../../assets/fonts/georgia/Georgia-Italic.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/georgia/Georgia-Italic.woff2') format('woff2'),
-      url('../../assets/fonts/georgia/Georgia-Italic.woff') format('woff'),
-      url('../../assets/fonts/georgia/Georgia-Italic.ttf') format('truetype');
+    url('../../assets/fonts/georgia/Georgia-Italic.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/georgia/Georgia-Italic.woff2') format('woff2'),
+    url('../../assets/fonts/georgia/Georgia-Italic.woff') format('woff'),
+    url('../../assets/fonts/georgia/Georgia-Italic.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
 }
@@ -38,10 +38,10 @@
   font-family: 'Georgia';
   src: url('../../assets/fonts/georgia/Georgia-BoldItalic.eot');
   src: local('Georgia Bold Italic'), local('Georgia-BoldItalic'),
-      url('../../assets/fonts/georgia/Georgia-BoldItalic.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/georgia/Georgia-BoldItalic.woff2') format('woff2'),
-      url('../../assets/fonts/georgia/Georgia-BoldItalic.woff') format('woff'),
-      url('../../assets/fonts/georgia/Georgia-BoldItalic.ttf') format('truetype');
+    url('../../assets/fonts/georgia/Georgia-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/georgia/Georgia-BoldItalic.woff2') format('woff2'),
+    url('../../assets/fonts/georgia/Georgia-BoldItalic.woff') format('woff'),
+    url('../../assets/fonts/georgia/Georgia-BoldItalic.ttf') format('truetype');
   font-weight: bold;
   font-style: italic;
 }
@@ -50,10 +50,10 @@
   font-family: 'Arial';
   src: url('../../assets/fonts/arial/Arial-ItalicMT.eot');
   src: local('Arial Italic'), local('Arial-ItalicMT'),
-      url('../../assets/fonts/arial/Arial-ItalicMT.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/arial/Arial-ItalicMT.woff2') format('woff2'),
-      url('../../assets/fonts/arial/Arial-ItalicMT.woff') format('woff'),
-      url('../../assets/fonts/arial/Arial-ItalicMT.ttf') format('truetype');
+    url('../../assets/fonts/arial/Arial-ItalicMT.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/arial/Arial-ItalicMT.woff2') format('woff2'),
+    url('../../assets/fonts/arial/Arial-ItalicMT.woff') format('woff'),
+    url('../../assets/fonts/arial/Arial-ItalicMT.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
 }
@@ -62,10 +62,10 @@
   font-family: 'Arial';
   src: url('../../assets/fonts/arial/ArialMT.eot');
   src: local('Arial'), local('ArialMT'),
-      url('../../assets/fonts/arial/ArialMT.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/arial/ArialMT.woff2') format('woff2'),
-      url('../../assets/fonts/arial/ArialMT.woff') format('woff'),
-      url('../../assets/fonts/arial/ArialMT.ttf') format('truetype');
+    url('../../assets/fonts/arial/ArialMT.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/arial/ArialMT.woff2') format('woff2'),
+    url('../../assets/fonts/arial/ArialMT.woff') format('woff'),
+    url('../../assets/fonts/arial/ArialMT.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -74,10 +74,10 @@
   font-family: 'Arial';
   src: url('../../assets/fonts/arial/Arial-BoldItalicMT.eot');
   src: local('Arial Bold Italic'), local('Arial-BoldItalicMT'),
-      url('../../assets/fonts/arial/Arial-BoldItalicMT.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/arial/Arial-BoldItalicMT.woff2') format('woff2'),
-      url('../../assets/fonts/arial/Arial-BoldItalicMT.woff') format('woff'),
-      url('../../assets/fonts/arial/Arial-BoldItalicMT.ttf') format('truetype');
+    url('../../assets/fonts/arial/Arial-BoldItalicMT.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/arial/Arial-BoldItalicMT.woff2') format('woff2'),
+    url('../../assets/fonts/arial/Arial-BoldItalicMT.woff') format('woff'),
+    url('../../assets/fonts/arial/Arial-BoldItalicMT.ttf') format('truetype');
   font-weight: bold;
   font-style: italic;
 }
@@ -86,10 +86,10 @@
   font-family: 'Arial Narrow';
   src: url('../../assets/fonts/arial/ArialNarrow-BoldItalic.eot');
   src: local('Arial Narrow Bold Italic'), local('ArialNarrow-BoldItalic'),
-      url('../../assets/fonts/arial/ArialNarrow-BoldItalic.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/arial/ArialNarrow-BoldItalic.woff2') format('woff2'),
-      url('../../assets/fonts/arial/ArialNarrow-BoldItalic.woff') format('woff'),
-      url('../../assets/fonts/arial/ArialNarrow-BoldItalic.ttf') format('truetype');
+    url('../../assets/fonts/arial/ArialNarrow-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/arial/ArialNarrow-BoldItalic.woff2') format('woff2'),
+    url('../../assets/fonts/arial/ArialNarrow-BoldItalic.woff') format('woff'),
+    url('../../assets/fonts/arial/ArialNarrow-BoldItalic.ttf') format('truetype');
   font-weight: bold;
   font-style: italic;
 }
@@ -98,10 +98,10 @@
   font-family: 'Arial Narrow';
   src: url('../../assets/fonts/arial/ArialNarrow-Bold.eot');
   src: local('Arial Narrow Bold'), local('ArialNarrow-Bold'),
-      url('../../assets/fonts/arial/ArialNarrow-Bold.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/arial/ArialNarrow-Bold.woff2') format('woff2'),
-      url('../../assets/fonts/arial/ArialNarrow-Bold.woff') format('woff'),
-      url('../../assets/fonts/arial/ArialNarrow-Bold.ttf') format('truetype');
+    url('../../assets/fonts/arial/ArialNarrow-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/arial/ArialNarrow-Bold.woff2') format('woff2'),
+    url('../../assets/fonts/arial/ArialNarrow-Bold.woff') format('woff'),
+    url('../../assets/fonts/arial/ArialNarrow-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
@@ -110,10 +110,10 @@
   font-family: 'Arial Narrow';
   src: url('../../assets/fonts/arial/ArialNarrow-Italic.eot');
   src: local('Arial Narrow Italic'), local('ArialNarrow-Italic'),
-      url('../../assets/fonts/arial/ArialNarrow-Italic.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/arial/ArialNarrow-Italic.woff2') format('woff2'),
-      url('../../assets/fonts/arial/ArialNarrow-Italic.woff') format('woff'),
-      url('../../assets/fonts/arial/ArialNarrow-Italic.ttf') format('truetype');
+    url('../../assets/fonts/arial/ArialNarrow-Italic.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/arial/ArialNarrow-Italic.woff2') format('woff2'),
+    url('../../assets/fonts/arial/ArialNarrow-Italic.woff') format('woff'),
+    url('../../assets/fonts/arial/ArialNarrow-Italic.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
 }
@@ -122,10 +122,10 @@
   font-family: 'Arial Narrow';
   src: url('../../assets/fonts/arial/ArialNarrow.eot');
   src: local('Arial Narrow'), local('ArialNarrow'),
-      url('../../assets/fonts/arial/ArialNarrow.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/arial/ArialNarrow.woff2') format('woff2'),
-      url('../../assets/fonts/arial/ArialNarrow.woff') format('woff'),
-      url('../../assets/fonts/arial/ArialNarrow.ttf') format('truetype');
+    url('../../assets/fonts/arial/ArialNarrow.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/arial/ArialNarrow.woff2') format('woff2'),
+    url('../../assets/fonts/arial/ArialNarrow.woff') format('woff'),
+    url('../../assets/fonts/arial/ArialNarrow.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -134,55 +134,55 @@
   font-family: 'Arial';
   src: url('../../assets/fonts/arial/Arial-BoldMT.eot');
   src: local('Arial Bold'), local('Arial-BoldMT'),
-      url('../../assets/fonts/arial/Arial-BoldMT.eot?#iefix') format('embedded-opentype'),
-      url('../../assets/fonts/arial/Arial-BoldMT.woff2') format('woff2'),
-      url('../../assets/fonts/arial/Arial-BoldMT.woff') format('woff'),
-      url('../../assets/fonts/arial/Arial-BoldMT.ttf') format('truetype');
+    url('../../assets/fonts/arial/Arial-BoldMT.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/arial/Arial-BoldMT.woff2') format('woff2'),
+    url('../../assets/fonts/arial/Arial-BoldMT.woff') format('woff'),
+    url('../../assets/fonts/arial/Arial-BoldMT.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 
 
-.title-logo{
-/* logo_title */
+.title-logo {
+  /* logo_title */
 
-font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 32px;
-line-height: 110%;
-/* or 35px */
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 110%;
+  /* or 35px */
 
-display: flex;
-align-items: center;
-letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.06em;
 
-/* color-primary */
+  /* color-primary */
 
-color: #F1CDB3;
+  color: #545454
 }
 
 
 .title-subtitile {
   /* logo_subtitle */
 
-font-family: 'Arial';
-font-style: normal;
-font-weight: 400;
-font-size: 13px;
-line-height: 15px;
-/* identical to box height */
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  /* identical to box height */
 
-display: flex;
-align-items: center;
-letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1em;
 
-/* color-light-xl */
+  /* color-light-xl */
 
-color: #FFFFFF;
+  color: #545454;
 }
 
-.nav-about{
+.nav-about {
   font-family: 'Arial';
   font-style: normal;
   font-weight: 400;
@@ -197,193 +197,194 @@ color: #FFFFFF;
   color: #FAFAFA;
 }
 
+.menu-link-start,
 .menu-link {
-/* paragraph-l */
+  /* paragraph-l */
 
-font-family: 'Arial';
-font-style: normal;
-font-weight: 400;
-font-size: 15px;
-line-height: 160%;
-/* identical to box height, or 24px */
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 160%;
+  /* identical to box height, or 24px */
 
 
-/* color-light-s */
+  /* color-light-s */
 
-color: #FAFAFA;
+  color: #545454;
 }
 
 .content-title {
   /* h2 */
 
-font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 44px;
-line-height: 130%;
-/* or 57px */
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 130%;
+  /* or 57px */
 
-/* color-light-xl */
+  /* color-light-xl */
 
-color: #FFFFFF;
+  color: #FFFFFF;
 
 }
 
 
-.content-subtitile{
+.content-subtitile {
   /* paragraph-l */
 
-font-family: 'Arial';
-font-style: normal;
-font-weight: 400;
-font-size: 15px;
-line-height: 160%;
-/* or 24px */
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 160%;
+  /* or 24px */
 
 
-/* color-dark-s */
+  /* color-dark-s */
 
-color: #CDCDCD;
+  color: #CDCDCD;
 
 }
 
 .content-btn-click {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 17px;
-line-height: 130%;
-/* identical to box height, or 22px */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 130%;
+  /* identical to box height, or 22px */
 
-letter-spacing: 0.06em;
+  letter-spacing: 0.06em;
 
-/* color-dark-3xl */
+  /* color-dark-3xl */
 
-color: #292929;
+  color: #292929;
 
 }
 
 
 .about-content-title {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 35px;
-line-height: 130%;
-/* or 45px */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 130%;
+  /* or 45px */
 
-letter-spacing: 0.06em;
+  letter-spacing: 0.06em;
 
 
-/* color-dark-l */
+  /* color-dark-l */
 
-color: #545454;
+  color: #545454;
 }
 
 
-.about-content-subtitile{
+.about-content-subtitile {
   /* paragraph-l */
 
-font-family: 'Arial';
-font-style: normal;
-font-weight: 400;
-font-size: 15px;
-line-height: 160%;
-/* or 24px */
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 160%;
+  /* or 24px */
 
 
-/* color-dark-xl */
+  /* color-dark-xl */
 
-color: #4C4C4C;
+  color: #4C4C4C;
 }
 
 /*pets start */
 
-.h3-pets{
+.h3-pets {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 35px;
-line-height: 130%;
-/* or 45px */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 130%;
+  /* or 45px */
 
-display: flex;
-align-items: center;
-text-align: center;
-letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.06em;
 
-/* color-dark-l */
+  /* color-dark-l */
 
-color: #545454;
+  color: #545454;
 }
 
 .cards-name {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 23px;
-/* identical to box height */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  /* identical to box height */
 
-display: flex;
-align-items: center;
-text-align: center;
-letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.06em;
 
-/* color-dark-l */
+  /* color-dark-l */
 
-color: #545454;
+  color: #545454;
 }
 
 .cards-btn-click {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 17px;
-line-height: 130%;
-/* identical to box height, or 22px */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 130%;
+  /* identical to box height, or 22px */
 
-letter-spacing: 0.06em;
+  letter-spacing: 0.06em;
 
-/* color-dark-3xl */
+  /* color-dark-3xl */
 
-color: #292929;
+  color: #292929;
 
 }
 
 
-.pets-btn-click{
-font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 17px;
-line-height: 130%;
-/* identical to box height, or 22px */
+.pets-btn-click {
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 130%;
+  /* identical to box height, or 22px */
 
-letter-spacing: 0.06em;
+  letter-spacing: 0.06em;
 
-/* color-dark-3xl */
+  /* color-dark-3xl */
 
-color: #292929;
+  color: #292929;
 
 }
 
 
 .helpt-title-h3 {
-font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 35px;
-line-height: 130%;
-/* or 45px */
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 130%;
+  /* or 45px */
 
-align-items: center;
-text-align: center;
-letter-spacing: 0.06em;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.06em;
 
-/* color-dark-l */
+  /* color-dark-l */
 
-color: #545454;
+  color: #545454;
 
 }
 
@@ -407,48 +408,48 @@ color: #545454;
 
 .donation-title-h3 {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 35px;
-line-height: 130%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 130%;
 
-letter-spacing: 0.06em;
+  letter-spacing: 0.06em;
 
-/* color-dark-l */
+  /* color-dark-l */
 
-color: #545454;
+  color: #545454;
 }
 
 
 .donation-bank {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 15px;
-line-height: 110%;
-/* identical to box height, or 17px */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 110%;
+  /* identical to box height, or 17px */
 
-letter-spacing: 0.06em;
-text-align: left;
-/* color-dark-l */
+  letter-spacing: 0.06em;
+  text-align: left;
+  /* color-dark-l */
 
-color: #545454;
+  color: #545454;
 }
 
 
 .number-cards-btn {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 115%;
-/* identical to box height, or 23px */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 115%;
+  /* identical to box height, or 23px */
 
-letter-spacing: 0.06em;
+  letter-spacing: 0.06em;
 
-/* color-dark-l */
+  /* color-dark-l */
 
-color: #545454;
+  color: #545454;
 
 }
 
@@ -497,4 +498,3 @@ color: #545454;
 
   color: #FFFFFF;
 }
-
