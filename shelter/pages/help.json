@@ -1,0 +1,38 @@
+[
+  {
+    "icon": "../../assets/icons/icon-pet-food.svg",
+    "text": "Pet food"
+  },
+  {
+    "icon": "../../assets/icons/icon-transportation.svg",
+    "text": "Transportation"
+  },
+  {
+    "icon": "../../assets/icons/icon-toys.svg",
+    "text": "Toys"
+  },
+  {
+    "icon": "../../assets/icons/icon-bowls-and-cups.svg",
+    "text": "Bowls and cups"
+  },
+  {
+    "icon": "../../assets/icons/icon-shampoos.svg",
+    "text": "Shampoos"
+  },
+  {
+    "icon": "../../assets/icons/icon-vitamins.svg",
+    "text": "Vitamins"
+  },
+  {
+    "icon": "../../assets/icons/icon-medicines.svg",
+    "text": "Medicines"
+  },
+  {
+    "icon": "../../assets/icons/icon-collars-leashes.svg",
+    "text": "Collars / leashes"
+  },
+  {
+    "icon": "../../assets/icons/icon-sleeping-area.svg",
+    "text": "Sleeping areas"
+  }
+]
