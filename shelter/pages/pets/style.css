@@ -6,6 +6,16 @@
 
 }
 
+::-webkit-scrollbar { /* chrome based */
+  width: 0px;  /* ширина scrollbar'a */
+  background: transparent;  /* опционально */
+}
+
+html {
+  -ms-overflow-style: none;  /* IE 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
 li {
   list-style-type: none;
   /* Убираем маркеры */
@@ -155,7 +165,7 @@ body {
   display: flex;
   flex-direction: column;
   background: #FAFAFA;
-    width: 270px;
+  width: 270px;
   height: 435px;
   background: #FAFAFA;
   border-radius: 9px;
@@ -281,7 +291,9 @@ body {
   display: flex;
   width: 100vw;
   height: 350px;
-  background: url(noise_lines_transparent@2X.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+  background-image: url(../../assets/images/start-screen-gradient-background.png);
+  background-size: cover;
+  background: url(../../assets/images/noise_transparent@2X.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
 
 .wrapper-footer {
