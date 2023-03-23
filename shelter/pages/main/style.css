@@ -822,6 +822,8 @@ body {
   }
 
   .addition-images {
+    width: 505px;
+    height: 261px;
     margin: 0 auto;
   }
 
@@ -867,5 +869,30 @@ body {
     width: 250px;
     height: 230px;
   }
+
+
+
+}
+
+
+@media (max-width: 925px) {
+
+
+.footer {
+  height: 639px;
+  transition: all 0.5s;
+}
+
+.wrapper-footer {
+  justify-content: space-around;
+  flex-wrap: wrap;
+height: 100%;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+
+.footer-img {
+height: 310px;
+}
 
 }
