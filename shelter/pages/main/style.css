@@ -6,6 +6,17 @@
 
 }
 
+::-webkit-scrollbar { /* chrome based */
+  width: 0px;  /* ширина scrollbar'a */
+  background: transparent;  /* опционально */
+}
+
+html {
+  -ms-overflow-style: none;  /* IE 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+
 li {
   list-style-type: none;
   /* Убираем маркеры */
@@ -25,7 +36,6 @@ a {
 body {
   display: flex;
   flex-direction: column;
-  width: 100%;
 
 }
 
@@ -33,13 +43,11 @@ body {
   position: absolute;
   display: flex;
   width: 100vw;
-  height: 80px;
-
+  height: 120px;
 }
 
 .wrapper {
   width: 1200px;
-
 }
 
 /* start menu*/
@@ -48,7 +56,7 @@ body {
   display: flex;
   justify-content: flex-end;
 
-  margin: 30px auto 0 auto;
+  margin: 30px auto auto auto;
 
 }
 
@@ -654,4 +662,166 @@ body {
   height: 305px;
 }
 
-@media (max-width: 1280px) {}
+@media (max-width: 1279px) {
+
+  .header {
+    width: 100vw;
+    height: 120px;
+  }
+
+  .wrapper {
+    width: 1200px;
+    margin: auto 30px;
+  }
+
+  /*start not-only */
+
+
+.not-only {
+
+  margin: auto auto 0 auto;
+  min-height: 728px;
+}
+
+/* start about */
+
+}
+
+@media (max-width: 1160px) {
+  .header {
+    width: 100vw;
+    height: 120px;
+  }
+
+  .wrapper {
+    width: 1200px;
+  }
+
+  /*start not-only */
+
+
+.container-not-only {
+  height: 1165px;
+}
+
+.not-only {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  height: 1015px;
+
+}
+
+.not-only-content {
+
+  width: 460px;
+  margin: 0 auto 100px auto;
+}
+
+.screen-content {
+  margin-right: 30px;
+}
+
+.puppy {
+background-size: contain;
+width: 569px;
+height: 593px;
+ }
+
+
+
+ .wrapper-footer {
+  margin-bottom: 0;
+ }
+
+ .footer-map-iframe{
+  width: 300px;
+  height: 280px;
+}
+
+}
+
+
+@media (max-width: 1025px) {
+
+.container-about {
+  height: 1048px;
+}
+
+.about {
+  flex-direction: column-reverse;
+  height: 868px;
+  margin: 80px 165px 0 165px;
+}
+
+.about-content {
+  margin: 0 auto 80px auto;
+}
+
+.about-pets {
+  width: 100%;
+}
+
+.about-pets-images {
+  margin: auto auto 0 auto;
+}
+
+.container-help {
+  height: 779px;
+}
+
+.wrapper-help {
+  height: 599px;
+  margin: 80px auto auto 0;
+}
+
+.help-list {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+ width: 630px;
+height: 449px;
+margin: 60px auto 0 auto;
+}
+
+.list-container {
+  width: 170px;
+height: 113px;
+  margin: 0;
+}
+
+}
+
+
+@media (max-width: 975px) {
+
+.slider-cards:last-child {
+  display: none;
+}
+
+  .container-in-addition {
+  height: 783px;
+}
+
+.wrapper-addition {
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+
+  margin-top: 0;
+  height: 100%;
+}
+
+.addition-images {
+  margin: 0 auto;
+}
+
+.dontaion-container {
+margin: 80px auto 60px auto;
+}
+
+.footer-map-iframe{
+  width: 250px;
+  height: 230px;
+}
+
+  }
