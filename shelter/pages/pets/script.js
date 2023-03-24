@@ -49,3 +49,20 @@ function mapAdd() {
   }
 
 }
+
+
+/* start burger menu */
+
+const burger = document.querySelector('.burger');
+const menu = document.querySelector('.nav-menu')
+const isBurger = false;
+
+burger.addEventListener('click', isBurger === false ? openMenu() : closeMenu());
+
+function openMenu() {
+menu.style.visibility = 'visible';
+}
+
+function closeMenu() {
+  menu.style.visibility = 'hidden';
+  }
