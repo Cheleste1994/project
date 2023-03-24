@@ -44,6 +44,43 @@ function mapAdd() {
 
 }
 
+/* start burger menu */
+
+const mediaQuery = window.matchMedia('(max-width: 767px)')
+const burger = document.querySelector('.burger');
+const menu = document.querySelector('.nav-menu')
+let isBurger = false;
+
+mediaQuery.addListener(isOpen())
+
+
+
+burger.addEventListener('click', () => {
+  isOpen()
+})
+
+function isOpen() {
+  if (mediaQuery.matches) {
+    isBurger === false ? openMenu() : closeMenu()
+  } else {
+    menu.style.visibility = 'visible';
+  }
+
+}
+
+function openMenu() {
+burger.classList.add('burger-open')
+menu.style.visibility = 'visible';
+menu.style.transform = 'translateX(0)';
+isBurger = true;
+}
+
+function closeMenu() {
+  burger.classList.remove('burger-open')
+  menu.style.visibility = 'hidden';
+  menu.style.transform = 'translateX(500)';
+  isBurger = false;
+  }
 
 
 
