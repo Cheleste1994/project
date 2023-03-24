@@ -95,10 +95,11 @@ body {
 
 .menu-link {
   position: relative;
-  transition: all 0.5s;
+
 }
 
 .menu-link:hover {
+  transition: all 0.5s;
   color: #F1CDB3;
 }
 
@@ -123,20 +124,20 @@ body {
 
 .burger {
   position: fixed;
-visibility: hidden;
+  visibility: hidden;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
   z-index: 10;
   width: 30px;
-height: 22px;
+  height: 22px;
 }
 
 .burger-line {
-width: 100%;
-height: 2px;
-background: #F1CDB3;
+  width: 100%;
+  height: 2px;
+  background: #F1CDB3;
 }
 
 /*start not-only */
@@ -147,9 +148,7 @@ background: #F1CDB3;
   min-height: 908px;
   background-image: url(../../assets/images/start-screen-gradient-background.png);
   background-size: cover;
-  background: url(../../assets/images/noise_transparent@2X.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%)
-    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
-    , #211F20;
+
 }
 
 .not-only {
@@ -576,8 +575,7 @@ background: #F1CDB3;
   height: 350px;
   background-image: url(../../assets/images/start-screen-gradient-background.png);
   background-size: cover;
-  background: url(../../assets/images/noise_transparent@2X.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
-}
+  }
 
 .wrapper-footer {
   margin: auto auto 0 auto;
@@ -904,17 +902,19 @@ background: #F1CDB3;
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
-.burger {
-  position: absolute;
-visibility: visible;
-top: 49px;
-right: 20px;
-transition: all 0.5s;
-}
+  .burger {
+    position: absolute;
+    visibility: visible;
+    top: 49px;
+    right: 20px;
+    transform: rotate(0);
+  }
 
-
+  .burger-open {
+    transform: rotate(90deg);
+  }
 
   .nav-menu {
     position: fixed;
@@ -930,9 +930,16 @@ transition: all 0.5s;
     height: 100vh;
     visibility: hidden;
     margin: 0;
+    transition: all 0.5;
     transform: translateX(500px);
+
   }
 
+
+  .nav-menu-open {
+    visibility: visible;
+    transform: translateX(0);
+  }
 
   .nav-li {
     margin: 0 0 40px 0;
@@ -942,4 +949,4 @@ transition: all 0.5s;
     margin: 0;
   }
 
-  }
+}

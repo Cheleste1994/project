@@ -314,7 +314,6 @@ background: #000000;
   height: 350px;
   background-image: url(../../assets/images/start-screen-gradient-background.png);
   background-size: cover;
-  background: url(../../assets/images/noise_transparent@2X.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
 
 .wrapper-footer {
