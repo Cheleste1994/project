@@ -83,8 +83,13 @@ body {
   margin: 16px 0 auto 0;
 }
 
+
 .nav-li {
-  margin-left: 35px;
+  margin-left: 36px;
+}
+
+.nav-li:first-child {
+  margin-left: 0;
 }
 
 .menu-link {
@@ -707,6 +712,10 @@ body {
     width: 1200px;
   }
 
+  .content-btn {
+   margin: 0 auto;
+  }
+
   /*start not-only */
 
 
@@ -757,6 +766,7 @@ body {
 
   .container-about {
     height: 1048px;
+
   }
 
   .about {
@@ -789,9 +799,12 @@ body {
   .help-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 55px 60px;
+    margin: 0 auto;
     width: 630px;
     height: 449px;
-    margin: 60px auto 0 auto;
+    transition: all 0.5s;
+
   }
 
   .list-container {
@@ -805,6 +818,11 @@ body {
 
 @media (max-width: 975px) {
 
+  .wrapper-pets {
+    margin: 80px 30px auto 30px;
+
+  }
+
   .slider-cards:last-child {
     display: none;
   }
@@ -822,43 +840,9 @@ body {
   }
 
   .addition-images {
+    margin: 0 auto;
     width: 505px;
-    height: 261px;
-    margin: 0 auto;
-  }
-
-  .dontaion-container {
-    margin: 80px auto 60px auto;
-  }
-
-  .footer-map-iframe {
-    width: 250px;
-    height: 230px;
-  }
-
-}
-
-
-@media (max-width: 975px) {
-
-  .slider-cards:last-child {
-    display: none;
-  }
-
-  .container-in-addition {
-    height: 783px;
-  }
-
-  .wrapper-addition {
-    flex-direction: column-reverse;
-    justify-content: flex-end;
-
-    margin-top: 0;
-    height: 100%;
-  }
-
-  .addition-images {
-    margin: 0 auto;
+height: 261px;
   }
 
   .dontaion-container {
@@ -878,21 +862,25 @@ body {
 @media (max-width: 925px) {
 
 
-.footer {
-  height: 639px;
-  transition: all 0.5s;
-}
+  .footer {
+    height: 639px;
+    transition: all 0.5s;
+  }
 
-.wrapper-footer {
-  justify-content: space-around;
-  flex-wrap: wrap;
-height: 100%;
-  margin: 0 auto;
-  padding-top: 30px;
-}
+  .wrapper-footer {
+    justify-content: space-around;
+    flex-wrap: wrap;
+  height: 609px;
+    margin: auto 30px 0 50px;
+  }
 
-.footer-img {
-height: 310px;
-}
+  .footer-content {
+    margin-top: 0;
+  }
+
+  .footer-img {
+  height: 310px;
+  margin: auto auto 0 185px;
+  }
 
 }
