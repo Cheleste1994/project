@@ -235,6 +235,55 @@
   color: #545454;
 }
 
+.slider-prev {
+  font-family: 'Georgia';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 115%;
+/* identical to box height, or 23px */
+
+
+letter-spacing: 0.06em;
+
+/* color-dark-s */
+
+color: #CDCDCD;
+
+}
+
+.slider-next {
+  font-family: 'Georgia';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 115%;
+/* identical to box height, or 23px */
+
+
+letter-spacing: 0.06em;
+
+/* color-dark-3xl */
+
+color: #292929;
+}
+
+.slider-list {
+  font-family: 'Georgia';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 115%;
+/* identical to box height, or 23px */
+
+letter-spacing: 0.06em;
+
+/* color-dark-3xl */
+
+color: #292929;
+
+}
+
 .cards-name {
   font-family: 'Georgia';
   font-style: normal;
