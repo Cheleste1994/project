@@ -118,6 +118,7 @@ body {
 }
 
 
+
 .burger {
   position: fixed;
 visibility: hidden;
@@ -432,19 +433,6 @@ background: #000000;
   height: 305px;
 }
 
-@media (max-width: 1280px) {
-
-  .wrapper {
-    margin: auto 30px;
-  }
-
-  .wrapper-pets {
-    margin: 200px auto auto auto;
-
-  }
-
-
-}
 
 @media (max-width: 1210px) {
 

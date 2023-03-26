@@ -95,6 +95,10 @@ body {
 
 .menu-link {
   position: relative;
+}
+
+.menu-link-start {
+  cursor: default;
 
 }
 
