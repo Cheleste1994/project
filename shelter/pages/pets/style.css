@@ -113,6 +113,12 @@ body {
   width: 110%;
 }
 
+
+.menu-link-start {
+  cursor: default;
+
+}
+
 .nav-about {
   border-bottom: #F1CDB3 2px solid;
 }
