@@ -105,7 +105,6 @@ body {
 
 .menu-link:hover {
   transition: all 0.5s;
-  color: #F1CDB3;
 }
 
 .menu-link::before {
@@ -191,8 +190,8 @@ body {
 .content-btn-click {
   width: 207px;
   height: 52px;
-  background-color: transparent;
-  border: none;
+  background: #F1CDB3;
+   border: none;
   border-radius: 100px;
   cursor: pointer;
   transition: all 0.5s;
@@ -200,7 +199,6 @@ body {
 
 .content-btn-click:hover {
   background: #FDDCC4;
-  box-shadow: 0px 2px 10px 2px rgba(0, 88, 155, 0.582);
 }
 
 .puppy {
@@ -385,7 +383,6 @@ body {
 
 .cards-btn-click:hover {
   background: #F1CDB3;
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
 }
 
 /* end pets cards */
@@ -403,7 +400,6 @@ body {
 
 .slider-next:hover {
   background: #F1CDB3;
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
 }
 
 .pets-rest {
@@ -426,8 +422,7 @@ body {
 }
 
 .pets-btn-click:hover {
-  background: #FAFAFA;
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  background: #FDDCC4;
 }
 
 /*start help */
@@ -559,6 +554,7 @@ body {
   position: relative;
   padding: 0 15px 0 59px;
 
+  transition: all 0.5s;
 }
 
 .number-cards-btn::before {
@@ -571,6 +567,10 @@ body {
   left: 15px;
 }
 
+.number-cards-btn:hover {
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+color: #ffffff;
+}
 
 /* start footer */
 
@@ -626,6 +626,12 @@ body {
 .email {
   margin: auto auto auto 20px;
   cursor: pointer;
+  transition: all 0.5s;
+}
+
+.email:hover {
+    color: #ffffff;
+    filter: invert(50%);
 }
 
 .email-logo {
@@ -634,13 +640,22 @@ body {
   width: 40px;
   height: 32px;
   cursor: pointer;
+  transition: all 0.5s;
 
+}
+.email-logo:hover {
+  filter: invert(50%);
 }
 
 .mobile {
   margin: auto auto auto 20px;
   cursor: pointer;
+  transition: all 0.5s;
+}
 
+.mobile:hover {
+  color: #ffffff;
+  filter: invert(50%);
 }
 
 .mobile-logo {
@@ -649,7 +664,11 @@ body {
   width: 40px;
   height: 32px;
   cursor: pointer;
+  transition: all 0.5s;
+}
 
+.mobile-logo:hover {
+  filter: invert(50%);
 }
 
 .footer-locations {
@@ -669,7 +688,12 @@ body {
 .address1-title {
   margin: auto 0 auto auto;
   cursor: pointer;
+  transition: all 0.5s;
+}
 
+.address1-title:hover {
+  color: #ffffff;
+  filter: invert(50%);
 }
 
 .address-logo {
@@ -679,12 +703,24 @@ body {
   height: 32px;
   margin: auto 20px auto 0;
   cursor: pointer;
-
+  transition: all 0.5s;
 }
+
+.address-logo:hover {
+ filter: invert(50%);
+}
+
 
 .address2-title {
   cursor: pointer;
+  transition: all 0.5s;
 }
+
+.address2-title:hover {
+  color: #ffffff;
+  filter: invert(50%);
+}
+
 
 .footer-map {
   visibility: hidden;
