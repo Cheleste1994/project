@@ -74,6 +74,10 @@ body {
   cursor: pointer;
 }
 
+.title:hover {
+  filter: invert(50%);
+}
+
 .title-subtitile {
   margin: 10px auto 0 auto;
 
@@ -114,7 +118,7 @@ body {
 
 .menu-link-start {
   cursor: default;
-
+  pointer-events: none;
 }
 
 .nav-about {
