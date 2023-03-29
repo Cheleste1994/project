@@ -195,7 +195,22 @@
   color: #FAFAFA;
 }
 
-.menu-link-start,
+.menu-link-start {
+  /* paragraph-l */
+
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 160%;
+  /* identical to box height, or 24px */
+
+
+  /* color-light-s */
+
+  color: #FAFAFA;
+}
+
 .menu-link {
   /* paragraph-l */
 

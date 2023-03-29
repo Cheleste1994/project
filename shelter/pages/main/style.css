@@ -108,6 +108,7 @@ body {
 .menu-link-start {
   cursor: default;
 pointer-events: none;
+
 }
 
 .menu-link:hover {

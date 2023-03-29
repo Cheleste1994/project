@@ -197,8 +197,7 @@
   color: #FAFAFA;
 }
 
-.menu-link-start,
-.menu-link {
+.menu-link-start {
   /* paragraph-l */
 
   font-family: 'Arial';
@@ -214,6 +213,22 @@
   color: #545454;
 }
 
+
+.menu-link {
+  /* paragraph-l */
+
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 160%;
+  /* identical to box height, or 24px */
+
+
+  /* color-light-s */
+
+  color: #545454;
+}
 
 /*pets start */
 
