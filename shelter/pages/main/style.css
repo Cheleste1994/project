@@ -102,6 +102,7 @@ body {
 
 .menu-link {
   position: relative;
+  transition: all 0.5s;
 }
 
 .menu-link-start {
@@ -110,7 +111,8 @@ pointer-events: none;
 }
 
 .menu-link:hover {
-  transition: all 0.5s;
+  color: #FAFAFA;
+
 }
 
 .menu-link::before {
