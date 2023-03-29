@@ -71,6 +71,12 @@ body {
   flex-direction: column;
   margin: auto auto auto 0;
   cursor: pointer;
+  transition: all 0.5s;
+}
+
+.title:hover {
+      filter: invert(50%);
+
 }
 
 .title-subtitile {
@@ -100,7 +106,7 @@ body {
 
 .menu-link-start {
   cursor: default;
-
+pointer-events: none;
 }
 
 .menu-link:hover {
