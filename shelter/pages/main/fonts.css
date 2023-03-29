@@ -511,3 +511,59 @@
 
   color: #FFFFFF;
 }
+
+
+@media (max-width: 380px) {
+
+
+ .content-title {
+  font-size: 25px;
+
+letter-spacing: 0.06em;
+ }
+
+.about-content-title{
+  font-size: 25px;
+
+letter-spacing: 0.06em;
+}
+
+
+.h3-pets {
+  font-size: 25px;
+
+  letter-spacing: 0.06em;
+}
+
+.helpt-title-h3 {
+  font-size: 25px;
+  letter-spacing: 0.06em;
+
+}
+
+.list-container-name {
+  font-size: 15px;
+
+}
+
+.donation-title-h3 {
+  font-size: 25px;
+}
+
+.donation-bank {
+
+font-size: 15px;
+letter-spacing: 0.00em;
+
+}
+
+.number-cards-btn {
+  font-size: 15px;
+}
+
+.footer-h3 {
+  font-size: 25px;
+
+}
+
+}
