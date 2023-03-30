@@ -20,6 +20,7 @@ html {
   /* IE 10+ */
   scrollbar-width: none;
   /* Firefox */
+  overflow:  auto;
 }
 
 
@@ -44,6 +45,8 @@ body {
   flex-direction: column;
 
 }
+
+
 
 .header {
   position: absolute;
@@ -89,6 +92,8 @@ body {
   flex-wrap: nowrap;
   margin: 16px 0 auto 0;
   z-index: 1;
+  transform: translateX(0);
+
 }
 
 
@@ -152,6 +157,17 @@ body {
   height: 2px;
   background: #F1CDB3;
 }
+
+.blur-background {
+  position: fixed;
+  visibility: hidden;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(41, 41, 41, 0.6);
+ }
 
 /*start not-only */
 
@@ -559,7 +575,6 @@ body {
   border-radius: 9px;
   border: none;
   cursor: pointer;
-  overflow: hidden;
   position: relative;
   padding: 0 15px 0 59px;
 
@@ -935,7 +950,7 @@ body {
 }
 
 
-@media (max-width: 920px) {
+@media (max-width: 1000px) {
 
   .wrapper-pets {
     margin: 80px 30px auto 30px;
@@ -1160,6 +1175,59 @@ body {
 
 }
 
+@media (max-width: 700px) {
+
+
+  .burger {
+    position: fixed;
+    visibility: visible;
+    top: 49px;
+    right: 20px;
+    transform: rotate(0);
+  }
+
+  .burger-open {
+    transform: rotate(90deg);
+  }
+
+  .nav-menu {
+    position: fixed;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: #292929;
+    width: 320px;
+    height: 100vh;
+    visibility: hidden;
+    margin: 0;
+    transform: translateX(500px);
+    z-index: 9;
+    transition: all 0.5s;
+  }
+
+  .menu-link {
+transition: none;
+  }
+
+  .nav-menu-open {
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  .nav-li {
+    margin: 0 0 40px 0;
+  }
+
+  .nav-li:last-child {
+    margin: 0;
+  }
+
+}
+
 /* start pets 380px */
 
 @media (max-width: 680px) {
@@ -1247,64 +1315,10 @@ body {
 
 
 
-@media (max-width: 600px) {
-
-  .burger {
-    position: absolute;
-    visibility: visible;
-    top: 49px;
-    right: 20px;
-    transform: rotate(0);
-  }
-
-  .burger-open {
-    transform: rotate(90deg);
-  }
-
-  .nav-menu {
-    position: fixed;
-    right: 0;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    background: #292929;
-    width: 320px;
-    height: 100vh;
-    visibility: hidden;
-    margin: 0;
-    transition: all 0.5;
-    transform: translateX(500px);
-
-  }
-
-
-  .nav-menu-open {
-    visibility: visible;
-    transform: translateX(0);
-  }
-
-  .nav-li {
-    margin: 0 0 40px 0;
-  }
-
-  .nav-li:last-child {
-    margin: 0;
-  }
-
-}
-
-
-
-
 /* start help 380px */
 
 @media (max-width: 500px) {
-  .nav-li {
-    margin: auto;
-  }
+
 
   .container-help {
     height: 745px;

@@ -53,18 +53,50 @@ function mapAdd() {
 
 /* start burger menu */
 
-const burger = document.querySelector('.burger');
-const menu = document.querySelector('.nav-menu')
-const isBurger = false;
+/* start burger menu */
 
-burger.addEventListener('click', isBurger === false ? openMenu() : closeMenu());
+const mediaQuery = window.matchMedia('(max-width: 700px)');
+const burger = document.querySelector('.burger');
+const menu = document.querySelector('.nav-menu');
+const blur = document.querySelector('.blur-background');
+const html = document.querySelector('html');
+let isBurger = false;
+
+
+mediaQuery.addEventListener('change', () => {
+  if (!mediaQuery.matches) {
+    closeMenu()
+    menu.style.visibility = 'visible';
+    menu.style.transform = 'translateX(0)';
+    } else {
+      closeMenu()
+
+    }
+})
+
+burger.addEventListener('click', isOpen)
+
+
+function isOpen() {
+     isBurger === false ? openMenu() : closeMenu();
+}
 
 function openMenu() {
+burger.classList.add('burger-open')
+blur.style.visibility = 'visible';
 menu.style.visibility = 'visible';
+menu.style.transform = 'translateX(0)';
+html.style.overflow = 'hidden';
+isBurger = true;
 }
 
 function closeMenu() {
+  burger.classList.remove('burger-open')
+  blur.style.visibility = 'hidden';
   menu.style.visibility = 'hidden';
+  menu.style.transform = 'translateX(500px)';
+  html.style.overflow = 'auto';
+  isBurger = false;
   }
 
 
