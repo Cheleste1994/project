@@ -692,7 +692,7 @@ body {
 
 
   .burger {
-    position: fixed;
+    position: absolute;
     visibility: visible;
     top: 49px;
     right: 20px;
