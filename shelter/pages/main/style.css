@@ -20,7 +20,7 @@ html {
   /* IE 10+ */
   scrollbar-width: none;
   /* Firefox */
-  overflow:  auto;
+  overflow: auto;
 }
 
 
@@ -167,7 +167,7 @@ body {
   width: 100vw;
   height: 100vh;
   background: rgba(41, 41, 41, 0.6);
- }
+}
 
 /*start not-only */
 
@@ -1175,11 +1175,11 @@ body {
 
 }
 
-@media (max-width: 700px) {
+@media (max-width: 699px) {
 
 
   .burger {
-    position: fixed;
+    position: absolute;
     visibility: visible;
     top: 49px;
     right: 20px;
@@ -1206,11 +1206,11 @@ body {
     margin: 0;
     transform: translateX(500px);
     z-index: 9;
-    transition: all 0.5s;
+    transition: all 0.3s;
   }
 
   .menu-link {
-transition: none;
+    transition: none;
   }
 
   .nav-menu-open {
