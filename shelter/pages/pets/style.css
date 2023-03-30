@@ -131,20 +131,20 @@ body {
 
 .burger {
   position: fixed;
-visibility: hidden;
+  visibility: hidden;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
   z-index: 10;
   width: 30px;
-height: 22px;
+  height: 22px;
 }
 
 .burger-line {
-width: 100%;
-height: 2px;
-background: #000000;
+  width: 100%;
+  height: 2px;
+  background: #000000;
 }
 
 /* pets start */
@@ -405,8 +405,8 @@ background: #000000;
 }
 
 .email:hover {
-    color: #ffffff;
-    filter: invert(50%);
+  color: #ffffff;
+  filter: invert(50%);
 }
 
 .email-logo {
@@ -418,6 +418,7 @@ background: #000000;
   transition: all 0.5s;
 
 }
+
 .email-logo:hover {
   filter: invert(50%);
 }
@@ -482,7 +483,7 @@ background: #000000;
 }
 
 .address-logo:hover {
- filter: invert(50%);
+  filter: invert(50%);
 }
 
 
@@ -495,6 +496,7 @@ background: #000000;
   color: #ffffff;
   filter: invert(50%);
 }
+
 .footer-map {
   visibility: hidden;
   position: absolute;
@@ -550,16 +552,23 @@ background: #000000;
     display: none;
   }
 
+  .footer-content {
+    width: 50%;
+  }
+
+  .wrapper-footer {
+    margin-bottom: 0;
+  }
+
 }
 
 
 
-@media (max-width: 926px) {
+@media (max-width: 905px) {
 
 
   .footer {
     height: 639px;
-    transition: all 0.5s;
   }
 
   .wrapper-footer {
@@ -581,42 +590,216 @@ background: #000000;
 }
 
 
+@media (max-width: 769px) {
+
+
+  .wrapper-footer {
+    margin: 30px 30px 0 30px;
+  }
+
+  .footer-content {
+    width: 40%;
+  }
+
+  .footer-locations {
+    width: 302px;
+    height: 234px;
+  }
+
+  .address1 {
+    margin-bottom: 40px;
+  }
+
+  .footer-img {
+    width: 50%;
+    margin-left: 204px;
+    margin-right: auto;
+  }
+
+}
+
+
 @media (max-width: 767px) {
 
   .burger {
     position: absolute;
-  visibility: visible;
-  top: 49px;
-  right: 20px;
-  transition: all 0.5s;
+    visibility: visible;
+    top: 49px;
+    right: 20px;
+    transition: all 0.5s;
   }
 
 
 
-    .nav-menu {
-      position: fixed;
-      right: 0;
-      top: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+  .nav-menu {
+    position: fixed;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-      background: #292929;
-      width: 320px;
-      height: 100vh;
-      visibility: hidden;
-      margin: 0;
-      transform: translateX(500px);
-    }
+    background: #292929;
+    width: 320px;
+    height: 100vh;
+    visibility: hidden;
+    margin: 0;
+    transform: translateX(500px);
+  }
 
 
-    .nav-li {
-      margin: 0 0 40px 0;
-    }
+  .nav-li {
+    margin: 0 0 40px 0;
+  }
 
-    .nav-li:last-child {
-      margin: 0;
-    }
+  .nav-li:last-child {
+    margin: 0;
+  }
 
-    }
+}
+
+@media (max-width: 760px) {
+
+  .pets-slider {
+    width: 100%;
+  }
+
+  .pets-slider-cards {
+    column-gap: 1%;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .container-our-friends {
+    height: 1769px;
+  }
+
+  .wrapper-pets {
+    margin: 149px 0 auto 0;
+    width: 100%;
+  }
+
+  .title-pets {
+    display: flex;
+    width: 100%;
+  }
+
+  .h3-pets {
+    margin: 0 auto;
+  }
+
+  .pets-slider-cards {
+    grid-template-columns: repeat(1, 1fr);
+    width: 100%;
+  }
+
+  .slider-cards:nth-of-type(4),
+  .slider-cards:nth-of-type(5),
+  .slider-cards:nth-of-type(6) {
+    display: none;
+  }
+
+  .pets-page-contol {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 95%;
+  }
+
+  .pets-contol {
+    max-width: 340px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+}
+
+
+
+
+@media (max-width: 600px) {
+
+
+  .footer {
+    height: 809px;
+    transition: all 0s;
+  }
+
+  .wrapper-footer {
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: 100%;
+    margin: 0 10px;
+  }
+
+  .footer-content {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    margin-top: 0;
+  }
+
+  .questions-email {
+    margin: 30px auto 40px auto;
+  }
+
+  .footer-img {
+    display: flex;
+    width: 260px;
+    margin: auto auto 0 auto;
+  }
+
+  .footer-img-dog {
+    margin: auto auto 0 auto;
+    width: 260px;
+    height: 269px;
+    background-size: cover;
+  }
+
+}
+
+
+@media (max-width: 330px) {
+  .header-menu {
+    margin: auto 20px;
+  }
+
+  .footer-contacts {
+    margin-top: 30px;
+    margin-bottom: 5px;
+  }
+
+  .questions-email {
+    margin-top: 40px;
+  }
+
+  .locations-title {
+    width: 90%;
+  }
+
+  .address1 {
+    text-align: left;
+    margin-top: 38px;
+  }
+
+  .address2 {
+    text-align: left;
+    width: 100%;
+  }
+
+  .footer-img {
+    width: 260px;
+    height: 269px;
+  }
+
+  .footer-img-dog {
+    margin-top: 0;
+
+  }
+
+}

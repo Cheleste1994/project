@@ -513,7 +513,7 @@
 }
 
 
-@media (max-width: 380px) {
+@media (max-width: 440px) {
 
 
  .content-title {
@@ -566,4 +566,8 @@ letter-spacing: 0.00em;
 
 }
 
+.legal-inforamtion-text{
+  text-align: justify;
+
+}
 }

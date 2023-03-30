@@ -252,50 +252,50 @@
 
 .slider-prev {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 115%;
-/* identical to box height, or 23px */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 115%;
+  /* identical to box height, or 23px */
 
 
-letter-spacing: 0.06em;
+  letter-spacing: 0.06em;
 
-/* color-dark-s */
+  /* color-dark-s */
 
-color: #CDCDCD;
+  color: #CDCDCD;
 
 }
 
 .slider-next {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 115%;
-/* identical to box height, or 23px */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 115%;
+  /* identical to box height, or 23px */
 
 
-letter-spacing: 0.06em;
+  letter-spacing: 0.06em;
 
-/* color-dark-3xl */
+  /* color-dark-3xl */
 
-color: #292929;
+  color: #292929;
 }
 
 .slider-list {
   font-family: 'Georgia';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 115%;
-/* identical to box height, or 23px */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 115%;
+  /* identical to box height, or 23px */
 
-letter-spacing: 0.06em;
+  letter-spacing: 0.06em;
 
-/* color-dark-3xl */
+  /* color-dark-3xl */
 
-color: #292929;
+  color: #292929;
 
 }
 
@@ -360,4 +360,18 @@ color: #292929;
   /* color-light-xl */
 
   color: #FFFFFF;
+}
+
+
+@media (max-width: 600px) {
+
+  .h3-pets {
+    font-size: 25px;
+  }
+
+  .footer-h3 {
+    font-size: 25px;
+
+  }
+
 }
