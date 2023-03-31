@@ -1623,3 +1623,10 @@ body {
   }
 
 }
+
+
+/* *,
+*::before,
+*::after {
+  border: 1px solid red;
+} */
