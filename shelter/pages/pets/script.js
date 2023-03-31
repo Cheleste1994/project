@@ -1,6 +1,20 @@
 window.addEventListener('load', () => {
   getQuotes()
+  copyCardsPets()
 })
+
+
+async function copyCardsPets() {
+const cardsPets = document.querySelectorAll('.slider-cards')
+
+const imgHelp = '../pets.json';
+const res = await fetch(imgHelp);
+const data = await res.json();
+
+console.log(data)
+
+
+}
 
 
 async function getQuotes() {
@@ -18,7 +32,6 @@ async function getQuotes() {
   cardsPets.forEach((x, i) => {
     x.childNodes[1].style.background = `url('${data[i].img}')`;
     x.childNodes[3].innerText = data[i].name;
-
   })
 
 }
@@ -55,7 +68,7 @@ function mapAdd() {
 
 /* start burger menu */
 
-const mediaQuery = window.matchMedia('(max-width: 700px)');
+const mediaQuery = window.matchMedia('(max-width: 767px)');
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.nav-menu');
 const blur = document.querySelector('.blur-background');
