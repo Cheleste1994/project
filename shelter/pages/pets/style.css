@@ -873,3 +873,10 @@ transition: none;
   }
 
 }
+
+
+ /* *,
+*::before,
+*::after {
+  border: 1px solid red;
+} */
