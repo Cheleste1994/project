@@ -61,13 +61,13 @@ mediaQuery.addEventListener('change', () => {
     menu.style.visibility = 'visible';
   } else {
     closeMenu()
-
+    blur.addEventListener('click', closeMenu)
+    menu.addEventListener('click', closeMenu)
   }
 })
 
 burger.addEventListener('click', isOpen)
-blur.addEventListener('click', closeMenu)
-menu.addEventListener('click', closeMenu)
+
 
 function isOpen() {
   isBurger === false ? openMenu() : closeMenu();
