@@ -1,38 +1,38 @@
 [
   {
-    "icon": "../../assets/icons/icon-pet-food.svg",
+    "icon": "../../assets/icons/icon-pet-food.png",
     "text": "Pet food"
   },
   {
-    "icon": "../../assets/icons/icon-transportation.svg",
+    "icon": "../../assets/icons/icon-transportation.png",
     "text": "Transportation"
   },
   {
-    "icon": "../../assets/icons/icon-toys.svg",
+    "icon": "../../assets/icons/icon-toys.png",
     "text": "Toys"
   },
   {
-    "icon": "../../assets/icons/icon-bowls-and-cups.svg",
+    "icon": "../../assets/icons/icon-bowls-and-cups.png",
     "text": "Bowls and cups"
   },
   {
-    "icon": "../../assets/icons/icon-shampoos.svg",
+    "icon": "../../assets/icons/icon-shampoos.png",
     "text": "Shampoos"
   },
   {
-    "icon": "../../assets/icons/icon-vitamins.svg",
+    "icon": "../../assets/icons/icon-vitamins.png",
     "text": "Vitamins"
   },
   {
-    "icon": "../../assets/icons/icon-medicines.svg",
+    "icon": "../../assets/icons/icon-medicines.png",
     "text": "Medicines"
   },
   {
-    "icon": "../../assets/icons/icon-collars-leashes.svg",
+    "icon": "../../assets/icons/icon-collars-leashes.png",
     "text": "Collars / leashes"
   },
   {
-    "icon": "../../assets/icons/icon-sleeping-area.svg",
+    "icon": "../../assets/icons/icon-sleeping-area.png",
     "text": "Sleeping areas"
   }
 ]
