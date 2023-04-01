@@ -502,8 +502,8 @@ left: 0;
 .list-container-img {
   width: 60px;
   height: 60px;
-  background-image: url('../../assets/icons/icon-pet-food.svg');
-  background-repeat: no-repeat;
+ background-repeat: no-repeat;
+  background-size: cover;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 30px;
@@ -830,8 +830,7 @@ left: 0;
   }
 
   .list-container {
-    width: 170px;
-    height: 113px;
+    width: 25%;
     margin: 0;
   }
 
@@ -1349,6 +1348,8 @@ margin-bottom: 12px;
   }
 
   .list-container {
+    display: flex;
+    flex-direction: column;
     width: 130px;
     height: 87px;
     margin: 0;
@@ -1357,12 +1358,12 @@ margin-bottom: 12px;
   }
 
   .list-container-img {
-    margin-left: auto;
-    margin-right: auto;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
     margin-bottom: 0;
-    background-size: cover;
-
   }
+
 
   .help-title {
     margin-bottom: 42px;
