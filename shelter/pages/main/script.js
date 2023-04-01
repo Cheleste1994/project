@@ -11,7 +11,7 @@ async function getQuotes() {
   const data = await res.json();
 
   listContainer.forEach((x, i) => {
-    x.childNodes[1].style.background = `url('${data[i].icon}')`;
+    x.childNodes[1].style.cssText = `background-image: url('${data[i].icon}'); background-size: 100% 100%;`;
     x.childNodes[3].innerText = data[i].text
 
   })
