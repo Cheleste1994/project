@@ -46,7 +46,7 @@ function mapAdd() {
 
 /* start burger menu */
 
-const mediaQuery = window.matchMedia('(max-width: 767px)');
+const mediaQuery = window.matchMedia('(max-width: 766px)');
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.nav-menu');
 const blur = document.querySelector('.blur-background');
