@@ -68,7 +68,7 @@ function mapAdd() {
 /* start burger menu */
 
 /* start burger menu */
-
+/*
 const mediaQuery = window.matchMedia('(max-width: 767px)');
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.nav-menu');
@@ -115,7 +115,7 @@ function closeMenu() {
   html.style.overflow = 'auto';
   isBurger = false;
   }
-
+*/
 /*
   console.log(`Ваша оценка - 100 баллов
 Отзыв по пунктам ТЗ:
