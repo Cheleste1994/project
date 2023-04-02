@@ -151,7 +151,7 @@ body {
 .burger-line {
   width: 100%;
   height: 2px;
-  background: #F1CDB3;
+  background: #000000;
 }
 
 .blur-background {
@@ -638,57 +638,6 @@ body {
 }
 
 
-@media (max-width: 767px) {
-
-  .burger {
-    position: absolute;
-    visibility: visible;
-    top: 49px;
-    right: 20px;
-    transition: all 0.5s;
-  }
-
-
-
-  .nav-menu {
-    position: fixed;
-    right: 0;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    background: #292929;
-    width: 320px;
-    height: 100vh;
-    visibility: hidden;
-    margin: 0;
-    transform: translateX(500px);
-  }
-
-
-  .nav-li {
-    margin: 0 0 40px 0;
-  }
-
-  .nav-li:last-child {
-    margin: 0;
-  }
-
-}
-
-@media (max-width: 760px) {
-
-  .pets-slider {
-    width: 100%;
-  }
-
-  .pets-slider-cards {
-    column-gap: 1%;
-  }
-
-}
 
 
 @media (max-width: 767px) {
@@ -697,7 +646,7 @@ body {
   .burger {
     position: absolute;
     visibility: visible;
-    top: 49px;
+    top: 51px;
     right: 20px;
     transform: rotate(0);
   }
@@ -718,6 +667,7 @@ body {
     background: #ffffff;
     width: 320px;
     height: 100vh;
+    display: none;
     visibility: hidden;
     margin: 0;
     transform: translateX(500px);
@@ -740,6 +690,18 @@ transition: none;
 
   .nav-li:last-child {
     margin: 0;
+  }
+
+}
+
+@media (max-width: 760px) {
+
+  .pets-slider {
+    width: 100%;
+  }
+
+  .pets-slider-cards {
+    column-gap: 1%;
   }
 
 }
@@ -795,7 +757,7 @@ transition: none;
 
 
 
-@media (max-width: 600px) {
+@media (max-width: 680px) {
 
 
   .footer {

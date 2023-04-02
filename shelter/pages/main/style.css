@@ -814,7 +814,9 @@ left: 0;
     width: 50%;
   }
 
-
+.container-help {
+height: 100%;
+}
 
   .wrapper-help {
     height: 599px;
@@ -843,6 +845,11 @@ left: 0;
   .footer-content {
     width: 50%;
   }
+
+    .wrapper-footer {
+    margin-bottom: 0;
+  }
+
 
 }
 
@@ -1117,6 +1124,58 @@ left: 0;
 
 }
 
+@media (max-width: 767px) {
+
+
+  .burger {
+    position: absolute;
+    visibility: visible;
+    top: 52px;
+    right: 20px;
+    transform: rotate(0);
+  }
+
+  .burger-open {
+    transform: rotate(90deg);
+  }
+
+  .nav-menu {
+    position: fixed;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    background: #292929;
+    width: 320px;
+    height: 100vh;
+    visibility: hidden;
+    margin: 0;
+    transform: translateX(500px);
+    z-index: 9;
+    transition: all 0.3s;
+  }
+
+  .menu-link {
+    transition: none;
+  }
+
+  .nav-menu-open {
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  .nav-li {
+    margin: 0 0 40px 0;
+  }
+
+  .nav-li:last-child {
+    margin: 0;
+  }
+
+}
 
 @media (max-width: 735px) {
 
@@ -1186,62 +1245,11 @@ margin-bottom: 12px;
 
 }
 
-@media (max-width: 767px) {
 
-
-  .burger {
-    position: absolute;
-    visibility: visible;
-    top: 49px;
-    right: 20px;
-    transform: rotate(0);
-  }
-
-  .burger-open {
-    transform: rotate(90deg);
-  }
-
-  .nav-menu {
-    position: fixed;
-    right: 0;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    background: #292929;
-    width: 320px;
-    height: 100vh;
-    visibility: hidden;
-    margin: 0;
-    transform: translateX(500px);
-    z-index: 9;
-    transition: all 0.3s;
-  }
-
-  .menu-link {
-    transition: none;
-  }
-
-  .nav-menu-open {
-    visibility: visible;
-    transform: translateX(0);
-  }
-
-  .nav-li {
-    margin: 0 0 40px 0;
-  }
-
-  .nav-li:last-child {
-    margin: 0;
-  }
-
-}
 
 /* start pets 380px */
 
-@media (max-width: 680px) {
+@media (max-width: 730px) {
 
 
   .wrapper-pets {
@@ -1279,7 +1287,7 @@ margin-bottom: 12px;
 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 680px) {
 
 
   .footer {
@@ -1439,7 +1447,7 @@ margin-bottom: 12px;
 
 /* start donation 380px */
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
 
   .container-in-addition {
 
