@@ -277,7 +277,8 @@ mediaQuery.addEventListener('change', () => {
 })
 
 burger.addEventListener('click', isOpen)
-
+blur.addEventListener('click', closeMenu)
+menu.addEventListener('click', closeMenu)
 
 function isOpen() {
   isBurger === false ? openMenu() : closeMenu();
