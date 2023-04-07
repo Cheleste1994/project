@@ -46,7 +46,7 @@ function mapAdd() {
 
 /* start burger menu */
 
-const mediaQuery = window.matchMedia('(max-width: 766px)');
+const mediaQuery = window.matchMedia('(min-width: 200px) and (max-width: 767px)');
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.nav-menu');
 const blur = document.querySelector('.blur-background');
@@ -59,16 +59,24 @@ mediaQuery.addEventListener('change', () => {
     closeMenu()
     menu.style.transform = 'translateX(0)';
     menu.style.visibility = 'visible';
+
   } else {
     closeMenu()
-    blur.addEventListener('click', closeMenu)
-    menu.addEventListener('click', closeMenu)
   }
 })
 
+
+
+
 burger.addEventListener('click', isOpen)
-blur.addEventListener('click', closeMenu)
-menu.addEventListener('click', closeMenu)
+
+blur.addEventListener('click', () => {
+  if (mediaQuery.matches) {closeMenu()}
+})
+
+menu.addEventListener('click', () => {
+  if (mediaQuery.matches) {closeMenu()}
+})
 
 function isOpen() {
   isBurger === false ? openMenu() : closeMenu();
@@ -93,7 +101,7 @@ function closeMenu() {
 }
 
 
-
+/*
 console.log(`Ваша оценка - 100 баллов
 Отзыв по пунктам ТЗ:
 Выполненные все пункты:
@@ -133,3 +141,4 @@ console.log(`Ваша оценка - 100 баллов
 34) выполняются все ссылочные связи согласно Перечню ссылочных связей для страницы 'Pets'
 35) выполнена интерактивность ссылок и кнопок. Интерактивность заключается не только в изменении внешнего вида курсора, например, при помощи свойства 'cursor: pointer', но и в использовании и других визуальных эффектов, например, изменение цвета фона или цвета шрифта, согласно стайлгайду в макете. Если в макете стили не указаны, реализуете их по своему усмотрению, руководствуясь общим стилем макета
 36) обязательное требование к интерактивности: плавное изменение внешнего вида элемента при наведении и клике, не влияющее на соседние элементы  `)
+*/
