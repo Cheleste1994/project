@@ -56,7 +56,7 @@ function paginationPets() {
 
 
 sliderNext.addEventListener('click', (event) => {
-  if (localStorage.pages < localStorage.quantityPages - 1 ) {
+  if (localStorage.pages < localStorage.quantityPages - 1) {
     sliderNextPages()
     getQuotes(pagintaionsArr)
     pageTurningNext()
@@ -113,11 +113,11 @@ function getQuotes(pagintaionsArr) {
 
   }
 
-for(let i = 0; i < localStorage.cards; i++) {
+  for (let i = 0; i < localStorage.cards; i++) {
 
-  cardsPets[i].childNodes[1].style.background = `url('${pagintaionsArr[isPages][i].img}')`;
-  cardsPets[i].childNodes[3].innerText = pagintaionsArr[isPages][i].name;
-}
+    cardsPets[i].childNodes[1].style.background = `url('${pagintaionsArr[isPages][i].img}')`;
+    cardsPets[i].childNodes[3].innerText = pagintaionsArr[isPages][i].name;
+  }
 
 }
 
@@ -161,24 +161,25 @@ function pageTurningAnimationStart() {
 
 
 //start block media paginations
-const sizeWindow = {desktop: 'desktop',
-                    tablet: 'tablet',
-                    mobile: 'mobile'
-                    }
+const sizeWindow = {
+  desktop: 'desktop',
+  tablet: 'tablet',
+  mobile: 'mobile'
+}
 
 const mediaPaginationsDestop = window.matchMedia('(min-width: 1211px)');
 const mediaPaginationsTablet = window.matchMedia('(min-width: 601px) and (max-width: 1210px)');
 const mediaPaginationsMobile = window.matchMedia('(min-width: 280px) and (max-width: 600px)');
 
 
-localStorage.setItem('media', mediaPaginationsDestop.matches ? sizeWindow.desktop:
-                              mediaPaginationsTablet.matches ? sizeWindow.tablet:
-                              sizeWindow.mobile
-                              )
+localStorage.setItem('media', mediaPaginationsDestop.matches ? sizeWindow.desktop :
+  mediaPaginationsTablet.matches ? sizeWindow.tablet :
+    sizeWindow.mobile
+)
 
 
 mediaPaginationsDestop.addEventListener('change', () => {
-  if (mediaPaginationsDestop.matches ) {
+  if (mediaPaginationsDestop.matches) {
     mediaPaginations(sizeWindow.desktop)
     localStorage.quantityPages = 6;
     localStorage.cards = 8;
@@ -214,7 +215,7 @@ mediaPaginationsMobile.addEventListener('change', () => {
 
 
 function mediaPaginations(size) {
-localStorage.media = size;
+  localStorage.media = size;
 }
 
 
@@ -255,9 +256,7 @@ function mapAdd() {
 
 /* start burger menu */
 
-/* start burger menu */
-
-const mediaQuery = window.matchMedia('(max-width: 767px)');
+const mediaQuery = window.matchMedia('(max-width: 766px)');
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.nav-menu');
 const blur = document.querySelector('.blur-background');
@@ -268,8 +267,8 @@ let isBurger = false;
 mediaQuery.addEventListener('change', () => {
   if (!mediaQuery.matches) {
     closeMenu()
-    menu.style.visibility = 'visible';
     menu.style.transform = 'translateX(0)';
+    menu.style.visibility = 'visible';
   } else {
     closeMenu()
     blur.addEventListener('click', closeMenu)
@@ -278,8 +277,6 @@ mediaQuery.addEventListener('change', () => {
 })
 
 burger.addEventListener('click', isOpen)
-
-
 
 
 function isOpen() {
@@ -303,6 +300,7 @@ function closeMenu() {
   html.style.overflow = 'auto';
   isBurger = false;
 }
+
 
 /*
   console.log(`Ваша оценка - 100 баллов
