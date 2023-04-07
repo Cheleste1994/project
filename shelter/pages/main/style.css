@@ -130,7 +130,7 @@ left: 0;
 .menu-link::before {
   content: '';
   left: 0;
-  bottom: -5px;
+  bottom: 0;
   position: absolute;
   width: 0;
   height: 2px;
@@ -139,7 +139,7 @@ left: 0;
 }
 
 .menu-link:active:before {
-  width: 110%;
+  width: 100%;
 }
 
 .nav-about {
@@ -151,11 +151,11 @@ left: 0;
   visibility: hidden;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 
   z-index: 10;
   width: 30px;
-  height: 22px;
+  height: 30px;
 }
 
 .burger-line {
@@ -1130,9 +1130,11 @@ height: 100%;
   .burger {
     position: absolute;
     visibility: visible;
-    top: 52px;
-    right: 20px;
+    top: 45px;
+    right: 25px;
+    bottom: 0;
     transform: rotate(0);
+    transition: all 0.5s;
   }
 
   .burger-open {
@@ -1143,18 +1145,20 @@ height: 100%;
     position: fixed;
     right: 0;
     top: 0;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background: #292929;
     width: 320px;
-    height: 100vh;
+    height: 100%;
     visibility: hidden;
     margin: 0;
     transform: translateX(500px);
     z-index: 9;
     transition: all 0.3s;
+
   }
 
   .menu-link {

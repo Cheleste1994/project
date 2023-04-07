@@ -112,7 +112,7 @@ body {
 .menu-link::before {
   content: '';
   left: 0;
-  bottom: -5px;
+  bottom: 0;
   position: absolute;
   width: 0;
   height: 2px;
@@ -121,7 +121,7 @@ body {
 }
 
 .menu-link:active:before {
-  width: 110%;
+  width: 100%;
 }
 
 
@@ -145,7 +145,7 @@ body {
 
   z-index: 10;
   width: 30px;
-  height: 22px;
+  height: 30px;
 }
 
 .burger-line {
@@ -683,9 +683,11 @@ body {
   .burger {
     position: absolute;
     visibility: visible;
-    top: 51px;
-    right: 20px;
+    top: 45px;
+    right: 25px;
     transform: rotate(0);
+    transition: all 0.5s;
+
   }
 
   .burger-open {
@@ -709,6 +711,8 @@ body {
     transform: translateX(500px);
     z-index: 9;
     transition: all 0.3s;
+
+
   }
 
   .menu-link {

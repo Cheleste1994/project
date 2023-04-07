@@ -363,6 +363,22 @@
 }
 
 
+@media (max-width: 767px) {
+
+
+
+  .menu-link-start {
+    font-size: 32px;
+
+  }
+
+  .menu-link {
+    font-size: 32px;
+
+  }
+
+  }
+
 @media (max-width: 600px) {
 
   .h3-pets {
