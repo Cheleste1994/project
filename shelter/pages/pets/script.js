@@ -256,7 +256,7 @@ function mapAdd() {
 
 /* start burger menu */
 
-const mediaQuery = window.matchMedia('(max-width: 766px)');
+const mediaQuery = window.matchMedia('(max-width: 767px)');
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.nav-menu');
 const blur = document.querySelector('.blur-background');
@@ -271,14 +271,20 @@ mediaQuery.addEventListener('change', () => {
     menu.style.visibility = 'visible';
   } else {
     closeMenu()
-    blur.addEventListener('click', closeMenu)
-    menu.addEventListener('click', closeMenu)
   }
 })
 
 burger.addEventListener('click', isOpen)
-blur.addEventListener('click', closeMenu)
-menu.addEventListener('click', closeMenu)
+
+blur.addEventListener('click', () => {
+  if (mediaQuery.matches) {closeMenu()}
+})
+
+menu.addEventListener('click', () => {
+  if (mediaQuery.matches) {closeMenu()}
+})
+
+
 
 function isOpen() {
   isBurger === false ? openMenu() : closeMenu();
