@@ -1,41 +1,229 @@
 window.addEventListener('load', () => {
-  getQuotes()
   copyCardsPets()
+  localStorage.setItem('pages', 0)
+  localStorage.setItem('quantityPages', localStorage.media === 'desktop' ? 6 : localStorage.media === 'tablet' ? 8 : 16)
+  localStorage.setItem('cards', localStorage.media === 'desktop' ? 8 : localStorage.media === 'tablet' ? 6 : 3)
+
 })
 
 
+
+// start paginations
+
+
+
+const sliderNext = document.querySelector('.next-pages');
+const sliderEnd = document.querySelector('.slider-end');
+const sliderPrev = document.querySelector('.prev-pages');
+const sliderStart = document.querySelector('.slider-start');
+const petsSlider = document.querySelector('.pets-slider')
+const sliderList = document.querySelectorAll('.slider-list')
+
+const newArr = [];
+
 async function copyCardsPets() {
-const cardsPets = document.querySelectorAll('.slider-cards')
-
-const imgHelp = '../pets.json';
-const res = await fetch(imgHelp);
-const data = await res.json();
-
-const newPets = [...data];
-console.log(newPets)
-console.log(data)
-
-}
-
-
-async function getQuotes() {
-  const cardsPets = document.querySelectorAll('.slider-cards')
-  const petsName = document.querySelectorAll('.cards-name')
-  const petsImg = document.querySelectorAll('.cards-img')
-
   const imgHelp = '../pets.json';
   const res = await fetch(imgHelp);
-
-  const data = await res.json();
-
+  let data = await res.json();
 
 
-  cardsPets.forEach((x, i) => {
-    x.childNodes[1].style.background = `url('${data[i].img}')`;
-    x.childNodes[3].innerText = data[i].name;
-  })
+  for (let i = 0; i < 6; i++) {
+    const newPets = [...data];
+    newArr.push(newPets.sort(() => Math.random() - 0.5))
+  }
+  paginationPets()
+}
+
+let pagintaionsArr = [];
+
+function paginationPets() {
+  let newArrPets = newArr.flat(1);
+  let quantityPages = localStorage.quantityPages;
+  pagintaionsArr = [];
+  let isCounter = 0;
+  for (let i = 0; i < quantityPages; i++) {
+    pagintaionsArr.push([])
+    for (let i1 = newArrPets.length / quantityPages; i1 > 0; i1--) {
+      pagintaionsArr[i].push(newArrPets[isCounter]);
+      isCounter++
+    }
+  }
+
+  getQuotes(pagintaionsArr)
+
 
 }
+
+
+sliderNext.addEventListener('click', (event) => {
+  if (localStorage.pages < localStorage.quantityPages - 1 ) {
+    sliderNextPages()
+    getQuotes(pagintaionsArr)
+    pageTurningNext()
+  }
+})
+
+sliderEnd.addEventListener('click', () => {
+  if (localStorage.pages < localStorage.quantityPages - 1) {
+    localStorage.pages = localStorage.quantityPages - 1;
+    getQuotes(pagintaionsArr)
+    pageTurningNext()
+  }
+})
+
+sliderPrev.addEventListener('click', () => {
+  if (localStorage.pages > 0) {
+    sliderPrevPages()
+    getQuotes(pagintaionsArr)
+    pageTurningPrev()
+  }
+})
+
+sliderStart.addEventListener('click', () => {
+  if (localStorage.pages > 0) {
+    localStorage.pages = 0;
+    getQuotes(pagintaionsArr)
+    pageTurningPrev()
+  }
+})
+
+
+
+
+
+function getQuotes(pagintaionsArr) {
+  const cardsPets = document.querySelectorAll('.slider-cards')
+  const isPages = localStorage.pages;
+  sliderList[0].innerHTML = Number(isPages) + 1;
+  if (Number(isPages) + 1 == localStorage.quantityPages) {
+    sliderNext.disabled = true;
+    sliderEnd.disabled = true;
+    sliderPrev.disabled = false;
+    sliderStart.disabled = false;;
+  } else if (Number(isPages) == 0) {
+    sliderNext.disabled = false;
+    sliderEnd.disabled = false;
+    sliderPrev.disabled = true;
+    sliderStart.disabled = true;;
+  } else {
+    sliderNext.disabled = false;
+    sliderEnd.disabled = false;
+    sliderPrev.disabled = false;
+    sliderStart.disabled = false;;
+
+  }
+
+for(let i = 0; i < localStorage.cards; i++) {
+
+  cardsPets[i].childNodes[1].style.background = `url('${pagintaionsArr[isPages][i].img}')`;
+  cardsPets[i].childNodes[3].innerText = pagintaionsArr[isPages][i].name;
+}
+
+}
+
+
+function sliderNextPages() {
+  if (localStorage.pages < localStorage.quantityPages - 1) {
+    ++localStorage.pages
+  } else {
+    localStorage.pages = 0;
+  }
+}
+
+function sliderPrevPages() {
+  if (localStorage.pages > 0) {
+    --localStorage.pages
+  } else {
+    localStorage.pages = 0;
+  }
+}
+
+
+function pageTurningNext() {
+  petsSlider.classList.add('pets-slider-active-end')
+  petsSlider.addEventListener('transitionend', pageTurningAnimationStart, false)
+
+}
+
+
+function pageTurningPrev() {
+  petsSlider.classList.add('pets-slider-active-start')
+  petsSlider.addEventListener('transitionend', pageTurningAnimationStart, false)
+
+}
+
+
+function pageTurningAnimationStart() {
+  petsSlider.classList.remove('pets-slider-active-end')
+  petsSlider.classList.remove('pets-slider-active-start')
+
+}
+
+
+//start block media paginations
+const sizeWindow = {desktop: 'desktop',
+                    tablet: 'tablet',
+                    mobile: 'mobile'
+                    }
+
+const mediaPaginationsDestop = window.matchMedia('(min-width: 1211px)');
+const mediaPaginationsTablet = window.matchMedia('(min-width: 601px) and (max-width: 1210px)');
+const mediaPaginationsMobile = window.matchMedia('(min-width: 280px) and (max-width: 600px)');
+
+
+localStorage.setItem('media', mediaPaginationsDestop.matches ? sizeWindow.desktop:
+                              mediaPaginationsTablet.matches ? sizeWindow.tablet:
+                              sizeWindow.mobile
+                              )
+
+
+mediaPaginationsDestop.addEventListener('change', () => {
+  if (mediaPaginationsDestop.matches ) {
+    mediaPaginations(sizeWindow.desktop)
+    localStorage.quantityPages = 6;
+    localStorage.cards = 8;
+    if (Number(localStorage.pages) > 5) {
+      localStorage.pages = 5;
+    }
+    paginationPets()
+
+  }
+})
+
+mediaPaginationsTablet.addEventListener('change', () => {
+  if (mediaPaginationsTablet.matches) {
+    mediaPaginations(sizeWindow.tablet)
+    localStorage.quantityPages = 8;
+    localStorage.cards = 6;
+    if (Number(localStorage.pages) > 7) {
+      localStorage.pages = 7;
+    }
+    paginationPets()
+  }
+})
+
+mediaPaginationsMobile.addEventListener('change', () => {
+  if (mediaPaginationsMobile.matches) {
+    mediaPaginations(sizeWindow.mobile)
+    localStorage.quantityPages = 16;
+    localStorage.cards = 3;
+    paginationPets()
+  }
+})
+
+
+
+function mediaPaginations(size) {
+localStorage.media = size;
+}
+
+
+// end block media paginations
+
+
+// end paginations
+
+
 
 // add link map
 
@@ -68,7 +256,7 @@ function mapAdd() {
 /* start burger menu */
 
 /* start burger menu */
-/*
+
 const mediaQuery = window.matchMedia('(max-width: 767px)');
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.nav-menu');
@@ -82,11 +270,11 @@ mediaQuery.addEventListener('change', () => {
     closeMenu()
     menu.style.visibility = 'visible';
     menu.style.transform = 'translateX(0)';
-    } else {
-      closeMenu()
-      blur.addEventListener('click', closeMenu)
-      menu.addEventListener('click', closeMenu)
-    }
+  } else {
+    closeMenu()
+    blur.addEventListener('click', closeMenu)
+    menu.addEventListener('click', closeMenu)
+  }
 })
 
 burger.addEventListener('click', isOpen)
@@ -95,16 +283,16 @@ burger.addEventListener('click', isOpen)
 
 
 function isOpen() {
-     isBurger === false ? openMenu() : closeMenu();
+  isBurger === false ? openMenu() : closeMenu();
 }
 
 function openMenu() {
-burger.classList.add('burger-open')
-blur.style.visibility = 'visible';
-menu.style.visibility = 'visible';
-menu.style.transform = 'translateX(0)';
-html.style.overflow = 'hidden';
-isBurger = true;
+  burger.classList.add('burger-open')
+  blur.style.visibility = 'visible';
+  menu.style.visibility = 'visible';
+  menu.style.transform = 'translateX(0)';
+  html.style.overflow = 'hidden';
+  isBurger = true;
 }
 
 function closeMenu() {
@@ -114,8 +302,8 @@ function closeMenu() {
   menu.style.transform = 'translateX(500px)';
   html.style.overflow = 'auto';
   isBurger = false;
-  }
-*/
+}
+
 /*
   console.log(`Ваша оценка - 100 баллов
 Отзыв по пунктам ТЗ:
