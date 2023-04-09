@@ -382,6 +382,83 @@
 
 }
 
+/* start popap*/
+
+.popap-name-h3 {
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 130%;
+  /* or 45px */
+
+  letter-spacing: 0.15em;
+
+  color: #000000;
+}
+
+.popap-type-and-breed {
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 115%;
+  /* identical to box height, or 23px */
+
+  letter-spacing: 0.06em;
+
+  color: #000000;
+}
+
+
+.popap-text {
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 110%;
+  /* or 17px */
+
+  letter-spacing: 0.06em;
+
+  color: #000000;
+}
+
+.popap-list li {
+  list-style-type: disc;
+  color: #F1CDB3;
+}
+
+.age-text,
+.inoculations-text,
+.diseases-text,
+.parasites-text {
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 110%;
+  /* identical to box height, or 17px */
+
+  letter-spacing: 0.06em;
+
+  color: #000000;
+}
+
+.list-title {
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 110%;
+  /* identical to box height, or 17px */
+
+  letter-spacing: 0.06em;
+
+  color: #000000;
+}
+
+/* end popap*/
 
 .helpt-title-h3 {
   font-family: 'Georgia';
@@ -514,6 +591,21 @@
 
 
 
+
+@media (max-width: 1000px) {
+
+
+
+  .popap-text {
+    font-size: 13px;
+  }
+
+
+}
+
+
+
+
 @media (max-width: 767px) {
 
 
@@ -528,72 +620,92 @@
 
   }
 
+}
+
+@media (max-width: 755px) {
+
+
+  .popap-text {
+    font-size: 13px;
   }
+
+  .inoculations-text {
+    font-size: 15px;
+
+    letter-spacing: 0em;
+
+  }
+
+
+
+}
+
+
 
 
 @media (max-width: 700px) {
 
 
- .number-cards-btn {
-   font-size: 15px;
- }
+  .number-cards-btn {
+    font-size: 15px;
+  }
 
 
- }
+}
 
 
 @media (max-width: 500px) {
 
 
- .content-title {
-  font-size: 25px;
+  .content-title {
+    font-size: 25px;
 
-letter-spacing: 0.06em;
- }
+    letter-spacing: 0.06em;
+  }
 
-.about-content-title{
-  font-size: 25px;
+  .about-content-title {
+    font-size: 25px;
 
-letter-spacing: 0.06em;
-}
-
-
-.h3-pets {
-  font-size: 25px;
-
-  letter-spacing: 0.06em;
-}
-
-.helpt-title-h3 {
-  font-size: 25px;
-  letter-spacing: 0.06em;
-
-}
-
-.list-container-name {
-  font-size: 15px;
-
-}
-
-.donation-title-h3 {
-  font-size: 25px;
-}
-
-.donation-bank {
-
-font-size: 15px;
-letter-spacing: 0.00em;
-
-}
+    letter-spacing: 0.06em;
+  }
 
 
-.footer-h3 {
-  font-size: 25px;
+  .h3-pets {
+    font-size: 25px;
 
-}
+    letter-spacing: 0.06em;
+  }
 
-.legal-inforamtion-text{
-  text-align: justify;
+  .helpt-title-h3 {
+    font-size: 25px;
+    letter-spacing: 0.06em;
 
-}
+  }
+
+  .list-container-name {
+    font-size: 15px;
+
+  }
+
+  .donation-title-h3 {
+    font-size: 25px;
+  }
+
+  .donation-bank {
+
+    font-size: 15px;
+    letter-spacing: 0.00em;
+
+  }
+
+
+  .footer-h3 {
+    font-size: 25px;
+
+  }
+
+  .legal-inforamtion-text {
+    text-align: justify;
+
+  }
 }
