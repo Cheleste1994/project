@@ -15,10 +15,10 @@ const petsSliderContainer = document.querySelector('.pets-slider-container')
 
 
 const newArr = {
-                desktop: [],
-                tablet: [],
-                mobile: []
-                };
+  desktop: [],
+  tablet: [],
+  mobile: []
+};
 
 async function copyCardsPets() {
   const imgHelp = '../pets.json';
@@ -42,37 +42,13 @@ async function copyCardsPets() {
     }
   }
 
-  addPetsCards()
   fillCards()
 
 }
 
 
-function addPetsCards() {
-  // for (let i = 0; i < 3; i++) {
-  //   petsSlider.insertAdjacentHTML('afterbegin', `
-  //   <div>
-  //   <div class="slider-cards">
-  //     <div class="cards-img"></div>
-  //     <div class="cards-name"></div>
-  //     <div class="cards-btn"><button class="cards-btn-click">Learn more</button></div>
-  //   </div>
-  //   <div class="slider-cards">
-  //     <div class="cards-img"></div>
-  //     <div class="cards-name"></div>
-  //     <div class="cards-btn"><button class="cards-btn-click">Learn more</button></div>
-  //   </div>
-  //   <div class="slider-cards">
-  //     <div class="cards-img"></div>
-  //     <div class="cards-name"></div>
-  //     <div class="cards-btn"><button class="cards-btn-click">Learn more</button></div>
-  //   </div>
-  //   </div>`)
-  // }
-}
-
 let size = localStorage.size === 'desktop' ? newArr.desktop :
-localStorage.size === 'tablet' ? newArr.tablet : newArr.mobile;
+  localStorage.size === 'tablet' ? newArr.tablet : newArr.mobile;
 
 
 function fillCards() {
@@ -102,36 +78,36 @@ btnPrev.addEventListener('click', prevSlid);
 petsSlider.addEventListener('animationend', (AnimationEvent) => {
   if (AnimationEvent.animationName === 'move-right') {
     petsSlider.classList.remove('transition-right')
-    moveSlider ('move-right')
+    moveSlider('move-right')
   } else {
     petsSlider.classList.remove('transition-left')
-    moveSlider ('move-left')
+    moveSlider('move-left')
 
   }
 
 })
 
 
-function moveSlider (move) {
-  const petsSliderPrev =  document.querySelector('.pets-slider-prev')
-  const petsSliderActive =  document.querySelector('.pets-slider-active')
-  const petsSliderNext =  document.querySelector('.pets-slider-next')
-let changedItem;
-if (move === 'move-right') {
-  changedItem = petsSliderNext.innerHTML;
-  petsSliderPrev.innerHTML = petsSliderActive.innerHTML;
-  petsSliderActive.innerHTML = petsSliderNext.innerHTML;
-  petsSliderNext.remove();
+function moveSlider(move) {
+  const petsSliderPrev = document.querySelector('.pets-slider-prev')
+  const petsSliderActive = document.querySelector('.pets-slider-active')
+  const petsSliderNext = document.querySelector('.pets-slider-next')
+  let changedItem;
+  if (move === 'move-right') {
+    changedItem = petsSliderNext.innerHTML;
+    petsSliderPrev.innerHTML = petsSliderActive.innerHTML;
+    petsSliderActive.innerHTML = petsSliderNext.innerHTML;
+    petsSliderNext.remove();
 
-  randomCards('move-right')
-} else {
-  petsSliderNext.innerHTML = petsSliderActive.innerHTML;
+    randomCards('move-right')
+  } else {
+    petsSliderNext.innerHTML = petsSliderActive.innerHTML;
 
-  petsSliderActive.innerHTML = petsSliderPrev.innerHTML;
-  petsSliderPrev.remove();
+    petsSliderActive.innerHTML = petsSliderPrev.innerHTML;
+    petsSliderPrev.remove();
 
-  randomCards('move-left')
-}
+    randomCards('move-left')
+  }
 
 }
 
@@ -156,7 +132,7 @@ function randomCards(move) {
       <div class="cards-btn"><button class="cards-btn-click">Learn more</button></div>
     </div>
   </div>`)
-fillCardsNext()
+    fillCardsNext()
   }
 
   if (move === 'move-left') {
@@ -178,43 +154,14 @@ fillCardsNext()
       <div class="cards-btn"><button class="cards-btn-click">Learn more</button></div>
     </div>
   </div>`)
-fillCardsPrev()
+    fillCardsPrev()
   }
 
 }
 
 
 function fillCardsNext() {
-const petsSliderNext =  document.querySelector('.pets-slider-next')
-const cardsName = document.querySelectorAll('.pets-slider-active .cards-name')
-const addArr = [];
-let addArrRan = [];
-
-cardsName.forEach((x) => {
-  addArr.push(x.innerText)
-})
-
-newArr.desktop.forEach((x) => {
-  x.name !== addArr[0] && x.name !== addArr[1] && x.name !== addArr[2] ?
-  addArrRan.push(x) : false ;
-})
-addArrRan = new Set(addArrRan);
-addArrRan = Array.from(addArrRan).sort(() => Math.random() - 0.5);
-
-let i = 0
-  petsSliderNext.childNodes.forEach((x) => {
-    if (x.className) {
-    x.childNodes[1].style.background = `url('${addArrRan[i].img}')`;
-    x.childNodes[3].innerText = addArrRan[i].name;
-      i++
-    }
-  })
-
-}
-
-
-function fillCardsPrev() {
-  const petsSliderPrev =  document.querySelector('.pets-slider-prev')
+  const petsSliderNext = document.querySelector('.pets-slider-next')
   const cardsName = document.querySelectorAll('.pets-slider-active .cards-name')
   const addArr = [];
   let addArrRan = [];
@@ -225,21 +172,50 @@ function fillCardsPrev() {
 
   newArr.desktop.forEach((x) => {
     x.name !== addArr[0] && x.name !== addArr[1] && x.name !== addArr[2] ?
-    addArrRan.push(x) : false ;
+      addArrRan.push(x) : false;
   })
   addArrRan = new Set(addArrRan);
   addArrRan = Array.from(addArrRan).sort(() => Math.random() - 0.5);
 
   let i = 0
-    petsSliderPrev.childNodes.forEach((x) => {
-      if (x.className) {
+  petsSliderNext.childNodes.forEach((x) => {
+    if (x.className) {
       x.childNodes[1].style.background = `url('${addArrRan[i].img}')`;
       x.childNodes[3].innerText = addArrRan[i].name;
-        i++
-      }
-    })
+      i++
+    }
+  })
 
-  }
+}
+
+
+function fillCardsPrev() {
+  const petsSliderPrev = document.querySelector('.pets-slider-prev')
+  const cardsName = document.querySelectorAll('.pets-slider-active .cards-name')
+  const addArr = [];
+  let addArrRan = [];
+
+  cardsName.forEach((x) => {
+    addArr.push(x.innerText)
+  })
+
+  newArr.desktop.forEach((x) => {
+    x.name !== addArr[0] && x.name !== addArr[1] && x.name !== addArr[2] ?
+      addArrRan.push(x) : false;
+  })
+  addArrRan = new Set(addArrRan);
+  addArrRan = Array.from(addArrRan).sort(() => Math.random() - 0.5);
+
+  let i = 0
+  petsSliderPrev.childNodes.forEach((x) => {
+    if (x.className) {
+      x.childNodes[1].style.background = `url('${addArrRan[i].img}')`;
+      x.childNodes[3].innerText = addArrRan[i].name;
+      i++
+    }
+  })
+
+}
 
 
 /* end slider block */
@@ -319,11 +295,11 @@ mediaQuery.addEventListener('change', () => {
 burger.addEventListener('click', isOpen)
 
 blur.addEventListener('click', () => {
-  if (mediaQuery.matches) {closeMenu()}
+  if (mediaQuery.matches) { closeMenu() }
 })
 
 menu.addEventListener('click', () => {
-  if (mediaQuery.matches) {closeMenu()}
+  if (mediaQuery.matches) { closeMenu() }
 })
 
 function isOpen() {
