@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
   copyCardsPets()
   localStorage.setItem('size', 'desktop')
 })
-
+const html = document.querySelector('html');
 
 /* start slider block */
 
@@ -220,6 +220,79 @@ function fillCardsPrev() {
 
 /* end slider block */
 
+/* start popap block */
+const cardsClick = document.querySelector('.pets-slider-active')
+const popapName = document.querySelector('.popap-name-h3')
+const popapType = document.querySelector('.popap-type')
+const popapBreed = document.querySelector('.popap-breed')
+const popapText = document.querySelector('.popap-text')
+const age = document.querySelector('.age-text')
+const inoculations = document.querySelector('.inoculations-text')
+const diseases = document.querySelector('.diseases-text')
+const parasites = document.querySelector('.parasites-text')
+const popapImages = document.querySelector('.popap-images-pets')
+const popap = document.querySelector('.popap')
+
+
+async function popapLoad(nameCards) {
+  const imgHelp = '../pets.json';
+  const res = await fetch(imgHelp);
+  let data = await res.json();
+
+  data.forEach((x, i) => {
+    if (x.name === nameCards) {
+      popapImages.style.cssText = `background: url('${x.img}');
+                                 background-repeat: no-repeat;
+                                 background-size: cover;
+                                 `
+      popapName.innerHTML = x.name;
+      popapType.innerHTML = x.type;
+      popapBreed.innerHTML = x.breed;
+      popapText.innerHTML = x.description;
+      age.innerHTML = x.age;
+      inoculations.innerHTML = x.inoculations;
+      diseases.innerHTML = x.diseases;
+      parasites.innerHTML = x.parasites;
+
+    }
+  })
+
+  openPopap()
+
+}
+
+
+function openPopap() {
+  const popapCLosed = document.querySelector('.popap-closed')
+  popap.classList.toggle('popap-open');
+  html.classList.toggle('html-hidden')
+  popapCLosed.addEventListener('click', openPopap)
+}
+
+
+
+
+cardsClick.addEventListener('click', (event) => {
+
+  if (event.eventPhase === 1) {
+    const cards = document.querySelectorAll('.slider-cards')
+
+    cards.forEach((x) => {
+      x.addEventListener('click', () => {
+        if (event.currentTarget) {
+          popapLoad(event.currentTarget.children[1].innerText)
+        }
+      })
+    })
+  }
+}, true)
+
+
+
+
+
+/*end popap block */
+
 /* start help block */
 
 async function getQuotes() {
@@ -274,7 +347,7 @@ const mediaQuery = window.matchMedia('(min-width: 200px) and (max-width: 767px)'
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.nav-menu');
 const blur = document.querySelector('.blur-background');
-const html = document.querySelector('html');
+
 let isBurger = false;
 
 
@@ -320,7 +393,10 @@ function closeMenu() {
   blur.style.visibility = 'hidden';
   menu.style.visibility = 'hidden';
   menu.style.transform = 'translateX(500px)';
-  html.style.overflow = 'auto';
+  if (html.classList.value !== 'html-hidden') {
+    html.style.overflow = '';
+  }
+
   isBurger = false;
 }
 
