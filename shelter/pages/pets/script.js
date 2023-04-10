@@ -371,7 +371,6 @@ function openPopap() {
 
 
 cardsClick.addEventListener('click', (event) => {
-  console.log(1)
   if (event.eventPhase === 1) {
     const cards = document.querySelectorAll('.slider-cards')
 
