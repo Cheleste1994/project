@@ -44,13 +44,27 @@ function paginationPets() {
   for (let i = 0; i < quantityPages; i++) {
     pagintaionsArr.push([])
     for (let i1 = newArrPets.length / quantityPages; i1 > 0; i1--) {
-      pagintaionsArr[i].push(newArrPets[isCounter]);
+      if (pagintaionsArr[i].length >= Number(localStorage.cards) ) {
+
+        break
+      }
+      if ( !(pagintaionsArr[i].includes(newArrPets[isCounter])) ) {
+        pagintaionsArr[i].push(newArrPets[isCounter]);
+      } else {
+        newArr[0].forEach((x) => {
+         if  ( !pagintaionsArr[i].includes(x) ) {
+          pagintaionsArr[i].push(x);
+
+          return
+         }
+
+        })
+      }
+
       isCounter++
     }
   }
-
   getQuotes(pagintaionsArr)
-
 
 }
 
@@ -366,7 +380,6 @@ function openPopap() {
     if (event.target === popap) {openPopap()}
   })
 }
-
 
 
 
