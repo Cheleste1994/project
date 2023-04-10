@@ -259,6 +259,7 @@ function mapAdd() {
 const mediaQuery = window.matchMedia('(max-width: 767px)');
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.nav-menu');
+const menuLi = document.querySelectorAll('.nav-li')
 const blur = document.querySelector('.blur-background');
 const html = document.querySelector('html');
 let isBurger = false;
@@ -280,10 +281,11 @@ blur.addEventListener('click', () => {
   if (mediaQuery.matches) {closeMenu()}
 })
 
-menu.addEventListener('click', () => {
-  if (mediaQuery.matches) {closeMenu()}
+menuLi.forEach((x) => {
+  x.addEventListener('click', () => {
+    if (mediaQuery.matches) { closeMenu() }
+  })
 })
-
 
 
 function isOpen() {
