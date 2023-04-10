@@ -411,6 +411,7 @@ function closeMenu() {
 
 
 /* end burger menu */
+console.log(`Согласно ТЗ выполнены все пунткы: оценка 110/110`)
 
 /*
 console.log(`Ваша оценка - 100 баллов
