@@ -362,7 +362,9 @@ function openPopap() {
   popap.classList.toggle('popap-open');
   html.classList.toggle('html-hidden')
   popapCLosed.addEventListener('click', openPopap)
-
+  popap.addEventListener('click', () => {
+    if (event.target === popap) {openPopap()}
+  })
 }
 
 

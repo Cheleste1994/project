@@ -450,6 +450,14 @@ body {
   cursor: pointer;
 }
 
+.popap-closed:hover {
+  background:  #FDDCC4;
+}
+
+.popap-closed:active {
+  background:  #F1CDB3;
+}
+
 .popap-img-closed {
   margin: auto auto;
 }
