@@ -24,7 +24,7 @@ changeTheme();
 
 const divClass = [
   ['flags', 'bomb', 'time'],
-  ['footer__content', 'footer_by', 'settings'],
+  ['footer__content', 'settings', 'footer_by'],
 ];
 
 const spanClass = [
@@ -91,3 +91,38 @@ function addFrame() {
 }
 
 addFrame();
+
+function addTime(isStart = true) {
+  const time = document.querySelector('.time');
+  if (isStart) {
+    time.innerText = `${(Number(time.innerText) + 1).toString().padStart(3, '0')}`;
+    setTimeout(addTime, 1000);
+  } else {
+    time.innerText = '000';
+  }
+}
+
+addTime(false);
+
+// function createField(rows, cols) {
+//   let field = [];
+
+//   for (let row = 0; row < rows; row++) {
+//     let newRow = [];
+
+//     for (let col = 0; col < cols; col++) {
+//       newRow.push({
+//         hasMine: false,
+//         isRevealed: false,
+//         mineCount: 0,
+//       });
+//     }
+
+//     field.push(newRow);
+//   }
+
+//   return field;
+// }
+
+// let field = createField(10, 10);
+// console.log(field);
