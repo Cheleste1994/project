@@ -32,7 +32,7 @@
 
 .wrapper {
   background-color: hsla(300, 17%, 92%, 0.9);
-  min-width: 480px;
+
   width: 40%;
   /* filter: invert(50%); */
 }
@@ -44,6 +44,49 @@
   align-items: center;
   border-radius: 10px 10px 0 0;
   user-select: none
+}
+
+.looser {
+  color: #222122;
+  font-size: 32px;
+  visibility: hidden;
+  position: fixed;
+  background-color: hsla(300, 17%, 92%, 0.9);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.looser-active {
+  visibility: visible;
+}
+
+.looser-result {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.looser-relog {
+  background: url(../assets/icons/reload.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: invert();
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.looser-relog:hover {
+  transform: rotate(180deg);
+  transition: all 0.5s;
 }
 
 .flags {
@@ -76,22 +119,24 @@ background-color: rgba(167, 23, 167, 0.466);
 }
 
 .main {
-  font-size: 30px;
+  font-size: 25px;
   display: grid;
   justify-items: stretch;
   grid-template-columns: repeat(10, auto);
-  grid-auto-rows: minmax(40px, auto);
-  user-select: none
+  grid-template-rows: repeat(10, auto);
+  user-select: none;
 }
 
 .cell {
   background-color: rgba(167, 23, 167, 0.466);
   border: 1px solid rgba(167, 23, 167, 1);
+  height: 40px;
   cursor: pointer;
   display: flex;
   text-align: center;
   align-items: center;
   justify-content: center;
+  transition: all 0.5s;
 }
 
 .cell:hover {
@@ -99,11 +144,32 @@ background-color: rgba(167, 23, 167, 0.466);
 }
 
 .open {
-  display: none;
+  visibility: hidden;
+}
+
+.open-active {
+  background-color: hsla(300, 17%, 92%, 0.8);
+}
+
+.boom {
+  animation: 1.0s ease-in-out 0s normal none infinite running trambling-animation;
+}
+
+
+@keyframes trambling-animation {
+  0%, 50%, 100% {
+      transform: rotate(0deg);
+  }
+  10%, 30% {
+      transform: rotate(-10deg);
+  }
+  20%, 40% {
+      transform: rotate(10deg);
+  }
 }
 
 .closed {
-display: block;
+  visibility: visible;
 }
 
 .footer {
@@ -122,3 +188,12 @@ display: block;
   height: 50px;
   cursor: pointer;
 }
+
+.click-count {
+  font-size: 40px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 0 5px 0 5px;
+  margin-left: 20px;
+  background-color: rgba(167, 23, 167, 0.466);
+  }
