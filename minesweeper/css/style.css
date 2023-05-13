@@ -1,0 +1,252 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  height: 100%;
+  min-width: 480px;
+  min-height: 100vh;
+  background-color: #2b2a2a;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.body-dark {
+  background-image: url(../assets/img/background-dark.jpg);
+  background-color: #222122;
+}
+
+.body-light {
+  background-image: url(../assets/img/background-light.jpg);
+  background-color: #eee7ee;
+  color: white;
+}
+
+.wrapper {
+  background-color: hsla(300, 17%, 92%, 0.9);
+
+  width: 40%;
+  /* filter: invert(50%); */
+}
+
+.header {
+  height: 60px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 10px 10px 0 0;
+  user-select: none
+}
+
+.looser {
+  color: #222122;
+  font-size: 22px;
+  visibility: hidden;
+  position: fixed;
+  background-color: hsla(300, 17%, 92%, 0.9);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.looser-active {
+  visibility: visible;
+}
+
+.looser__table {
+  width: 44%;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  border: 3px solid;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.looser__table *:first-child {
+  padding-left: 10px;
+}
+
+.looser__table *:last-child {
+  padding-right: 10px;
+}
+
+.looser-result {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.looser-relog {
+  background: url(../assets/icons/delite.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+  border: 3px solid;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.looser-relog:hover {
+  transform: rotate(180deg);
+  transition: all 0.5s;
+}
+
+.flags {
+  background-image: url(../assets/icons/mapmarker.ico);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.bomb {
+  font-size: 40px;
+  text-align: center;
+  min-width: 45px;
+  min-height: 45px;
+  border-radius: 10px;
+  padding: 0 5px 0 5px;
+  margin: 0 20px;
+  background: url(../assets/icons/bomb.png) center/cover, rgba(0, 0, 0, 0.3);
+  background-blend-mode: multiply;
+}
+
+.time {
+font-size: 40px;
+text-align: center;
+border-radius: 10px;
+padding: 0 5px 0 5px;
+margin-right: 20px;
+background-color: rgba(167, 23, 167, 0.466);
+}
+
+.main {
+  font-size: 25px;
+  display: grid;
+  justify-items: stretch;
+  grid-template-columns: repeat(10, auto);
+  grid-template-rows: repeat(10, auto);
+  user-select: none;
+}
+
+.cell {
+  background-color: rgba(167, 23, 167, 0.466);
+  border: 1px solid rgba(167, 23, 167, 1);
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
+}
+
+.cell:hover {
+  border: 1px solid;
+}
+
+.open {
+  visibility: hidden;
+}
+
+.open-active {
+  background-color: hsla(300, 17%, 92%, 0.8);
+}
+
+.boom {
+  animation: 1.0s ease-in-out 0s normal none infinite running trambling-animation;
+}
+
+
+@keyframes trambling-animation {
+  0%, 50%, 100% {
+      transform: rotate(0deg);
+  }
+  10%, 30% {
+      transform: rotate(-10deg);
+  }
+  20%, 40% {
+      transform: rotate(10deg);
+  }
+}
+
+.closed {
+  visibility: visible;
+}
+
+.add-flag {
+  background: url(../assets/icons/mapmarker.ico);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(167, 23, 167, 0.466)
+}
+
+.footer {
+  height: 60px;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings {
+  background-image: url(../assets/icons/settings.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.relog {
+  background: url(../assets/icons/reload.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: invert();
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.relog:hover {
+  transform: rotate(180deg);
+  transition: all 0.5s;
+}
+
+.click-count {
+  font-size: 40px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 0 5px 0 5px;
+  margin-left: 10px;
+  background-color: rgba(167, 23, 167, 0.466);
+  }
+
+.load-bomb {
+  position: absolute;
+  text-align: center;
+  min-width: 20px;
+  min-height: 20px;
+  background: url(../assets/icons/bomb.png) center/cover;
+}
