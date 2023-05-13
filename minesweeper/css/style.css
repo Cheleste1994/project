@@ -97,11 +97,12 @@
   background: url(../assets/icons/delite.svg);
   background-repeat: no-repeat;
   background-size: cover;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border: 3px solid;
   border-radius: 50%;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .looser-relog:hover {
@@ -130,12 +131,12 @@
 }
 
 .time {
-font-size: 40px;
-text-align: center;
-border-radius: 10px;
-padding: 0 5px 0 5px;
-margin-right: 20px;
-background-color: rgba(167, 23, 167, 0.466);
+  font-size: 40px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 0 5px 0 5px;
+  margin-right: 20px;
+  background-color: rgba(167, 23, 167, 0.466);
 }
 
 .main {
@@ -177,14 +178,21 @@ background-color: rgba(167, 23, 167, 0.466);
 
 
 @keyframes trambling-animation {
-  0%, 50%, 100% {
-      transform: rotate(0deg);
+
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
   }
-  10%, 30% {
-      transform: rotate(-10deg);
+
+  10%,
+  30% {
+    transform: rotate(-10deg);
   }
-  20%, 40% {
-      transform: rotate(10deg);
+
+  20%,
+  40% {
+    transform: rotate(10deg);
   }
 }
 
@@ -209,13 +217,105 @@ background-color: rgba(167, 23, 167, 0.466);
   align-items: center;
 }
 
-.settings {
+.settings__icon {
   background-image: url(../assets/icons/settings.svg);
   background-repeat: no-repeat;
   background-size: cover;
   width: 50px;
   height: 50px;
   cursor: pointer;
+  transition: all 0.5s;
+}
+
+.settings__icon-open {
+  transform: rotate(180deg);
+
+}
+
+.settings {
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 45%;
+  height: 70%;
+  background-color: hsla(300, 17%, 92%, 0.8);
+  z-index: 10;
+  padding: 10px;
+  border-radius: 0 10px 0 0;
+  transition: all 0.3s;
+  opacity: 0;
+  box-shadow: 1px 1px 5px rgb(255, 255, 255);
+  color: black;
+
+}
+.setting__title {
+  font-size: 24px;
+  z-index: 999;
+  width: 100%;
+}
+
+.setting__level {
+  width: 100%;
+  font-size: 20px;
+}
+
+.setting {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.setting__level-text {
+  padding: 0 10px;
+}
+
+.switch-btn {
+  display: inline-block;
+  width: 48px; /* ширина */
+  height: 25px; /* высота */
+  border-radius: 13px; /* радиус скругления */
+  background: #bfbfbf; /* цвет фона */
+  z-index: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition-duration: 300ms; /* анимация */
+
+}
+
+.switch-btn::after {
+  content: "";
+  height: 21px; /* высота кнопки */
+  width: 21px; /* ширина кнопки */
+  border-radius: 17px;
+  background: #fff; /* цвет кнопки */
+  top: 2px; /* положение кнопки по вертикали относительно основы */
+  left: 2px; /* положение кнопки по горизонтали относительно основы */
+  transition-duration: 300ms; /* анимация */
+  position: absolute;
+  z-index: 1;
+}
+.switch-on {
+  background: #797979;
+}
+.switch-on::after {
+  left: 25px;
+}
+
+.settings__mines,
+.settings__time {
+  text-align: center;
+  width: 15%;
+  border-radius: 40%;
+}
+
+.setting:nth-of-type(5) {
+  margin: 20px 0;
 }
 
 .relog {
@@ -241,7 +341,7 @@ background-color: rgba(167, 23, 167, 0.466);
   padding: 0 5px 0 5px;
   margin-left: 10px;
   background-color: rgba(167, 23, 167, 0.466);
-  }
+}
 
 .load-bomb {
   position: absolute;

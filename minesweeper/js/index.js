@@ -25,11 +25,20 @@ changeTheme();
 
 const divClass = [
   ['looser', 'flags', 'bomb', 'time'],
-  ['click-count', 'settings', 'relog'],
+  ['click-count', 'settings', 'settings__icon', 'relog'],
 ];
 
 const spanClass = [
   ['open', 'closed'],
+  ['setting__text', 'setting__value switch-btn'],
+];
+
+const settingsText = [
+  ['Themes: dark or light'],
+  ['Level:', 'Easy', 'Medium', 'Hard'],
+  ['Mines:'],
+  ['Game board:'],
+  ['Time:'],
 ];
 
 function addSpan(div, i = 0) {
@@ -55,7 +64,7 @@ function addDiv(tag, rep = 0, field = 100) {
     tag.appendChild(div);
     addSpan(div);
     return addDiv(tag, rep + 1);
-  } if (tag.className.includes('footer') && rep !== 3) {
+  } if (tag.className.includes('footer') && rep !== 4) {
     // eslint-disable-next-line no-param-reassign
     div.className = divClass[1][rep];
     tag.appendChild(div);
@@ -100,11 +109,13 @@ let timeout;
 function addTime(isStart = true) {
   const time = document.querySelector('.time');
   if (isStart) {
-    time.innerText = `${(Number(time.innerText) + 1).toString().padStart(3, '0')}`;
+    time.innerText = `${(Number(time.innerText) - 1).toString().padStart(3, '0')}`;
     timeout = setTimeout(addTime, 1000);
+    // eslint-disable-next-line no-use-before-define
+    if (time.innerText === '000') { addBOOM(true); }
   } else {
     localStorage.setItem('time', `${time.innerText}`);
-    time.innerText = '000';
+    time.innerText = '999';
     clearTimeout(timeout);
   }
 }
@@ -347,9 +358,9 @@ function loadResult(win = false, indexArr = 0) {
     indexArr = index;
   }
   if (win) {
-    document.querySelector('.looser__text').innerText = `Hooray! You found all mines in ${writeResult[writeResult.length - 1][1]} seconds and ${writeResult[writeResult.length - 1][2]} moves!`;
+    document.querySelector('.looser__text').innerHTML = `Hooray! You found all mines in ${writeResult[writeResult.length - 1][1]} seconds and ${writeResult[writeResult.length - 1][2]} moves!`;
   } else {
-    document.querySelector('.looser__text').innerText = 'Game over. Try again:';
+    document.querySelector('.looser__text').innerHTML = 'Game over. Try again:';
   }
   for (let i = 0; i < writeResult.length - index; i += 1) {
     // eslint-disable-next-line prefer-destructuring
@@ -370,7 +381,7 @@ function BOOM(isBoom) {
   }
 }
 
-function addBOOM(start = false, relog = false, win = false) {
+function addBOOM(start = false, relog = false) {
   const allOpen = document.querySelectorAll('.open');
   const allClosed = document.querySelectorAll('.closed');
   const allCell = document.querySelectorAll('.cell');
@@ -380,11 +391,11 @@ function addBOOM(start = false, relog = false, win = false) {
     writeResult.push(
       [
         bombs.innerText,
-        document.querySelector('.time').innerText,
+        `${(999 - Number(document.querySelector('.time').innerText)).toString().padStart(3, '0')}`,
         clickCount,
       ],
     );
-    loadResult(win);
+    loadResult();
     looser.classList.add('looser-active');
     addTime(false);
     BOOM(true);
@@ -432,16 +443,18 @@ function gameBegun(index) {
   }
 }
 
+// eslint-disable-next-line consistent-return
 function gameWin() {
   const cellAll = document.querySelectorAll('.cell');
   let count = 0;
+
   for (let i = 0; i < cellAll.length; i += 1) {
     if (cellAll[i].classList.contains('open-active')) {
       count += 1;
       if (cellAll.length - count === 10) {
         localStorage.game = 'start';
-        loadResult(true);
-        return addBOOM(false, false, true);
+        addBOOM(false, false, true);
+        return loadResult(true);
       }
     }
   }
@@ -459,7 +472,76 @@ function addFlag(index) {
   }
 }
 
-/* start game */
+/* end game */
+
+function addSettings() {
+  const settings = document.querySelector('.settings');
+
+  for (let i = 0; i < 8; i += 1) {
+    const div = document.createElement('div');
+    div.className = 'setting';
+    if (i === 0) {
+      const span = document.createElement('span');
+      span.className = 'setting__title';
+      span.innerText = 'Settings:';
+      div.appendChild(span);
+    } else if (i === 2) {
+      const span = document.createElement('span');
+      span.className = 'setting__level';
+      span.innerText = `${settingsText[1][0]}`;
+      div.appendChild(span);
+    } else if (i === 3) {
+      for (let i2 = 0; i2 < 3; i2 += 1) {
+        const span = document.createElement('span');
+        span.className = 'setting__level-text';
+        span.innerText = `${settingsText[1][i2 + 1]}`;
+        div.appendChild(span);
+      }
+    } else if (i === 4) {
+      for (let i2 = 0; i2 < 3; i2 += 1) {
+        const span = document.createElement('span');
+        span.className = `${spanClass[1][1]}`;
+        div.appendChild(span);
+      }
+    } else if (i === 5) {
+      const span = document.createElement('span');
+      const input = document.createElement('input');
+      span.className = `${spanClass[1][0]}`;
+      span.innerText = `${settingsText[2][0]}`;
+      input.type = 'text';
+      input.className = 'settings__mines';
+      input.value = 10;
+      div.appendChild(span);
+      div.appendChild(input);
+    } else if (i === 6) {
+      const span = document.createElement('span');
+      const input = document.createElement('input');
+      span.className = `${spanClass[1][0]}`;
+      span.innerText = `${settingsText[4][0]}`;
+      input.type = 'text';
+      input.className = 'settings__time';
+      input.value = 10;
+      div.appendChild(span);
+      div.appendChild(input);
+    } else {
+      for (let i2 = 0; i2 < 2; i2 += 1) {
+        const span = document.createElement('span');
+        if (i === 1 && i2 === 0) {
+          span.className = `${spanClass[1][i2]}`;
+          span.innerText = `${settingsText[0][0]}`;
+          div.appendChild(span);
+        } else {
+          span.className = `${spanClass[1][i2]}`;
+          div.appendChild(span);
+        }
+      }
+    }
+
+    settings.appendChild(div);
+  }
+}
+
+addSettings();
 
 document.querySelectorAll('.cell').forEach((x, index) => {
   x.addEventListener('click', (event) => {
@@ -468,18 +550,31 @@ document.querySelectorAll('.cell').forEach((x, index) => {
     } else if (localStorage.game === 'start') {
       loadField(10, 10, 10, index);
       localStorage.game = 'begun';
-      gameBegun(index);
       clickCount = 1;
-    } else if (localStorage.game === 'begun') {
       gameBegun(index);
-      clickCount += 1;
+    } else if (localStorage.game === 'begun') {
+      if (!x.classList.contains('open-active')) { clickCount += 1; }
       gameWin();
+      gameBegun(index);
     }
   });
 });
 
 document.querySelector('.looser-relog').addEventListener('click', () => {
   document.querySelector('.looser').classList.remove('looser-active');
+});
+
+document.querySelector('.settings__icon').addEventListener('click', () => {
+  const settings = document.querySelector('.settings');
+  if (settings.style.visibility === 'visible') {
+    settings.style.visibility = 'hidden';
+    settings.style.opacity = 0;
+  } else {
+    settings.style.visibility = 'visible';
+    settings.style.opacity = 1;
+  }
+
+  document.querySelector('.settings__icon').classList.toggle('settings__icon-open');
 });
 
 document.querySelectorAll('.cell').forEach((x, index) => {
