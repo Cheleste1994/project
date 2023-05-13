@@ -48,7 +48,7 @@
 
 .looser {
   color: #222122;
-  font-size: 32px;
+  font-size: 22px;
   visibility: hidden;
   position: fixed;
   background-color: hsla(300, 17%, 92%, 0.9);
@@ -68,19 +68,39 @@
   visibility: visible;
 }
 
+.looser__table {
+  width: 44%;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  border: 3px solid;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.looser__table *:first-child {
+  padding-left: 10px;
+}
+
+.looser__table *:last-child {
+  padding-right: 10px;
+}
+
 .looser-result {
   width: 40%;
   display: flex;
   justify-content: space-between;
+  text-align: center;
 }
 
 .looser-relog {
-  background: url(../assets/icons/reload.svg);
+  background: url(../assets/icons/delite.svg);
   background-repeat: no-repeat;
   background-size: cover;
-  filter: invert();
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  border: 3px solid;
+  border-radius: 50%;
   cursor: pointer;
 }
 
@@ -172,6 +192,15 @@ background-color: rgba(167, 23, 167, 0.466);
   visibility: visible;
 }
 
+.add-flag {
+  background: url(../assets/icons/mapmarker.ico);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(167, 23, 167, 0.466)
+}
+
 .footer {
   height: 60px;
   border-radius: 0 0 10px 10px;
@@ -189,11 +218,35 @@ background-color: rgba(167, 23, 167, 0.466);
   cursor: pointer;
 }
 
+.relog {
+  background: url(../assets/icons/reload.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: invert();
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.relog:hover {
+  transform: rotate(180deg);
+  transition: all 0.5s;
+}
+
 .click-count {
   font-size: 40px;
   text-align: center;
   border-radius: 10px;
   padding: 0 5px 0 5px;
-  margin-left: 20px;
+  margin-left: 10px;
   background-color: rgba(167, 23, 167, 0.466);
   }
+
+.load-bomb {
+  position: absolute;
+  text-align: center;
+  min-width: 20px;
+  min-height: 20px;
+  background: url(../assets/icons/bomb.png) center/cover;
+}
