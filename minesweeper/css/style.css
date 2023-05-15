@@ -4,6 +4,12 @@
   padding: 0;
 }
 
+html {
+  --themes-background: hsla(300, 17%, 92%, 0.9);
+  --themes-color: rgba(255, 255, 255, 0.863);
+  --head-color: rgba(255, 255, 255, 0.863);
+}
+
 .body {
   font-family: Arial, Helvetica, sans-serif;
   width: 100%;
@@ -17,24 +23,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: var(--themes-color);
 }
 
 .body-dark {
   background-image: url(../assets/img/background-dark.jpg);
   background-color: #222122;
+
 }
 
 .body-light {
   background-image: url(../assets/img/background-light.jpg);
   background-color: #eee7ee;
-  color: white;
-}
-
-.wrapper {
-  background-color: hsla(300, 17%, 92%, 0.9);
-
-  width: 40%;
-  /* filter: invert(50%); */
+  color: rgb(51, 51, 51);
 }
 
 .header {
@@ -43,15 +44,15 @@
   justify-content: flex-end;
   align-items: center;
   border-radius: 10px 10px 0 0;
-  user-select: none
+  user-select: none;
+  color: var(--head-color);
 }
 
 .looser {
-  color: #222122;
   font-size: 22px;
   visibility: hidden;
   position: fixed;
-  background-color: hsla(300, 17%, 92%, 0.9);
+  background-color: var(--themes-background);
   width: 100%;
   height: 100%;
   top: 0;
@@ -62,6 +63,7 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
+  color: var(--themes-color);
 }
 
 .looser-active {
@@ -143,21 +145,59 @@
   font-size: 25px;
   display: grid;
   justify-items: stretch;
-  grid-template-columns: repeat(10, auto);
-  grid-template-rows: repeat(10, auto);
   user-select: none;
+  min-height: 500px;
+  color: var(--themes-color);
 }
+
+.main-easy {
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.main-medium {
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+}
+
+.main-hard {
+  grid-template-columns: repeat(25, 1fr);
+  grid-template-rows: repeat(25, 1fr);
+}
+
+
+.wrapper-easy,
+.wrapper-medium,
+.wrapper-hard {
+  background-color: var(--themes-background);
+  /* filter: invert(50%); */
+}
+
+.wrapper-easy {
+  width: 40%;
+}
+
+.wrapper-medium {
+  width: 70%;
+}
+
+.wrapper-hard {
+  width: 70%;
+}
+
 
 .cell {
   background-color: rgba(167, 23, 167, 0.466);
   border: 1px solid rgba(167, 23, 167, 1);
-  height: 40px;
   cursor: pointer;
   display: flex;
   text-align: center;
   align-items: center;
   justify-content: center;
   transition: all 0.5s;
+  width: 100%;
+  height: 100%;
+  min-height: 30px;
 }
 
 .cell:hover {
@@ -169,7 +209,7 @@
 }
 
 .open-active {
-  background-color: hsla(300, 17%, 92%, 0.8);
+  background-color: var(--themes-background);
 }
 
 .boom {
@@ -215,6 +255,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 5px;
+  color: var(--head-color);
 }
 
 .settings__icon {
@@ -228,30 +270,30 @@
 }
 
 .settings__icon-open {
-  transform: rotate(180deg);
-
+  transform: rotate(90deg);
 }
 
 .settings {
+
   visibility: hidden;
   display: flex;
   flex-direction: column;
   text-align: center;
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 45%;
   height: 70%;
-  background-color: hsla(300, 17%, 92%, 0.8);
+  background-color: var(--themes-background);
   z-index: 10;
   padding: 10px;
   border-radius: 0 10px 0 0;
   transition: all 0.3s;
   opacity: 0;
-  box-shadow: 1px 1px 5px rgb(255, 255, 255);
-  color: black;
-
+  box-shadow: 1px 1px 8px rgb(255, 255, 255);
+  color: var(--themes-color);
 }
+
 .setting__title {
   font-size: 24px;
   z-index: 999;
@@ -311,7 +353,14 @@
 .settings__time {
   text-align: center;
   width: 15%;
-  border-radius: 40%;
+  border-radius: 50%;
+}
+
+.settings__mines:focus,
+.settings__time:focus {
+  height: 110%;
+  width: 18%;
+  border-radius: 30%;
 }
 
 .setting:nth-of-type(5) {
@@ -341,6 +390,8 @@
   padding: 0 5px 0 5px;
   margin-left: 10px;
   background-color: rgba(167, 23, 167, 0.466);
+  user-select: none;
+
 }
 
 .load-bomb {
@@ -349,4 +400,8 @@
   min-width: 20px;
   min-height: 20px;
   background: url(../assets/icons/bomb.png) center/cover;
+}
+
+.save-bomb {
+  border-color: rgb(0, 174, 255);
 }
