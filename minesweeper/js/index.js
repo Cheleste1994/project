@@ -1,10 +1,63 @@
-window.addEventListener('load', () => {
-  // eslint-disable-next-line no-undef
-  if (!localStorage.getItem('themes')) {
-    localStorage.setItem('themes', 'dark');
-  }
+/* eslint-disable no-unused-expressions */
+// eslint-disable-next-line import/extensions
+import playList from './playList.js';
+
+if (!localStorage.getItem('themes') || !localStorage.getItem('game')) {
+  localStorage.setItem('themes', 'dark');
   localStorage.setItem('game', 'start');
-});
+}
+
+function playAudio(event) {
+  const audio = new Audio();
+  audio.src = playList[`${event}`];
+  audio.currentTime = 0;
+  audio.volume = 1;
+  audio.play();
+}
+
+let countMusic = 0;
+
+function repeatMusic(audioMusic) {
+  countMusic < playList.music.length ? countMusic : countMusic = 0;
+  // eslint-disable-next-line no-param-reassign
+  audioMusic.src = playList.music[countMusic];
+  audioMusic.play();
+  countMusic += 1;
+}
+
+// eslint-disable-next-line no-unused-vars
+let isPlay = false;
+
+const audioMusic = new Audio();
+// eslint-disable-next-line prefer-destructuring
+audioMusic.src = playList.music[0];
+audioMusic.currentTime = 0;
+audioMusic.volume = 0.1;
+
+async function playMusic(isStop = false) {
+  if (!isPlay) {
+    audioMusic.play();
+    isPlay = true;
+  }
+  if (isStop) {
+    audioMusic.pause();
+  }
+
+  audioMusic.addEventListener('ended', () => {
+    repeatMusic(audioMusic);
+  });
+}
+
+function pauseAudio(event) {
+  if (event.target.classList.contains('volume-mute')) {
+    event.target.classList.remove('volume-mute');
+    isPlay = false;
+    playMusic();
+  } else {
+    event.target.classList.add('volume-mute');
+    playMusic(true);
+  }
+}
 
 const levelField = {
   easy: {
@@ -32,10 +85,11 @@ const levelField = {
     get field() { return this.rows * this.cols; },
   },
 };
-
-localStorage.setItem('level', 'easy');
-localStorage.setItem('bombs', levelField[localStorage.level].bombs);
-localStorage.setItem('timeLevel', levelField[localStorage.level].times);
+if (!localStorage.getItem('level') || !localStorage.getItem('bombs') || !localStorage.getItem('timeLevel')) {
+  localStorage.setItem('level', 'easy');
+  localStorage.setItem('bombs', levelField[localStorage.level].bombs);
+  localStorage.setItem('timeLevel', levelField[localStorage.level].times);
+}
 
 document.querySelector('body').classList.add('body');
 const body = document.querySelector('.body');
@@ -60,7 +114,7 @@ function changeTheme(theme = localStorage.themes) {
 changeTheme();
 
 const divClass = [
-  ['looser', 'flags', 'bomb', 'time'],
+  ['looser', 'volume', 'flags', 'bomb', 'time'],
   ['click-count', 'settings', 'settings__icon', 'relog'],
 ];
 
@@ -90,7 +144,7 @@ function addSpan(div, i = 0) {
 
 function addDiv(tag, rep = 0, field = levelField[localStorage.level].field) {
   const div = document.createElement('div');
-  if (tag.className.includes('header') && rep !== 4) {
+  if (tag.className.includes('header') && rep !== 5) {
     // eslint-disable-next-line no-param-reassign
     div.className = divClass[0][rep];
     tag.appendChild(div);
@@ -277,10 +331,10 @@ function openEmptyCells(index, fieldString) {
 /* end generate field minesweeper */
 
 function generateRandomColor() {
-  const red = Math.floor(Math.random() * 256);
-  const green = Math.floor(Math.random() * 256);
-  const blue = Math.floor(Math.random() * 256);
-  const colorRandom = `rgb(${red}, ${green}, ${blue})`;
+  const hue = Math.floor(Math.random() * 360);
+  // const saturation = Math.floor(Math.random() * 256);
+  // const lightness = Math.floor(Math.random() * 256);
+  const colorRandom = `hsla(${hue}, 100%, 50%, 1)`;
   return colorRandom;
 }
 
@@ -371,11 +425,14 @@ boomRelog();
 
 let clickCount = 0;
 
-function addClickCount(boom = false) {
+function addClickCount(boom = false, click = false) {
   const CLICK = document.querySelector('.click-count');
   if (clickCount === 0 || boom) {
     clickCount = 0;
     CLICK.innerText = '000';
+  } else if (click) {
+    clickCount += 1;
+    addClickCount();
   } else {
     CLICK.innerText = `${clickCount.toString().padStart(3, '0')}`;
   }
@@ -473,6 +530,7 @@ function gameBegun(index) {
     addClickCount();
     openEmptyCells(index, localStorage.field);
   } else {
+    playAudio('lose');
     addBOOM();
   }
 }
@@ -488,6 +546,7 @@ function gameWin() {
       if (cellAll.length - count === bombs) {
         localStorage.game = 'start';
         addBOOM(false, false, true);
+        playAudio('win');
         return loadResult(true);
       }
     }
@@ -511,7 +570,7 @@ function addFlag(index) {
 function addSettings() {
   const settings = document.querySelector('.settings');
 
-  for (let i = 0; i < 8; i += 1) {
+  for (let i = 0; i < 7; i += 1) {
     const div = document.createElement('div');
     div.className = 'setting';
     if (i === 0) {
@@ -601,8 +660,16 @@ function saveTime(event) {
 /* START GAME */
 
 async function startGame() {
+  const settings = document.querySelector('.settings');
+  const settingsIcon = document.querySelector('.settings__icon');
+
   document.querySelectorAll('.cell').forEach((x, index) => {
     x.addEventListener('click', (event) => {
+      if (settings.style.visibility === 'visible') {
+        settings.style.visibility = 'hidden';
+        settings.style.opacity = 0;
+        settingsIcon.classList.remove('settings__icon-open');
+      }
       if (x.classList.contains('add-flag')) {
         event.preventDefault();
       } else if (localStorage.game === 'start') {
@@ -612,11 +679,15 @@ async function startGame() {
         clickCount = 1;
         gameBegun(index);
         gameWin();
+        playAudio('start');
       } else if (localStorage.game === 'begun') {
         if (!x.classList.contains('open-active')) {
+          if (localStorage.getItem('count')) { addClickCount(false, true); }
           gameWin();
           gameBegun(index);
           clickCount += 1;
+          playAudio('click');
+          playMusic();
         }
       }
     });
@@ -626,17 +697,16 @@ async function startGame() {
     document.querySelector('.looser').classList.remove('looser-active');
   });
 
-  document.querySelector('.settings__icon').addEventListener('click', () => {
-    const settings = document.querySelector('.settings');
+  settingsIcon.addEventListener('click', () => {
     if (settings.style.visibility === 'visible') {
       settings.style.visibility = 'hidden';
       settings.style.opacity = 0;
+      settingsIcon.classList.remove('settings__icon-open');
     } else {
       settings.style.visibility = 'visible';
       settings.style.opacity = 1;
+      settingsIcon.classList.add('settings__icon-open');
     }
-
-    document.querySelector('.settings__icon').classList.toggle('settings__icon-open');
   });
 
   document.querySelectorAll('.cell').forEach((x, index) => {
@@ -644,6 +714,7 @@ async function startGame() {
       event.preventDefault();
       if (localStorage.game === 'begun' && !x.classList.contains('open-active')) {
         addFlag(index);
+        playAudio('tick');
       }
     });
   });
@@ -728,6 +799,48 @@ async function startGame() {
   localStorage.themes === 'light' ? switchBtn[0].classList.remove('switch-on') : switchBtn[0].classList.add('switch-on');
 
   document.querySelector(`.setting__level-${localStorage.level}`).classList.add('switch-on');
+
+  window.addEventListener('beforeunload', () => {
+    const main = document.querySelector('.main');
+    const footer = document.querySelector('.footer');
+    if (localStorage.game === 'begun') {
+      localStorage.game = 'begun';
+      localStorage.setItem('save', main.innerHTML);
+      localStorage.setItem('saveFooter', footer.innerHTML);
+      localStorage.setItem('count', clickCount - 1);
+      localStorage.timeLevel = document.querySelector('.time').innerText;
+      localStorage.bombs = document.querySelector('.bomb').innerText;
+    } else {
+      localStorage.clear();
+    }
+  });
+
+  window.addEventListener('load', () => {
+    const main = document.querySelector('.main');
+    const footer = document.querySelector('.footer');
+    const bomb = document.querySelector('.bomb');
+    if (localStorage.game === 'begun') {
+      clickCount = Number(localStorage.count);
+      main.innerHTML = localStorage.save;
+      footer.innerHTML = localStorage.saveFooter;
+      document.querySelector('.settings').innerHTML = '';
+      addSettings();
+      bomb.innerText = localStorage.bombs;
+      addTime(true);
+      startGame();
+    }
+  });
+
+  document.querySelector('.volume').addEventListener('click', (event) => {
+    pauseAudio(event);
+    event.stopPropagation();
+  });
 }
 
 startGame();
+
+// window.addEventListener('error', () => {
+//   localStorage.clear();
+//   // eslint-disable-next-line no-restricted-globals
+//   location.reload();
+// });
