@@ -1,19 +1,29 @@
 /* eslint-disable no-unused-expressions */
 // eslint-disable-next-line import/extensions
 import playList from './playList.js';
-
+/* загрузка резльтатов */
+const writeResult = [];
+if (localStorage.getItem('result')) {
+  const arrResult = localStorage.result.split(',');
+  for (let i = 0; i < arrResult.length; i += 3) {
+    const chunk = arrResult.slice(i, i + 3); // Извлекаем подстроки длиной 3 элемента
+    writeResult.push(chunk);
+  }
+}
+/* очистка памяти */
 if (localStorage.getItem('game')) {
   if (localStorage.game !== 'begun') {
     localStorage.clear();
   }
 }
 
+/* подгрузка сохраненной темы */
 if (!localStorage.getItem('themes') || !localStorage.getItem('game')) {
   localStorage.setItem('themes', 'dark');
   localStorage.setItem('game', 'start');
 }
 localStorage.setItem('mute', 'no');
-
+/* старт блока аудио */
 function playAudio(event, mute = localStorage.mute) {
   const audio = new Audio();
   audio.src = playList[`${event}`];
@@ -71,6 +81,10 @@ function pauseAudio(event) {
   }
 }
 
+/* конец блока аудио */
+
+/* режимы игры */
+
 const levelField = {
   easy: {
     rows: 10,
@@ -108,7 +122,7 @@ localStorage.setItem('volume', '');
 
 document.querySelector('body').classList.add('body');
 const body = document.querySelector('.body');
-
+/* начало блока темы */
 function changeTheme(theme = localStorage.themes) {
   const html = document.querySelector('html');
   if (theme === 'dark') {
@@ -127,7 +141,9 @@ function changeTheme(theme = localStorage.themes) {
 }
 
 changeTheme();
+/* конец блока темы */
 
+/* class для body */
 const divClass = [
   ['looser', 'volume', 'flags', 'bomb', 'time'],
   ['click-count', 'settings', 'settings__icon', 'relog'],
@@ -147,6 +163,8 @@ const settingsText = [
   ['Time:'],
 ];
 
+/* функция добавления элемента span */
+
 function addSpan(div, i = 0) {
   const span = document.createElement('span');
   if (i !== 2) {
@@ -156,6 +174,8 @@ function addSpan(div, i = 0) {
   }
   return false;
 }
+
+/* наполнение header main footer */
 
 function addDiv(tag, rep = 0, field = levelField[localStorage.level].field) {
   const div = document.createElement('div');
@@ -178,7 +198,7 @@ function addDiv(tag, rep = 0, field = levelField[localStorage.level].field) {
   }
   return false;
 }
-
+/* старт блока body */
 function addFrame() {
   for (let i = 1; i <= 3; i += 1) {
     const addHeader = document.createElement('header');
@@ -207,6 +227,8 @@ function addFrame() {
 }
 
 addFrame();
+
+/* конец блока body */
 
 /* start timer */
 
@@ -296,6 +318,8 @@ function generateField(r, c, m, indexClick) {
   return field;
 }
 
+/* старт - открытие вокруг клика */
+
 function openEmptyCells(index, fieldString) {
   const rowSize = levelField[localStorage.level].rows;
   const colSize = levelField[localStorage.level].cols;
@@ -313,7 +337,7 @@ function openEmptyCells(index, fieldString) {
     if (fieldString[indexCell] === ' ') {
       const row = Math.floor(indexCell / rowSize);
       const col = indexCell % colSize;
-
+      // console.log(`row ${row} col ${col} indexCell ${indexCell}`)
       if (row > 0) {
         const neighborIndex = indexCell - rowSize;
         openCell(neighborIndex);
@@ -337,13 +361,37 @@ function openEmptyCells(index, fieldString) {
           openCell(neighborIndex);
         }
       }
+
+      if (row > 0 && col > 0) {
+        const neighborIndex = indexCell - rowSize - 1;
+        openCell(neighborIndex);
+      }
+
+      if (row > 0 && col < colSize - 1) {
+        const neighborIndex = indexCell - rowSize + 1;
+        openCell(neighborIndex);
+      }
+
+      if (row < rowSize - 1 && col > 0) {
+        const neighborIndex = indexCell + rowSize - 1;
+        openCell(neighborIndex);
+      }
+
+      if (row < rowSize - 1 && col < colSize - 1) {
+        const neighborIndex = indexCell + rowSize + 1;
+        openCell(neighborIndex);
+      }
     }
   }
 
   openCell(index);
 }
 
+/* конец - открытие вокруг клика */
+
 /* end generate field minesweeper */
+
+/* старт блока генерации цвета */
 
 function generateRandomColor() {
   const hue = Math.floor(Math.random() * 360);
@@ -365,6 +413,10 @@ const color = {
   9: generateRandomColor(),
 };
 
+/* конец блока генерации цвета */
+
+/* старт - размещение элементов на поле */
+
 // eslint-disable-next-line default-param-last
 function loadField(row, col, mines, click) {
   const allOpen = document.querySelectorAll('.open');
@@ -382,9 +434,11 @@ function loadField(row, col, mines, click) {
   addTime(true);
 }
 
+/* конец - размещение элементов на поле */
+
 /* game begun */
 
-const writeResult = [];
+/* старт - создание блока результатов */
 
 function boomRelog() {
   const looser = document.querySelector('.looser');
@@ -436,26 +490,32 @@ function boomRelog() {
 
 boomRelog();
 
+/* конец - блока результатов */
+
 /* start click count */
 
 let clickCount = 0;
 
-function addClickCount(boom = false, click = false) {
+function addClickCount(boom = false, click = false, index = false) {
   const CLICK = document.querySelector('.click-count');
+
   if (clickCount === 0 || boom) {
     clickCount = 0;
     CLICK.innerText = '000';
   } else if (click) {
     clickCount += 1;
-    addClickCount();
-  } else {
-    CLICK.innerText = `${clickCount.toString().padStart(3, '0')}`;
+    addClickCount(false, false, true);
+  } else if (typeof (index) === 'number') {
+    CLICK.innerText = Number(CLICK.innerText) + 1;
+    CLICK.innerText = CLICK.innerText.padStart(3, '0');
   }
 }
 
 addClickCount();
 
 /* end click count */
+
+/* старт - подгрузка результатов */
 
 function loadResult(win = false, indexArr = 0) {
   const looserResult = document.querySelectorAll('.looser-result');
@@ -478,6 +538,10 @@ function loadResult(win = false, indexArr = 0) {
   }
 }
 
+/* конец - подгрузка результатов */
+
+/* старт - блок взрыва */
+
 function BOOM(isBoom) {
   if (isBoom) {
     document.querySelector('.main').classList.add('boom');
@@ -494,11 +558,14 @@ function addBOOM(start = false, relog = false) {
   const looser = document.querySelector('.looser');
   const bombs = document.querySelector('.bomb');
   if (!relog) {
+    while (writeResult.length > 10) {
+      writeResult.shift();
+    }
     writeResult.push(
       [
         bombs.innerText,
         `${(Number(localStorage.timeLevel) - Number(document.querySelector('.time').innerText)).toString().padStart(3, '0')}`,
-        clickCount,
+        document.querySelector('.click-count').innerText,
       ],
     );
     loadResult();
@@ -531,6 +598,10 @@ function addBOOM(start = false, relog = false) {
   localStorage.game = 'end';
 }
 
+/* конец - блок взрыва */
+
+/* игра началась */
+
 function gameBegun(index) {
   const allOpen = document.querySelectorAll('.open');
   const allClosed = document.querySelectorAll('.closed');
@@ -539,15 +610,15 @@ function gameBegun(index) {
     allClosed[index].classList.add('closed-open');
     allOpen[index].classList.add('open-active');
     allCell[index].classList.add('cell-active');
-    addClickCount();
   } else if (allOpen[index].innerHTML === ' ') {
-    addClickCount();
     openEmptyCells(index, localStorage.field);
   } else {
     playAudio('lose');
     addBOOM();
   }
 }
+
+/* проверка на выигрышь */
 
 // eslint-disable-next-line consistent-return
 function gameWin() {
@@ -567,6 +638,8 @@ function gameWin() {
   }
 }
 
+/* установка флага */
+
 function addFlag(index) {
   const cell = document.querySelectorAll('.cell');
   const flags = document.querySelector('.bomb');
@@ -580,6 +653,8 @@ function addFlag(index) {
 }
 
 /* end game */
+
+/* старт - блок настройки */
 
 function addSettings() {
   const settings = document.querySelector('.settings');
@@ -671,6 +746,8 @@ function saveTime(event) {
   localStorage.timeLevel = event.value;
 }
 
+/* конец - блок настройки */
+
 function muteVolume() {
   const volume = document.querySelector('.volume');
   volume.addEventListener('click', (event) => {
@@ -682,9 +759,13 @@ function muteVolume() {
 muteVolume();
 /* START GAME */
 
+/* старт - блок слушателей */
+
 function startGame() {
   const settings = document.querySelector('.settings');
   const settingsIcon = document.querySelector('.settings__icon');
+
+  /* старт - клик по полю */
 
   document.querySelectorAll('.cell').forEach((x, index) => {
     x.addEventListener('click', (event) => {
@@ -710,10 +791,13 @@ function startGame() {
           gameBegun(index);
           playAudio('click');
           playMusic();
+          addClickCount(false, false, index);
         }
       }
     });
   });
+
+  /* конец - клик по полю */
 
   document.querySelector('.looser-relog').addEventListener('click', () => {
     document.querySelector('.looser').classList.remove('looser-active');
@@ -731,18 +815,22 @@ function startGame() {
     }
   });
 
+  /* клик правой кнопкой мыши */
+
   document.querySelectorAll('.cell').forEach((x, index) => {
     x.addEventListener('contextmenu', (event) => {
       event.preventDefault();
       if (localStorage.game === 'begun' && !x.classList.contains('cell-active')) {
         addFlag(index);
         playAudio('tick');
-      } else if (localStorage.game === 'begun' && x.classList.contains('cell-active') && x.classList.contains('add-flag') ) {
+      } else if (localStorage.game === 'begun' && x.classList.contains('cell-active') && x.classList.contains('add-flag')) {
         addFlag(index);
         playAudio('tick');
       }
     });
   });
+
+  /* перезагрузка поля */
 
   document.querySelector('.relog').addEventListener('click', () => {
     if (localStorage.game === 'begun') {
@@ -775,6 +863,8 @@ function startGame() {
       isMuteVolumeBound = true;
     }
   };
+
+  /* старт - клик по блоку настроек */
 
   document.querySelectorAll('.setting')[4].childNodes.forEach((x, index) => {
     x.addEventListener('click', () => {
@@ -838,6 +928,10 @@ function startGame() {
 
   document.querySelector(`.setting__level-${localStorage.level}`).classList.add('switch-on');
 
+  /* конец - клик по блоку настроек */
+
+  /* сохранение последней игры */
+
   window.addEventListener('beforeunload', () => {
     const cell = document.querySelectorAll('.cell');
     if (localStorage.game === 'begun') {
@@ -856,12 +950,12 @@ function startGame() {
       localStorage.setItem('styleOpen', cellDiv.open);
       localStorage.setItem('styleClosed', cellDiv.closed);
       localStorage.setItem('bombsSave', document.querySelector('.bomb').innerText);
-      localStorage.setItem('count', clickCount - 1);
+      localStorage.setItem('count', document.querySelector('.click-count').innerText);
       localStorage.setItem('timeSave', document.querySelector('.time').innerText);
-      // localStorage.timeLevel = document.querySelector('.time').innerText;
     } else {
       localStorage.clear();
     }
+    localStorage.setItem('result', writeResult);
   });
 
   window.addEventListener('load', () => {
@@ -878,8 +972,8 @@ function startGame() {
         cell[i].children[1].style = localStorage.styleClosed.split(',')[i];
       }
       clickCount = Number(localStorage.count);
+      document.querySelector('.click-count').innerText = localStorage.count.padStart(3, '0');
       bomb.innerHTML = localStorage.bombsSave;
-      addClickCount(false, true);
       addTime(true);
       document.querySelector('.time').innerText = localStorage.timeSave;
     }
@@ -888,8 +982,10 @@ function startGame() {
 
 startGame();
 
-// window.addEventListener('error', () => {
-//   localStorage.clear();
-//   // eslint-disable-next-line no-restricted-globals
-//   location.reload();
-// });
+/* конец - блок слушателей */
+
+window.addEventListener('error', () => {
+  localStorage.clear();
+  // eslint-disable-next-line no-restricted-globals
+  location.reload();
+});
