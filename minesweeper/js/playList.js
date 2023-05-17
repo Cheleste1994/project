@@ -6,8 +6,8 @@ const playList = {
   tick: './assets/sounds/tick.mp3',
   music: [
     './assets/sounds/night-city-knight.mp3',
-    './assets/sounds/8-bit-dream-land.mp3',
     './assets/sounds/stranger-things.mp3',
+    './assets/sounds/8-bit-dream-land.mp3',
   ],
 };
 
