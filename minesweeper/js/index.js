@@ -6,23 +6,27 @@ if (!localStorage.getItem('themes') || !localStorage.getItem('game')) {
   localStorage.setItem('themes', 'dark');
   localStorage.setItem('game', 'start');
 }
+localStorage.setItem('mute', 'no');
 
-function playAudio(event) {
+function playAudio(event, mute = localStorage.mute) {
   const audio = new Audio();
   audio.src = playList[`${event}`];
   audio.currentTime = 0;
   audio.volume = 1;
-  audio.play();
+  if (mute === 'no') {
+    audio.play();
+  }
 }
 
 let countMusic = 0;
 
 function repeatMusic(audioMusic) {
-  countMusic < playList.music.length ? countMusic : countMusic = 0;
+  countMusic < playList.music.length - 1 ? countMusic += 1 : countMusic = 0;
   // eslint-disable-next-line no-param-reassign
   audioMusic.src = playList.music[countMusic];
-  audioMusic.play();
-  countMusic += 1;
+  audioMusic.addEventListener('canplaythrough', () => {
+    audioMusic.play();
+  });
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -42,20 +46,22 @@ async function playMusic(isStop = false) {
   if (isStop) {
     audioMusic.pause();
   }
-
-  audioMusic.addEventListener('ended', () => {
-    repeatMusic(audioMusic);
-  });
 }
+
+audioMusic.addEventListener('ended', () => {
+  repeatMusic(audioMusic);
+});
 
 function pauseAudio(event) {
   if (event.target.classList.contains('volume-mute')) {
     event.target.classList.remove('volume-mute');
     isPlay = false;
     playMusic();
+    localStorage.mute = 'no';
   } else {
     event.target.classList.add('volume-mute');
     playMusic(true);
+    localStorage.mute = 'yes';
   }
 }
 
@@ -85,11 +91,14 @@ const levelField = {
     get field() { return this.rows * this.cols; },
   },
 };
+
 if (!localStorage.getItem('level') || !localStorage.getItem('bombs') || !localStorage.getItem('timeLevel')) {
   localStorage.setItem('level', 'easy');
   localStorage.setItem('bombs', levelField[localStorage.level].bombs);
   localStorage.setItem('timeLevel', levelField[localStorage.level].times);
 }
+
+localStorage.setItem('volume', '');
 
 document.querySelector('body').classList.add('body');
 const body = document.querySelector('.body');
@@ -288,11 +297,11 @@ function openEmptyCells(index, fieldString) {
 
   function openCell(indexCell) {
     const cell = document.querySelectorAll('.cell');
-    if (openedField[indexCell] === true || cell[indexCell].classList.contains('open-active')) {
+    if (openedField[indexCell] === true || cell[indexCell].classList.contains('cell-active')) {
       return;
     }
     openedField[indexCell] = true;
-    cell[indexCell].classList.add('open-active');
+    cell[indexCell].classList.add('cell-active');
     // eslint-disable-next-line no-use-before-define
     gameBegun(indexCell);
     if (fieldString[indexCell] === ' ') {
@@ -496,9 +505,9 @@ function addBOOM(start = false, relog = false) {
 
   if (start) {
     for (let i = 0; i < allCell.length; i += 1) {
-      allClosed[i].style.visibility = 'visible';
-      allOpen[i].style.visibility = 'hidden';
-      allCell[i].classList.remove('open-active');
+      allClosed[i].classList.remove('closed-open');
+      allOpen[i].classList.remove('open-active');
+      allCell[i].classList.remove('cell-active');
       allOpen[i].classList.remove('load-bomb');
       allCell[i].classList.remove('add-flag');
     }
@@ -508,9 +517,9 @@ function addBOOM(start = false, relog = false) {
         allOpen[i].innerHTML = '';
         allOpen[i].classList.add('load-bomb');
       }
-      allClosed[i].style.visibility = 'hidden';
-      allOpen[i].style.visibility = 'visible';
-      allCell[i].classList.add('open-active');
+      allClosed[i].classList.add('closed-open');
+      allOpen[i].classList.add('open-active');
+      allCell[i].classList.add('cell-active');
     }
   }
   localStorage.game = 'end';
@@ -521,12 +530,11 @@ function gameBegun(index) {
   const allClosed = document.querySelectorAll('.closed');
   const allCell = document.querySelectorAll('.cell');
   if (allOpen[index].innerHTML !== 'X' && allOpen[index].innerHTML !== ' ') {
-    allClosed[index].style.visibility = 'hidden';
-    allOpen[index].style.visibility = 'visible';
-    allCell[index].classList.add('open-active');
+    allClosed[index].classList.add('closed-open');
+    allOpen[index].classList.add('open-active');
+    allCell[index].classList.add('cell-active');
     addClickCount();
   } else if (allOpen[index].innerHTML === ' ') {
-    // allCell[index].classList.add('open-active');
     addClickCount();
     openEmptyCells(index, localStorage.field);
   } else {
@@ -541,7 +549,7 @@ function gameWin() {
   let count = 1;
   const { bombs } = levelField[localStorage.level];
   for (let i = 0; i < cellAll.length; i += 1) {
-    if (cellAll[i].classList.contains('open-active')) {
+    if (cellAll[i].classList.contains('cell-active')) {
       count += 1;
       if (cellAll.length - count === bombs) {
         localStorage.game = 'start';
@@ -657,6 +665,15 @@ function saveTime(event) {
   localStorage.timeLevel = event.value;
 }
 
+function muteVolume() {
+  const volume = document.querySelector('.volume');
+  volume.addEventListener('click', (event) => {
+    pauseAudio(event);
+  });
+  volume.className = localStorage.volume !== '' ? localStorage.volume : 'volume';
+}
+
+muteVolume();
 /* START GAME */
 
 async function startGame() {
@@ -681,7 +698,7 @@ async function startGame() {
         gameWin();
         playAudio('start');
       } else if (localStorage.game === 'begun') {
-        if (!x.classList.contains('open-active')) {
+        if (!x.classList.contains('cell-active')) {
           if (localStorage.getItem('count')) { addClickCount(false, true); }
           gameWin();
           gameBegun(index);
@@ -712,7 +729,10 @@ async function startGame() {
   document.querySelectorAll('.cell').forEach((x, index) => {
     x.addEventListener('contextmenu', (event) => {
       event.preventDefault();
-      if (localStorage.game === 'begun' && !x.classList.contains('open-active')) {
+      if (localStorage.game === 'begun' && !x.classList.contains('cell-active')) {
+        addFlag(index);
+        playAudio('tick');
+      } else if (localStorage.game === 'begun' && x.classList.contains('cell-active') && x.classList.contains('add-flag') ) {
         addFlag(index);
         playAudio('tick');
       }
@@ -732,6 +752,7 @@ async function startGame() {
   document.querySelector('.settings__mines').addEventListener('change', (event) => saveBomb(event.target));
 
   document.querySelector('.settings__time').addEventListener('change', (event) => saveTime(event.target));
+  let isMuteVolumeBound = false;
 
   const reloadGame = async () => {
     localStorage.timeLevel = levelField[localStorage.level].times;
@@ -742,13 +763,19 @@ async function startGame() {
     boomRelog();
     addClickCount(true);
     addSettings();
+    muteVolume();
     startGame();
+    if (!isMuteVolumeBound) {
+      muteVolume();
+      isMuteVolumeBound = true;
+    }
   };
 
   document.querySelectorAll('.setting')[4].childNodes.forEach((x, index) => {
     x.addEventListener('click', () => {
       const btn = document.querySelectorAll('.setting')[4].childNodes;
       const BODY = document.querySelector('.body');
+      const volume = document.querySelector('.volume');
       if (localStorage.game === 'begun') {
         addBOOM(true);
         localStorage.game = 'start';
@@ -761,22 +788,28 @@ async function startGame() {
         btn[1].classList.remove('switch-on');
         btn[2].classList.remove('switch-on');
         localStorage.level = 'easy';
+        localStorage.volume = volume.className;
         BODY.innerHTML = '';
         reloadGame();
+        muteVolume();
       } else if (index === 1) {
         btn[0].classList.remove('switch-on');
         btn[1].classList.add('switch-on');
         btn[2].classList.remove('switch-on');
         localStorage.level = 'medium';
+        localStorage.volume = volume.className;
         BODY.innerHTML = '';
         reloadGame();
+        muteVolume();
       } else {
         btn[0].classList.remove('switch-on');
         btn[1].classList.remove('switch-on');
         btn[2].classList.add('switch-on');
         localStorage.level = 'hard';
+        localStorage.volume = volume.className;
         BODY.innerHTML = '';
         reloadGame();
+        muteVolume();
       }
     });
   });
@@ -801,39 +834,51 @@ async function startGame() {
   document.querySelector(`.setting__level-${localStorage.level}`).classList.add('switch-on');
 
   window.addEventListener('beforeunload', () => {
-    const main = document.querySelector('.main');
-    const footer = document.querySelector('.footer');
+    const cell = document.querySelectorAll('.cell');
     if (localStorage.game === 'begun') {
       localStorage.game = 'begun';
-      localStorage.setItem('save', main.innerHTML);
-      localStorage.setItem('saveFooter', footer.innerHTML);
+      const cellDiv = {
+        cell: [],
+        open: [],
+        closed: [],
+      };
+      for (let i = 0; i < cell.length; i += 1) {
+        cellDiv.cell.push(cell[i].className);
+        cellDiv.open.push(cell[i].children[0].className);
+        cellDiv.closed.push(cell[i].children[1].className);
+      }
+      localStorage.setItem('cell', cellDiv.cell);
+      localStorage.setItem('styleOpen', cellDiv.open);
+      localStorage.setItem('styleClosed', cellDiv.closed);
+      localStorage.setItem('bombsSave', document.querySelector('.bomb').innerText);
       localStorage.setItem('count', clickCount - 1);
-      localStorage.timeLevel = document.querySelector('.time').innerText;
-      localStorage.bombs = document.querySelector('.bomb').innerText;
+      localStorage.setItem('timeSave', document.querySelector('.time').innerText);
+      // localStorage.timeLevel = document.querySelector('.time').innerText;
     } else {
       localStorage.clear();
     }
   });
 
   window.addEventListener('load', () => {
-    const main = document.querySelector('.main');
-    const footer = document.querySelector('.footer');
     const bomb = document.querySelector('.bomb');
+    const cell = document.querySelectorAll('.cell');
     if (localStorage.game === 'begun') {
+      for (let i = 0; i < cell.length; i += 1) {
+        cell[i].className = localStorage.cell.split(',')[i];
+        cell[i].children[0].className = localStorage.styleOpen.split(',')[i];
+        cell[i].children[0].innerHTML = localStorage.field[i];
+        if (localStorage.field[i] > 0) {
+          cell[i].children[0].style.color = color[localStorage.field[i]];
+        }
+        cell[i].children[1].style = localStorage.styleClosed.split(',')[i];
+      }
       clickCount = Number(localStorage.count);
-      main.innerHTML = localStorage.save;
-      footer.innerHTML = localStorage.saveFooter;
-      document.querySelector('.settings').innerHTML = '';
-      addSettings();
-      bomb.innerText = localStorage.bombs;
+      bomb.innerHTML = localStorage.bombsSave;
+      // document.querySelector('.settings').innerHTML = '';
+      // addSettings();
       addTime(true);
-      startGame();
+      document.querySelector('.time').innerText = localStorage.timeSave;
     }
-  });
-
-  document.querySelector('.volume').addEventListener('click', (event) => {
-    pauseAudio(event);
-    event.stopPropagation();
   });
 }
 

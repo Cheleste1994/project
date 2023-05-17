@@ -220,11 +220,23 @@ html {
   border: 1px solid;
 }
 
+.closed {
+  visibility: visible;
+}
+
+.closed-open {
+  visibility: hidden;
+}
+
 .open {
   visibility: hidden;
 }
 
 .open-active {
+  visibility: visible;
+}
+
+.cell-active {
   background-color: var(--themes-background);
 }
 
@@ -335,34 +347,47 @@ html {
 
 .switch-btn {
   display: inline-block;
-  width: 48px; /* ширина */
-  height: 25px; /* высота */
-  border-radius: 13px; /* радиус скругления */
-  background: #bfbfbf; /* цвет фона */
+  width: 48px;
+  /* ширина */
+  height: 25px;
+  /* высота */
+  border-radius: 13px;
+  /* радиус скругления */
+  background: #bfbfbf;
+  /* цвет фона */
   z-index: 0;
   padding: 0;
   border: none;
   cursor: pointer;
   position: relative;
-  transition-duration: 300ms; /* анимация */
+  transition-duration: 300ms;
+  /* анимация */
 
 }
 
 .switch-btn::after {
   content: "";
-  height: 21px; /* высота кнопки */
-  width: 21px; /* ширина кнопки */
+  height: 21px;
+  /* высота кнопки */
+  width: 21px;
+  /* ширина кнопки */
   border-radius: 17px;
-  background: #fff; /* цвет кнопки */
-  top: 2px; /* положение кнопки по вертикали относительно основы */
-  left: 2px; /* положение кнопки по горизонтали относительно основы */
-  transition-duration: 300ms; /* анимация */
+  background: #fff;
+  /* цвет кнопки */
+  top: 2px;
+  /* положение кнопки по вертикали относительно основы */
+  left: 2px;
+  /* положение кнопки по горизонтали относительно основы */
+  transition-duration: 300ms;
+  /* анимация */
   position: absolute;
   z-index: 1;
 }
+
 .switch-on {
   background: #797979;
 }
+
 .switch-on::after {
   left: 25px;
 }
@@ -370,14 +395,14 @@ html {
 .settings__mines,
 .settings__time {
   text-align: center;
-  width: 15%;
+  width: 20%;
   border-radius: 50%;
 }
 
 .settings__mines:focus,
 .settings__time:focus {
   height: 110%;
-  width: 18%;
+  width: 28%;
   border-radius: 30%;
 }
 
@@ -422,4 +447,64 @@ html {
 
 .save-bomb {
   border-color: rgb(0, 174, 255);
+}
+
+
+@media screen and (min-width: 1200px) and (hover: hover) and (pointer: fine) {
+.body {
+  width: 100%;
+}
+
+.wrapper-medium {
+  max-width: 800px;
+  width: 100%;
+}
+
+.wrapper-hard {
+  max-width: 1100px;
+  width: 100%;
+}
+
+}
+
+
+@media (max-width: 1000px) {
+
+  .wrapper-easy {
+    width: 70%;
+  }
+
+  .wrapper-medium {
+    width: 70%;
+  }
+
+  .wrapper-hard {
+    width: 90%;
+  }
+
+  .settings {
+    width: 45%;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .wrapper-easy {
+    width: 90%;
+  }
+
+  .wrapper-medium {
+    width: 90%;
+  }
+
+  .wrapper-hard {
+    width: 98%;
+  }
+
+  .settings {
+    width: 45%;
+    min-height: 300px;
+    height: 30%;
+  }
 }
