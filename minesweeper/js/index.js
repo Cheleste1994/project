@@ -2,6 +2,12 @@
 // eslint-disable-next-line import/extensions
 import playList from './playList.js';
 
+if (localStorage.getItem('game')) {
+  if (localStorage.game !== 'begun') {
+    localStorage.clear();
+  }
+}
+
 if (!localStorage.getItem('themes') || !localStorage.getItem('game')) {
   localStorage.setItem('themes', 'dark');
   localStorage.setItem('game', 'start');
@@ -676,7 +682,7 @@ function muteVolume() {
 muteVolume();
 /* START GAME */
 
-async function startGame() {
+function startGame() {
   const settings = document.querySelector('.settings');
   const settingsIcon = document.querySelector('.settings__icon');
 
@@ -702,7 +708,6 @@ async function startGame() {
           if (localStorage.getItem('count')) { addClickCount(false, true); }
           gameWin();
           gameBegun(index);
-          clickCount += 1;
           playAudio('click');
           playMusic();
         }
@@ -874,8 +879,7 @@ async function startGame() {
       }
       clickCount = Number(localStorage.count);
       bomb.innerHTML = localStorage.bombsSave;
-      // document.querySelector('.settings').innerHTML = '';
-      // addSettings();
+      addClickCount(false, true);
       addTime(true);
       document.querySelector('.time').innerText = localStorage.timeSave;
     }
