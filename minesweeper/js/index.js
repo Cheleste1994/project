@@ -781,6 +781,7 @@ function startGame() {
         loadField(rows, cols, localStorage.bombs, index);
         localStorage.game = 'begun';
         clickCount = 1;
+        addClickCount(false, false, index);
         gameBegun(index);
         gameWin();
         playAudio('start');
