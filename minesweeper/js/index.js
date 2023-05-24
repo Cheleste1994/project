@@ -5,8 +5,8 @@ import playList from './playList.js';
 const writeResult = [];
 if (localStorage.getItem('result')) {
   const arrResult = localStorage.result.split(',');
-  for (let i = 0; i < arrResult.length; i += 3) {
-    const chunk = arrResult.slice(i, i + 3); // Извлекаем подстроки длиной 3 элемента
+  for (let i = 0; i < arrResult.length; i += 5) {
+    const chunk = arrResult.slice(i, i + 5); // Извлекаем подстроки длиной 3 элемента
     writeResult.push(chunk);
   }
 }
@@ -449,9 +449,15 @@ function boomRelog() {
       div.className = 'looser__text';
       looser.appendChild(div);
     } else if (i === 1) {
-      for (let i2 = 0; i2 < 3; i2 += 1) {
+      for (let i2 = 0; i2 < 5; i2 += 1) {
         const span = document.createElement('span');
-        if (i2 === 2) {
+        if (i2 === 4) {
+          span.innerText = 'Bomb';
+          div.appendChild(span);
+        } else if (i2 === 3) {
+          span.innerText = 'Bord';
+          div.appendChild(span);
+        } else if (i2 === 2) {
           span.innerText = 'Click';
           div.appendChild(span);
         } else if (i2 === 1) {
@@ -470,7 +476,7 @@ function boomRelog() {
     } else {
       div.className = 'looser-result';
       looser.appendChild(div);
-      for (let i2 = 0; i2 < 3; i2 += 1) {
+      for (let i2 = 0; i2 < 5; i2 += 1) {
         const span = document.createElement('span');
         if (i2 === 2) {
           span.innerText = '';
@@ -478,9 +484,12 @@ function boomRelog() {
         } else if (i2 === 1) {
           span.innerText = '';
           div.appendChild(span);
-        } else {
+        } else if (i2 === 0) {
           span.className = `result-${i - 1}`;
           span.innerText = i - 1;
+          div.appendChild(span);
+        } else {
+          span.innerText = '';
           div.appendChild(span);
         }
       }
@@ -531,8 +540,15 @@ function loadResult(win = false, indexArr = 0) {
     document.querySelector('.looser__text').innerHTML = 'Game over. Try again:';
   }
   for (let i = 0; i < writeResult.length - index; i += 1) {
+    !writeResult[indexArr][1] ? writeResult[indexArr][1] = 0 : writeResult[indexArr][1];
+    !writeResult[indexArr][2] ? writeResult[indexArr][2] = '000' : writeResult[indexArr][2];
+    !writeResult[indexArr][3] ? writeResult[indexArr][3] = '10x10' : writeResult[indexArr][3];
+    !writeResult[indexArr][4] ? writeResult[indexArr][4] = '00' : writeResult[indexArr][4];
+
     looserResult[i].childNodes[1].innerHTML = `${Number(writeResult[indexArr][1])}s`;
     looserResult[i].childNodes[2].innerHTML = `${writeResult[indexArr][2]}`;
+    looserResult[i].childNodes[3].innerHTML = `${writeResult[indexArr][3]}`;
+    looserResult[i].childNodes[4].innerHTML = `${writeResult[indexArr][4]}`;
     // eslint-disable-next-line no-param-reassign
     indexArr += 1;
   }
@@ -566,6 +582,9 @@ function addBOOM(start = false, relog = false) {
         bombs.innerText,
         `${(Number(localStorage.timeLevel) - Number(document.querySelector('.time').innerText)).toString().padStart(3, '0')}`,
         document.querySelector('.click-count').innerText,
+        // eslint-disable-next-line no-nested-ternary
+        localStorage.level === 'easy' ? '10x10' : localStorage.level === 'medium' ? '15x15' : '25x25',
+        document.querySelector('.bomb').innerText,
       ],
     );
     loadResult();
