@@ -11,7 +11,7 @@ interface ISources {
 }
 
 class Sources {
-  public draw(data: ISources[]) {
+  public draw(data: ISources[]): void {
     const fragment = document.createDocumentFragment();
     const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
 
