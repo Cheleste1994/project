@@ -8,13 +8,10 @@ class Loader {
     this.options = options;
   }
 
-  public getResp(
-    { endpoint = '', options = {} },
-    callback = (): void => {
-      console.error('No callback for GET response');
-    },
-  ): void {
-    this.load('GET', endpoint, callback, options);
+  public getResp({ endpoint = '', options = {} }): Promise<unknown> {
+    return new Promise((resolve) => {
+      resolve(this.load('GET', endpoint, options));
+    });
   }
 
   private errorHandler(res: Response): Response {
@@ -38,11 +35,10 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  private load(method: string, endpoint: string, callback: (data: unknown) => void, options = {}): void {
-    fetch(this.makeUrl(options, endpoint), { method })
+  private load(method: string, endpoint: string, options = {}): Promise<unknown> {
+    return fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)
       .then((res) => res.json())
-      .then((data) => callback(data))
       .catch((err) => console.error(err));
   }
 }
