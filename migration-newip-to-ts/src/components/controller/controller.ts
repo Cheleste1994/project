@@ -1,39 +1,5 @@
 import AppLoader from './appLoader';
-
-interface ISources {
-  status: 'ok' | 'error';
-  sources: ISource[];
-}
-
-interface ISource extends ISources {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-  category: string;
-  language: string;
-  country: string;
-}
-
-interface IEverything {
-  status: 'ok' | 'error';
-  totalResults: number;
-  articles: IEverythingItem[];
-}
-
-interface IEverythingItem extends IEverything {
-  source: {
-    id: string;
-    name: string;
-  };
-  author: string;
-  title: string;
-  description: string;
-  url: string;
-  urlToImage: string;
-  publishedAt: string;
-  content: string;
-}
+import { IEverything, ISources } from '../types/interface';
 
 class AppController extends AppLoader {
   public async getSources(): Promise<ISources> {

@@ -1,19 +1,5 @@
 import './sources.css';
-
-interface ISources {
-  status: 'ok' | 'error';
-  sources: ISource[];
-}
-
-interface ISource extends ISources {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-  category: string;
-  language: string;
-  country: string;
-}
+import { ISource } from '../../types/interface';
 
 class Sources {
   public draw(data: ISource[]): void {

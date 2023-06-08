@@ -1,24 +1,5 @@
 import './news.css';
-
-interface IEverything {
-  status: 'ok' | 'error';
-  totalResults: number;
-  articles: IEverythingItem[];
-}
-
-interface IEverythingItem extends IEverything {
-  source: {
-    id: string;
-    name: string;
-  };
-  author: string;
-  title: string;
-  description: string;
-  url: string;
-  urlToImage: string;
-  publishedAt: string;
-  content: string;
-}
+import { IEverythingItem } from '../../types/interface';
 
 enum Selector {
   NewsItem = '.news__item',
