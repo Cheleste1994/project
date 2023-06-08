@@ -34,7 +34,7 @@ class News {
       if (idx % 2) {
         newsItem.classList.add('alt');
       }
-      metaPhoto.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
+      metaPhoto.style.backgroundImage = `url(${item.urlToImage || '../../img/news_placeholder.jpg'})`;
 
       metaAuthor.textContent = item.author || item.source.name;
       metaDate.textContent = item.publishedAt.slice(0, 10).split('-').reverse().join('-');

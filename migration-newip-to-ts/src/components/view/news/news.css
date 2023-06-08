@@ -1,3 +1,9 @@
+.news {
+  flex-grow: 1;
+  width: 70%;
+  align-items: center;
+}
+
 .news__item {
     display: flex;
     flex-direction: column;

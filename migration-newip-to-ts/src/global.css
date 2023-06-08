@@ -8,6 +8,10 @@ header {
     padding: 10px 30px;
 }
 
+main {
+  display: flex;
+}
+
 header h1 {
     font-size: 40px;
     font-weight: 800;
@@ -16,20 +20,30 @@ header h1 {
 footer {
     height: 100px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-footer .copyright {
+footer .creation {
     font-size: 14px;
     color: #333;
     text-align: center;
 }
-footer .copyright a {
+footer .creation a {
     color: #444;
 }
-footer .copyright a:hover {
+footer .creation a:hover {
     color: #555;
 }
 footer .copyright:before {
     content: '©';
+}
+
+footer .rsschool {
+  margin: 0 auto 10px auto;
+  filter: invert(0.8);
+}
+
+footer .creation img {
+  width: 80px;
 }
