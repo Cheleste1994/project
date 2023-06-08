@@ -35,11 +35,14 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  private load(method: string, endpoint: string, options = {}): Promise<unknown> {
-    return fetch(this.makeUrl(options, endpoint), { method })
-      .then(this.errorHandler)
-      .then((res) => res.json())
-      .catch((err) => console.error(err));
+  private async load(method: string, endpoint: string, options = {}): Promise<unknown> {
+    try {
+      const res = await fetch(this.makeUrl(options, endpoint), { method });
+      const res1 = this.errorHandler(res);
+      return await res1.json();
+    } catch (err) {
+      return console.error(err);
+    }
   }
 }
 

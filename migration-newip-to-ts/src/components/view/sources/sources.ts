@@ -1,6 +1,11 @@
 import './sources.css';
 
 interface ISources {
+  status: 'ok' | 'error';
+  sources: ISource[];
+}
+
+interface ISource extends ISources {
   id: string;
   name: string;
   description: string;
@@ -11,7 +16,7 @@ interface ISources {
 }
 
 class Sources {
-  public draw(data: ISources[]): void {
+  public draw(data: ISource[]): void {
     const fragment = document.createDocumentFragment();
     const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
 
