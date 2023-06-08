@@ -3,9 +3,9 @@ import { AppView } from '../view/appView';
 import { ISources } from '../types/interface';
 
 class App {
-  private controller: AppController;
+  private readonly controller: AppController;
 
-  private view: AppView;
+  private readonly view: AppView;
 
   constructor() {
     this.controller = new AppController();

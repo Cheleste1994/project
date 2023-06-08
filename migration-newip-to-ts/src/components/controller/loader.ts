@@ -1,5 +1,5 @@
 class Loader {
-  private baseLink: string;
+  private readonly baseLink: string;
 
   public options: { apiKey: string };
 
@@ -14,7 +14,7 @@ class Loader {
     });
   }
 
-  private errorHandler(res: Response): Response {
+  private errorHandler<T extends Response>(res: T): T {
     if (!res.ok) {
       if (res.status === 401 || res.status === 404)
         console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -38,7 +38,7 @@ class Loader {
   private async load(method: string, endpoint: string, options = {}): Promise<unknown> {
     try {
       const res = await fetch(this.makeUrl(options, endpoint), { method });
-      const res1 = this.errorHandler(res);
+      const res1 = this.errorHandler<Response>(res);
       return await res1.json();
     } catch (err) {
       return console.error(err);
