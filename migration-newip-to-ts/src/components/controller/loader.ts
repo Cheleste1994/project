@@ -1,16 +1,16 @@
 class Loader {
   private readonly baseLink: string;
 
-  public options: { apiKey: string; language: string };
+  public options: { apiKey: string };
 
-  constructor(baseLink: string, options: { apiKey: string; language: string }) {
+  constructor(baseLink: string, options: { apiKey: string }) {
     this.baseLink = baseLink;
     this.options = options;
   }
 
-  public getResp({ endpoint = '', options = {} }): Promise<unknown> {
+  public getResp({ endpoint = '', options = {}, value = '' }): Promise<unknown> {
     return new Promise((resolve) => {
-      resolve(this.load('GET', endpoint, options));
+      resolve(this.load('GET', endpoint, options, value));
     });
   }
 
@@ -24,20 +24,19 @@ class Loader {
     return res;
   }
 
-  private makeUrl(options: object, endpoint = ''): string {
+  private makeUrl(options: object, endpoint = '', value = ''): string {
     const urlOptions: Record<string, string> = { ...this.options, ...options };
     let url = `${this.baseLink}${endpoint}?`;
-
     Object.keys(urlOptions).forEach((key) => {
       url += `${key}=${urlOptions[key]}&`;
     });
-
+    url += value !== '' ? `${value}&` : '';
     return url.slice(0, -1);
   }
 
-  private async load(method: string, endpoint: string, options = {}): Promise<unknown> {
+  private async load(method: string, endpoint: string, options = {}, value = ''): Promise<unknown> {
     try {
-      const res = await fetch(this.makeUrl(options, endpoint), { method });
+      const res = await fetch(this.makeUrl(options, endpoint, value), { method });
       const res1 = this.errorHandler<Response>(res);
       return await res1.json();
     } catch (err) {

@@ -13,7 +13,7 @@ class App {
   }
 
   public async start(): Promise<void> {
-    const sources: ISources = await this.controller.getSources();
+    const sources: ISources = await this.controller.getSources(undefined);
     this.view.drawSources(sources);
 
     const sourcesElement = document.querySelector('.sources') as HTMLElement;
@@ -21,6 +21,17 @@ class App {
       const data = await this.controller.getNews(e);
       if (data) {
         this.view.drawNews(data);
+      }
+    });
+
+    const sourcesOptions = document.querySelector('.menu') as HTMLElement;
+    sourcesOptions.addEventListener('click', async (e) => {
+      const target = e.target as HTMLElement;
+      if (target.className === 'category' || target.className === 'language') {
+        const sourcesTag = document.querySelector('.sources') as HTMLElement;
+        sourcesTag.innerHTML = '';
+        const loadOptions: ISources = await this.controller.getSources(e);
+        this.view.drawSources(loadOptions);
       }
     });
   }

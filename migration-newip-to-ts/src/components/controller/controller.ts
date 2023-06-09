@@ -2,9 +2,14 @@ import AppLoader from './appLoader';
 import { IEverything, ISources } from '../types/interface';
 
 class AppController extends AppLoader {
-  public async getSources(): Promise<ISources> {
-    const getResp = await super.getResp({ endpoint: 'sources' });
-    return getResp as ISources;
+  public async getSources(e: Event | undefined): Promise<ISources> {
+    if (!e) {
+      const getResp = await super.getResp({ endpoint: 'sources' });
+      return getResp as ISources;
+    }
+    const target = e.target as HTMLElement;
+    const getOptions = await super.getResp({ endpoint: 'sources', value: `${target.className}=${target.id}` });
+    return getOptions as ISources;
   }
 
   // eslint-disable-next-line consistent-return
