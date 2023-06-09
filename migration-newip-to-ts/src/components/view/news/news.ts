@@ -30,18 +30,19 @@ class News {
       const descriptionSource = newsClone.querySelector(Selector.DescriptionSource) as HTMLElement;
       const descriptionContent = newsClone.querySelector(Selector.DescriptionContent) as HTMLElement;
       const readMore = newsClone.querySelector(Selector.ReadMore) as HTMLElement;
+      const urlPlaceholder = 'https://ajr.org/wp-content/themes/AJR-theme/images/news-placeholder.jpg';
 
       if (idx % 2) {
         newsItem.classList.add('alt');
       }
-      metaPhoto.style.backgroundImage = `url(${item.urlToImage || '../../img/news_placeholder.jpg'})`;
+      metaPhoto.style.backgroundImage = `url(${item.urlToImage || urlPlaceholder})`;
 
       metaAuthor.textContent = item.author || item.source.name;
       metaDate.textContent = item.publishedAt.slice(0, 10).split('-').reverse().join('-');
 
       descriptionTitle.textContent = item.title;
       descriptionSource.textContent = item.source.name;
-      descriptionContent.textContent = item.description;
+      descriptionContent.innerHTML = item.description;
       readMore.setAttribute('href', item.url);
 
       fragment.append(newsClone);

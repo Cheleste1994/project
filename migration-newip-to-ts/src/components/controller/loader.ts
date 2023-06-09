@@ -1,9 +1,9 @@
 class Loader {
   private readonly baseLink: string;
 
-  public options: { apiKey: string };
+  public options: { apiKey: string; language: string };
 
-  constructor(baseLink: string, options: { apiKey: string }) {
+  constructor(baseLink: string, options: { apiKey: string; language: string }) {
     this.baseLink = baseLink;
     this.options = options;
   }
