@@ -2,7 +2,7 @@ import AppLoader from './appLoader';
 import { IEverything, ISources } from '../types/interface';
 
 class AppController extends AppLoader {
-  public async getSources(e: Event | undefined): Promise<ISources> {
+  public async getSources(e?: Event): Promise<ISources> {
     if (!e) {
       const getResp = await super.getResp({ endpoint: 'sources' });
       return getResp as ISources;

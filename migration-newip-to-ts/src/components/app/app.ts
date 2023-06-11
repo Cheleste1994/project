@@ -13,7 +13,7 @@ class App {
   }
 
   public async start(): Promise<void> {
-    const sources: ISources = await this.controller.getSources(undefined);
+    const sources: ISources = await this.controller.getSources();
     this.view.drawSources(sources);
 
     const sourcesElement = document.querySelector('.sources') as HTMLElement;
