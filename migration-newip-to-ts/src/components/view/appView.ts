@@ -13,12 +13,12 @@ export class AppView {
   }
 
   public drawNews<T extends IEverything>(data: T): void {
-    const values = data?.articles ? data?.articles : [];
+    const values = data?.articles || [];
     this.news.draw(values);
   }
 
   public drawSources<T extends ISources>(data: T): void {
-    const values = data?.sources ? data?.sources : [];
+    const values = data?.sources || [];
     this.sources.draw(values);
   }
 }
