@@ -12,7 +12,6 @@ class AppController extends AppLoader {
     return getOptions as ISources;
   }
 
-  // eslint-disable-next-line consistent-return
   public async getNews(e: Event): Promise<IEverything | undefined> {
     let target = e.target as HTMLElement;
     const newsContainer = e.currentTarget as HTMLElement;
@@ -42,6 +41,8 @@ class AppController extends AppLoader {
       } catch (error) {
         return undefined;
       }
+    } else {
+      return undefined;
     }
   }
 }
