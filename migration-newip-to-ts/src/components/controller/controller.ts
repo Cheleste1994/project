@@ -35,7 +35,7 @@ class AppController extends AppLoader {
     }
     if (obj.endpoint !== '') {
       try {
-        const data = await super.getResp(obj);
+        const data = await this.getResp(obj);
         const everythingData: IEverything = data as IEverything;
         return everythingData;
       } catch (error) {
