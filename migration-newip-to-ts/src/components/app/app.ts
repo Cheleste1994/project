@@ -30,7 +30,7 @@ class App {
       if (target.className === 'category' || target.className === 'language') {
         const sourcesTag = document.querySelector('.sources') as HTMLElement;
         sourcesTag.innerHTML = '';
-        const loadOptions: NewsResponse = await this.controller.getSources(e);
+        const loadOptions: NewsResponse = await this.controller.getSources(target);
         this.view.drawSources(loadOptions);
       }
     });

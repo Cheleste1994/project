@@ -2,12 +2,11 @@ import AppLoader from './appLoader';
 import { NewsResponse } from '../types/interface';
 
 class AppController extends AppLoader {
-  public async getSources(e?: Event): Promise<NewsResponse> {
-    if (!e) {
+  public async getSources(forBlock?: HTMLElement): Promise<NewsResponse> {
+    if (!forBlock) {
       return this.getResp<NewsResponse>({ endpoint: 'sources' });
     }
-    const target = e.target as HTMLElement;
-    return this.getResp<NewsResponse>({ endpoint: 'sources', value: `${target.className}=${target.id}` });
+    return this.getResp<NewsResponse>({ endpoint: 'sources', value: `${forBlock.className}=${forBlock.id}` });
   }
 
   public async getNews(e: Event): Promise<NewsResponse | undefined> {
