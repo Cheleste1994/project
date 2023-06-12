@@ -4,12 +4,10 @@ import { IEverything, ISources } from '../types/interface';
 class AppController extends AppLoader {
   public async getSources(e?: Event): Promise<ISources> {
     if (!e) {
-      const getResp = await super.getResp({ endpoint: 'sources' });
-      return getResp as ISources;
+      return this.getResp<ISources>({ endpoint: 'sources' });
     }
     const target = e.target as HTMLElement;
-    const getOptions = await super.getResp({ endpoint: 'sources', value: `${target.className}=${target.id}` });
-    return getOptions as ISources;
+    return this.getResp<ISources>({ endpoint: 'sources', value: `${target.className}=${target.id}` });
   }
 
   public async getNews(e: Event): Promise<IEverything | undefined> {
@@ -35,9 +33,7 @@ class AppController extends AppLoader {
     }
     if (obj.endpoint !== '') {
       try {
-        const data = await this.getResp(obj);
-        const everythingData: IEverything = data as IEverything;
-        return everythingData;
+        return await this.getResp<IEverything>(obj);
       } catch (error) {
         return undefined;
       }

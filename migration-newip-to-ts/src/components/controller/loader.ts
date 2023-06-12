@@ -8,9 +8,9 @@ class Loader {
     this.options = options;
   }
 
-  public getResp({ endpoint = '', options = {}, value = '' }): Promise<unknown> {
+  public getResp<T>({ endpoint = '', options = {}, value = '' }): Promise<T> {
     return new Promise((resolve) => {
-      resolve(this.load('GET', endpoint, options, value));
+      resolve(this.load<T>('GET', endpoint, options, value));
     });
   }
 
@@ -34,7 +34,7 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  private async load(method: string, endpoint: string, options = {}, value = ''): Promise<unknown> {
+  private async load<T>(method: string, endpoint: string, options = {}, value = ''): Promise<T> {
     return fetch(this.makeUrl(options, endpoint, value), { method })
       .then(this.checkErrors)
       .then((res) => res.json())
