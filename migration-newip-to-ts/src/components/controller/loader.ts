@@ -9,9 +9,7 @@ class Loader {
   }
 
   public getResp<T>({ endpoint = '', options = {}, value = '' }): Promise<T> {
-    return new Promise((resolve) => {
-      resolve(this.load<T>('GET', endpoint, options, value));
-    });
+    return this.load<T>('GET', endpoint, options, value);
   }
 
   private checkErrors<T extends Response>(res: T): T {
