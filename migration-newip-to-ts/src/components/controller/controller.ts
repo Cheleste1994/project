@@ -37,9 +37,8 @@ class AppController extends AppLoader {
       } catch (error) {
         return undefined;
       }
-    } else {
-      return undefined;
     }
+    return undefined;
   }
 }
 
