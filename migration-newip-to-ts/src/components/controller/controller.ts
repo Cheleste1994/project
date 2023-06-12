@@ -1,16 +1,16 @@
 import AppLoader from './appLoader';
-import { IEverything, ISources } from '../types/interface';
+import { NewsResponse } from '../types/interface';
 
 class AppController extends AppLoader {
-  public async getSources(e?: Event): Promise<ISources> {
+  public async getSources(e?: Event): Promise<NewsResponse> {
     if (!e) {
-      return this.getResp<ISources>({ endpoint: 'sources' });
+      return this.getResp<NewsResponse>({ endpoint: 'sources' });
     }
     const target = e.target as HTMLElement;
-    return this.getResp<ISources>({ endpoint: 'sources', value: `${target.className}=${target.id}` });
+    return this.getResp<NewsResponse>({ endpoint: 'sources', value: `${target.className}=${target.id}` });
   }
 
-  public async getNews(e: Event): Promise<IEverything | undefined> {
+  public async getNews(e: Event): Promise<NewsResponse | undefined> {
     let target = e.target as HTMLElement;
     const newsContainer = e.currentTarget as HTMLElement;
     const obj = {
@@ -33,7 +33,7 @@ class AppController extends AppLoader {
     }
     if (obj.endpoint !== '') {
       try {
-        return await this.getResp<IEverything>(obj);
+        return await this.getResp<NewsResponse>(obj);
       } catch (error) {
         return undefined;
       }

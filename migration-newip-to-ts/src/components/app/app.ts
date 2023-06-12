@@ -1,6 +1,6 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-import { ISources } from '../types/interface';
+import { NewsResponse } from '../types/interface';
 
 class App {
   private readonly controller: AppController;
@@ -13,7 +13,7 @@ class App {
   }
 
   public async start(): Promise<void> {
-    const sources: ISources = await this.controller.getSources();
+    const sources: NewsResponse = await this.controller.getSources();
     this.view.drawSources(sources);
 
     const sourcesElement = document.querySelector('.sources') as HTMLElement;
@@ -30,7 +30,7 @@ class App {
       if (target.className === 'category' || target.className === 'language') {
         const sourcesTag = document.querySelector('.sources') as HTMLElement;
         sourcesTag.innerHTML = '';
-        const loadOptions: ISources = await this.controller.getSources(e);
+        const loadOptions: NewsResponse = await this.controller.getSources(e);
         this.view.drawSources(loadOptions);
       }
     });

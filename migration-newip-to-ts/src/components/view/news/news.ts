@@ -1,5 +1,5 @@
 import './news.css';
-import { IEverything } from '../../types/interface';
+import { NewsResponse } from '../../types/interface';
 
 enum Selector {
   NewsItem = '.news__item',
@@ -13,7 +13,7 @@ enum Selector {
 }
 
 class News {
-  public draw(data: IEverything['articles']): void {
+  public draw(data: NewsResponse['articles']): void {
     const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
     const fragment = document.createDocumentFragment();

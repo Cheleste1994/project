@@ -1,10 +1,11 @@
-interface IEverything {
+interface NewsResponse {
   status: 'ok' | 'error';
   totalResults: number;
-  articles: IEverythingItem[];
+  articles: NewsItem[];
+  sources: SourceItem[];
 }
 
-interface IEverythingItem {
+interface NewsItem {
   source: {
     id: string;
     name: string;
@@ -18,12 +19,7 @@ interface IEverythingItem {
   content: string;
 }
 
-interface ISources {
-  status: 'ok' | 'error';
-  sources: ISource[];
-}
-
-interface ISource {
+interface SourceItem {
   id: string;
   name: string;
   description: string;
@@ -33,4 +29,4 @@ interface ISource {
   country: string;
 }
 
-export { IEverything, ISources };
+export { NewsResponse };
