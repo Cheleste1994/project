@@ -12,9 +12,11 @@ enum Selector {
   ReadMore = '.news__read-more a',
 }
 
+const MAX_NEWS_AMOUNT = 10;
+
 class News {
   public draw(data: NewsResponse['articles']): void {
-    const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+    const news = data.length >= MAX_NEWS_AMOUNT ? data.filter((_item, idx) => idx < MAX_NEWS_AMOUNT) : data;
 
     const fragment = document.createDocumentFragment();
     const newsItemTemp = document.querySelector('#newsItemTemp') as HTMLTemplateElement;
