@@ -14,7 +14,7 @@ class Loader {
     });
   }
 
-  private errorHandler<T extends Response>(res: T): T {
+  private checkErrors<T extends Response>(res: T): T {
     if (!res.ok) {
       if (res.status === 401 || res.status === 404)
         console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -36,7 +36,7 @@ class Loader {
 
   private async load(method: string, endpoint: string, options = {}, value = ''): Promise<unknown> {
     return fetch(this.makeUrl(options, endpoint, value), { method })
-      .then(this.errorHandler)
+      .then(this.checkErrors)
       .then((res) => res.json())
       .catch((err) => console.error(err));
   }
