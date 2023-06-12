@@ -4,7 +4,7 @@ interface IEverything {
   articles: IEverythingItem[];
 }
 
-interface IEverythingItem extends IEverything {
+interface IEverythingItem {
   source: {
     id: string;
     name: string;
@@ -23,7 +23,7 @@ interface ISources {
   sources: ISource[];
 }
 
-interface ISource extends ISources {
+interface ISource {
   id: string;
   name: string;
   description: string;
@@ -33,4 +33,4 @@ interface ISource extends ISources {
   country: string;
 }
 
-export { IEverything, IEverythingItem, ISources, ISource };
+export { IEverything, ISources };
