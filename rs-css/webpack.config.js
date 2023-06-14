@@ -16,7 +16,6 @@ const baseConfig = {
             {
               test: /\.css$/i,
               use: ['style-loader', 'css-loader'],
-              type: 'asset/css',
             },
             {
               test: /\.(?:ico|gif|png|jpg|jpeg)$/i,

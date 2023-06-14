@@ -1,0 +1,17 @@
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #2e2a23;
+  background-image: -webkit-radial-gradient(20% 40%,cover circle, #3e392f, #221e17);
+  background-image: -moz-radial-gradient(20% 40%,contain circle, #3e392f, #221e17);
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+}

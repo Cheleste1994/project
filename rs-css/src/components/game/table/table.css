@@ -1,0 +1,37 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.table {
+  transform-style: preserve-3d;
+  outline: solid 1px transparent;
+  margin: 0px auto 0px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.table-field {
+  transform: rotateX(40deg);
+  box-shadow: 0px 40px 10px rgba(0,0,0,.2);
+  background: #dd992d;
+  background: -webkit-linear-gradient(#dd992d,#cd8c26);
+  background: linear-gradient(#dd992d,#cd8c26);
+  bottom: 0;
+  width: 80%;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.table-butt {
+  width: 80%;
+  margin: 0 auto;
+  background: #ac741c;
+  height: 15px;
+  transform: rotateX(-40deg);
+  transform-origin: top;
+}
