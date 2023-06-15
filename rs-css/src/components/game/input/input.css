@@ -11,21 +11,26 @@
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
-
+  max-width: 50%;
+  flex: 1;
+  min-width: 0;
 }
 
 .right-field {
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
-
+  max-width: 50%;
   border: solid 1px #333;
+  flex: 1;
+  min-width: 0;
 }
 
 .input-header {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  flex-basis: 100%;
+  flex-wrap: wrap;
   justify-content: space-between;
   text-align: left;
   padding: 10px 15px;
@@ -48,6 +53,10 @@
 .field-numbers__right {
   padding: 10px;
   text-align: right;
+  flex-basis: auto;
+  flex-wrap: nowrap;
+  line-height: 150%;
+
 }
 
 .field-numbers__left {
@@ -63,11 +72,52 @@
 
 .css-window {
   flex-grow: 1;
+  flex: 1;
+  min-width: 0;
   background: #efefef;
   color: #AAA;
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: break-word;
+  padding: 13px 10px 10px 10px;
+  line-height: 150%;
 }
+
+
+.css-input {
+  background: rgba(62,203,255,.3);
+  animation: input .5s infinite;
+  -moz-animation: input .5s infinite;
+  color: #333;
+  border: none;
+  width: calc(100% - 44px);
+  margin-bottom: 5px;
+}
+
+.css-input:focus,
+.css-input:active {
+  outline: none;
+}
+
+@keyframes input {
+  50% { background:none ; }
+}
+
+@-moz-keyframes input {
+  50% { background:none ; }
+}
+
 
 .html-window {
   flex-grow: 1;
+  flex: 1;
+  min-width: 0;
   background: rgba(0,0,0,.3);
+  line-height: 150%;
+  color: rgba(255,255,255,.3);
+  padding: 10px;
+}
+
+.html-window div {
+  padding-left: 10px;
 }
