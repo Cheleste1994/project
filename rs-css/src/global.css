@@ -1,7 +1,12 @@
-
 * {
   margin: 0;
   padding: 0;
+}
+
+html {
+  --table-width: 55%;
+  --themes-color: rgba(255, 255, 255, 0.863);
+  --head-color: rgba(255, 255, 255, 0.863);
 }
 
 body {
@@ -15,3 +20,4 @@ body {
   margin: 0;
   padding: 0;
 }
+

@@ -1,0 +1,73 @@
+.input-field {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 0 auto;
+  border: solid 10px rgba(0,0,0,.35);
+  border-radius: 4px;
+}
+
+.left-field {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+
+}
+
+.right-field {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+
+  border: solid 1px #333;
+}
+
+.input-header {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  text-align: left;
+  padding: 10px 15px;
+  background: rgba(0,0,0,.15);
+  border-top: solid 1px rgba(255,255,255,.05);
+  border-bottom: solid 1px rgba(255,255,255,.05);
+  border-radius: 2px 2px 0 0;
+  color: rgba(255,255,255,.6);
+}
+
+.name {
+  width: 50%;
+}
+
+.file {
+  opacity: 0.5;
+}
+
+.field-numbers__left,
+.field-numbers__right {
+  padding: 10px;
+  text-align: right;
+}
+
+.field-numbers__left {
+  color: #999;
+  background: #DDD;
+}
+
+.field-numbers__right {
+  color: #666;
+  background: rgba(0,0,0,.3);
+  border-right: solid 1px #333;
+}
+
+.css-window {
+  flex-grow: 1;
+  background: #efefef;
+  color: #AAA;
+}
+
+.html-window {
+  flex-grow: 1;
+  background: rgba(0,0,0,.3);
+}

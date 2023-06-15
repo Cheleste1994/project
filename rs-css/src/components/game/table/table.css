@@ -1,11 +1,6 @@
-.game {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
 
 .table {
-  transform-style: preserve-3d;
+  perspective: 800px;
   outline: solid 1px transparent;
   margin: 0px auto 0px auto;
   display: flex;
@@ -13,25 +8,61 @@
   justify-content: flex-start;
   white-space: nowrap;
   width: 100%;
+  opacity: 0.9;
+}
+
+.description {
+  text-align: center;
+  font-size: 2rem;
 }
 
 .table-field {
-  transform: rotateX(40deg);
+  transform: rotateX(60deg);
+  transform-origin: bottom;
   box-shadow: 0px 40px 10px rgba(0,0,0,.2);
   background: #dd992d;
   background: -webkit-linear-gradient(#dd992d,#cd8c26);
   background: linear-gradient(#dd992d,#cd8c26);
-  bottom: 0;
-  width: 80%;
+  width: var(--table-width);
   height: 200px;
   margin: 0 auto;
 }
 
 .table-butt {
-  width: 80%;
+  width: var(--table-width);
   margin: 0 auto;
   background: #ac741c;
   height: 15px;
-  transform: rotateX(-40deg);
+  transform: rotateX(-45deg);
   transform-origin: top;
+}
+
+.table-legs {
+  display: flex;
+  justify-content: space-between;
+  width: calc(var(--table-width) - 5%);
+  margin: 0 auto;
+  transform: rotateX(-50deg);
+  transform-origin: 100% -50%;
+}
+
+.left-butt {
+  width: 24px;
+  height: 15px;
+  background: #84570f;
+  transform: rotateX(-50deg);
+  transform-origin: top;
+}
+
+.right-butt {
+  width: 24px;
+  height: 15px;
+  background: #84570f;
+  transform: rotateX(-50deg);
+  transform-origin: top;
+}
+
+.input-field {
+  width: 100%;
+  min-height: 200px;
 }
