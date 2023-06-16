@@ -11,6 +11,39 @@
   overflow: auto;
 }
 
+.header {
+  margin: auto 0 auto auto;
+  color: rgba(255,255,255,.3);
+}
+
+.header-links {
+  display: inline-flex;
+  align-items: center;
+
+}
+
+.twitter,
+.facebook,
+.email {
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding: 12px;
+  margin-left: 5px;
+  opacity: 0.6;
+}
+
+.twitter {
+  background-image: url('../../../assets/icons/icon-twitter.svg');
+}
+
+.facebook {
+  background-image: url('../../../assets/icons/icon-facebook.svg');
+}
+
+.email {
+  background-image: url('../../../assets/icons/icon-email.svg');
+}
+
 .description {
   color: rgba(255,255,255,.3);
   font-size: 45px;
