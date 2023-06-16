@@ -1,8 +1,12 @@
 import './help.css';
+import Choice from '../choice/choice';
 
 class Help {
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor, @typescript-eslint/no-empty-function
-  constructor() {}
+  public choice: Choice;
+
+  constructor() {
+    this.choice = new Choice();
+  }
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   public start() {

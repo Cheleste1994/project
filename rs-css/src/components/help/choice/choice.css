@@ -1,0 +1,32 @@
+.burger-menu {
+  visibility: hidden;
+  width: 0%;
+  margin: 0;
+  position: absolute;
+}
+
+.burger-menu__text {
+  direction: ltr;
+  font-size: 22px;
+  color: white;
+  opacity: .4;
+  font-weight: normal;
+  padding: 23px 0 14px 16px;
+}
+
+.list-levels {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  color: #777;
+}
+
+.list-levels * {
+  padding: 5px 12px 5px 22px;
+}
+
+.list-levels *:hover {
+  font-weight: bold;
+  color: #AAA;
+  background: rgba(255,255,255,.07);
+}
