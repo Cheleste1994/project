@@ -12,9 +12,14 @@
 }
 
 .header {
-  margin: auto 0 auto auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   color: rgba(255,255,255,.3);
+  padding: 12px 15px 11px 35px;
+  user-select: none;
 }
+
 
 .header-links {
   display: inline-flex;
@@ -30,6 +35,12 @@
   padding: 12px;
   margin-left: 5px;
   opacity: 0.6;
+}
+
+.twitter:hover,
+.facebook:hover,
+.email:hover {
+  opacity: 0.8;
 }
 
 .twitter {
@@ -48,6 +59,7 @@
   color: rgba(255,255,255,.3);
   font-size: 45px;
   font-weight: 400;
+  user-select: none;
 }
 
 .stuck h3 {
@@ -61,6 +73,12 @@
   margin: 20px auto 0 auto;
   cursor: pointer;
   visibility: visible;
+  user-select: none;
+}
+
+.stuck h3:hover {
+  color: rgba(255,255,255,.5);
+  text-decoration: underline;
 }
 
 footer {
@@ -71,6 +89,7 @@ footer {
   justify-content: center;
   padding-top: 20px;
   color: rgba(255,255,255,.3);
+  user-select: none;
 }
 footer .creation {
   font-size: 14px;
