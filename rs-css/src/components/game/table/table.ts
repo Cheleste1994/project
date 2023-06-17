@@ -5,8 +5,9 @@ class Table {
   constructor() {}
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  public start() {
-    console.log(123);
+  public toogleStuck() {
+    const stuck = document.querySelector('.stuck-open');
+    stuck?.classList.toggle('stuck-open_active');
   }
 }
 

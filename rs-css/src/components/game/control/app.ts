@@ -5,14 +5,19 @@ import Input from '../input/input';
 class Game {
   public table: Table;
 
+  public input: Input;
+
   constructor() {
     this.table = new Table();
-    this.table = new Input();
+    this.input = new Input();
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   public start() {
-    console.log(123);
+    const stuck = document.querySelector('.stuck');
+    stuck?.addEventListener('click', () => {
+      this.table.toogleStuck();
+    });
   }
 }
 
