@@ -12,6 +12,7 @@
   flex-direction: column;
   font-weight: 600;
   color: rgba(255,255,255,.6);
+  transition: all 0.3s;
 }
 
 .burger-menu__icon {
@@ -25,6 +26,8 @@
   height: 22px;
   opacity: 0.2;
   cursor: pointer;
+  z-index: 999;
+  transition: all 0.15s;
 }
 
 .burger-menu__icon:hover {
@@ -36,24 +39,24 @@
   height: 2px;
   background: white;
 }
-/*
-.burger-menu__icon * {
+
+.burger-menu__icon_open * {
 position: absolute;
-right: 20px;
-top: 18px;
+right: 0;
+top: 10px;
 }
 
-.burger-menu__icon *:first-child{
+.burger-menu__icon_open *:first-child{
   transform: rotate(45deg);
 }
 
-.burger-menu__icon *:last-child {
+.burger-menu__icon_open *:last-child {
   transform: rotate(-45deg);
 }
 
-.burger-menu__icon *:nth-child(2) {
+.burger-menu__icon_open *:nth-child(2) {
   display: none;
-} */
+}
 
 .level-header {
   font-size: 1.2rem;

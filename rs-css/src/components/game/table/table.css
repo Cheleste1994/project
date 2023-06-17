@@ -2,7 +2,7 @@
 .table {
   perspective: 800px;
   outline: solid 1px transparent;
-  margin: 0px auto 20px auto;
+  margin: 0px auto 10px auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -24,7 +24,7 @@
   background: -webkit-linear-gradient(#dd992d,#cd8c26);
   background: linear-gradient(#dd992d,#cd8c26);
   width: var(--table-width);
-  height: 150px;
+  height: 120px;
   margin: 0 auto;
 }
 

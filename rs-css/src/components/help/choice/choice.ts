@@ -4,9 +4,10 @@ class Choice {
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor, @typescript-eslint/no-empty-function
   constructor() {}
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  public start() {
-    console.log(123);
+  public toggleBurgerMenu(burgerIcon?: Element): void {
+    const menu = document.querySelector('.burger-menu');
+    menu?.classList.toggle('burger-menu_open');
+    burgerIcon?.classList.toggle('burger-menu__icon_open');
   }
 }
 

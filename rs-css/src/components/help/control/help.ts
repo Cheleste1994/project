@@ -8,9 +8,11 @@ class Help {
     this.choice = new Choice();
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  public start() {
-    console.log(123);
+  public start(): void {
+    const burger = document.querySelector('.burger-menu__icon');
+    burger?.addEventListener('click', () => {
+      this.choice.toggleBurgerMenu(burger);
+    });
   }
 }
 

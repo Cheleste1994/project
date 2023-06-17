@@ -1,12 +1,25 @@
 .burger-menu {
-  visibility: hidden;
-  width: 0%;
-  margin: 0;
+  width: 33.3%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
   position: absolute;
+  transition: all .15s ease-in-out;
+  background: rgba(0,0,0,1);
+  background: #1b1813;
+  right: -500px;
+  top: 0;
+  visibility: hidden;
+}
+
+.burger-menu_open {
+  margin: 0;
+  right: 0px;
+  visibility: visible;
 }
 
 .burger-menu__text {
-  direction: ltr;
   font-size: 22px;
   color: white;
   opacity: .4;
@@ -21,12 +34,34 @@
   color: #777;
 }
 
-.list-levels * {
+.list-levels a {
   padding: 5px 12px 5px 22px;
 }
 
-.list-levels *:hover {
+.list-levels a:hover {
   font-weight: bold;
   color: #AAA;
   background: rgba(255,255,255,.07);
+}
+
+.checkmark {
+  position: relative;
+  display: inline-block;
+  margin-right: 14px;
+  width: 8px;
+  height: 13px;
+  opacity: 2;
+  border: solid 3px white;
+  border-width: 0 3px 3px 0;
+  padding: 0;
+  opacity: .2;
+  top: -1px;
+  transform: rotate(40deg);
+}
+
+.level-number {
+  color: #777;
+  opacity: .6;
+  min-width: 24px;
+  display: inline-block;
 }

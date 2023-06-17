@@ -17,7 +17,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   color: rgba(255,255,255,.3);
-  padding: 12px 15px 11px 35px;
+  padding: 5px 15px 5px 35px;
   user-select: none;
 }
 
@@ -71,7 +71,7 @@
   text-decoration: none;
   flex-grow: 0;
   width: max-content;
-  margin: 20px auto 0 auto;
+  margin: 10px auto 0 auto;
   cursor: pointer;
   visibility: visible;
   user-select: none;
@@ -82,13 +82,26 @@
   text-decoration: underline;
 }
 
+.stuck-open {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  color: #777;
+  background: rgba(255,255,255,.9);
+  text-align: left;
+  margin: 20px auto 20px auto;
+  box-shadow: 0px 0px 15px rgba(0,0,0,.5);
+}
+
 footer {
   height: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 20px;
+  padding-top: 10px;
   color: rgba(255,255,255,.3);
   user-select: none;
 }
