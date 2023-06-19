@@ -10,7 +10,7 @@
 
 .left-field {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   flex-grow: 1;
   max-width: 50%;
   flex: 1;
@@ -19,7 +19,7 @@
 
 .right-field {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   flex-grow: 1;
   max-width: 50%;
   border: solid 1px #333;
@@ -31,8 +31,6 @@
 .input-header {
   display: flex;
   flex-wrap: wrap;
-  flex-basis: 100%;
-  flex-wrap: wrap;
   justify-content: space-between;
   text-align: left;
   padding: 10px 15px;
@@ -42,6 +40,7 @@
   border-radius: 2px 2px 0 0;
   color: rgba(255,255,255,.6);
   user-select: none;
+  max-height: 200px;
 }
 
 .name {
@@ -57,25 +56,33 @@
   opacity: 0.8;
 }
 
-.field-numbers__left,
-.field-numbers__right {
-  padding: 10px;
+.field-numbers__left {
   text-align: right;
   flex-basis: auto;
-  flex-wrap: nowrap;
   line-height: 150%;
-
+  background: #f7f7f7;
+  color: #807d7c;
+  padding-left: 18px;
 }
 
-.field-numbers__left {
+/* .field-numbers__left {
   color: #999;
   background: #DDD;
-}
+} */
 
-.field-numbers__right {
+/* .field-numbers__right {
   color: #666;
   background: rgba(0,0,0,.3);
   border-right: solid 1px #333;
+  flex-wrap: nowrap;
+} */
+
+.field-input {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  width: 100%;
+  background: #f7f7f7;
 }
 
 .css-window {
@@ -84,10 +91,7 @@
   min-width: 0;
   background: #efefef;
   color: #AAA;
-  display: flex;
-  flex-direction: column;
   overflow-wrap: break-word;
-  padding: 13px 10px 10px 10px;
   line-height: 150%;
 }
 
@@ -99,7 +103,8 @@
   color: #333;
   border: none;
   width: calc(100% - 44px);
-  margin-bottom: 5px;
+  padding-left: 10px;
+  height: 100%;
 }
 
 .css-input:focus,
@@ -116,16 +121,37 @@
 }
 
 
+.enter-button {
+  background: #ddd;
+  display: block;
+  border-radius: 2px;
+  padding: 2px 7px 2px 7px;
+  color: #666;
+  border: solid 3px #999;
+  border-width: 1px 1px 6px 1px;
+  font-size: 9px;
+  cursor: pointer;
+  margin: 5px 5px 0 5px;
+  user-select: none;
+
+}
+
+.enter-button:active {
+  border-width: 0;
+  margin-bottom: 7px;
+}
+
 .html-window {
-  flex-grow: 1;
+  width: 100%;
   flex: 1;
   min-width: 0;
   background: rgba(0,0,0,.3);
-  line-height: 150%;
   color: rgba(255,255,255,.3);
-  padding: 10px;
 }
 
-.html-window div {
-  padding-left: 10px;
+.html-window textarea,
+.html-window textarea:focus {
+  outline: none;
+  border: none;
+  resize: none;
 }

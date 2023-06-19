@@ -18,6 +18,10 @@ class Game {
     stuck?.addEventListener('click', () => {
       this.table.toogleStuck();
     });
+    document.addEventListener('DOMContentLoaded', () => {
+      this.input.editorRight();
+      this.input.editorLeft();
+    });
   }
 }
 

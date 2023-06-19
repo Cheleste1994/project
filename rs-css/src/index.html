@@ -29,30 +29,24 @@
           <h3>Help, I'm stuck!</h3>
         </div>
         <div class="stuck-open">
-            <h3>No worries, you've got this!</h3>
-            <p>
-              You're about to learn CSS Selectors!
-              Selectors are how you pick which element to apply styles to.
-            </p>
+          <h3>No worries, you've got this!</h3>
+          <p>You're about to learn CSS Selectors! Selectors are how you pick which element to apply styles to.</p>
 
-            <h4>Exhibit 1 - A CSS Rule</h4>
-<pre>p {
+          <h4>Exhibit 1 - A CSS Rule</h4>
+          <pre>
+p {
        margin-bottom: 12px;
-    }</pre>
+    }</pre
+          >
 
-            <p>
-              Here, the "p" is the selector (selects all &lt;p&gt; elements) and applies the margin-bottom style.
-            </p>
-            <p>
-              To play, type in a CSS selector in the editor below to select the correct items on the table.If you get it right, you'll advance to the next level.
-            </p>
-            <p>
-              Hover over the items on the table to see their HTML markup.
-            </p>
-            <p>
-              Get help with selectors on the right! →
-            </p>
-            <a class="note-toggle" href="#">Ok, got it!</a>
+          <p>Here, the "p" is the selector (selects all &lt;p&gt; elements) and applies the margin-bottom style.</p>
+          <p>
+            To play, type in a CSS selector in the editor below to select the correct items on the table.If you get it
+            right, you'll advance to the next level.
+          </p>
+          <p>Hover over the items on the table to see their HTML markup.</p>
+          <p>Get help with selectors on the right! →</p>
+          <a class="note-toggle" href="#">Ok, got it!</a>
         </div>
         <div class="table">
           <div class="table-field"></div>
@@ -68,37 +62,35 @@
               <span class="name">CSS Editor</span>
               <span class="file">style.css</span>
             </div>
-            <div class="field-numbers__left">
-              1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />10
-            </div>
-            <div class="css-window">
+            <div class="field-input">
+              <div class="field-numbers__left">1</div>
               <input class="css-input" type="text" placeholder="Type in a CSS selector" />
-              <div>
-                {<br />
-                /* Styles would go here. */<br />
-                }
-              </div>
-              <div class="css-help">
-                <br />
-                /* Type a number to skip to a level.<br />
-                Ex → "5" for level 5 <br />*/
-              </div>
+              <div class="enter-button">enter</div>
             </div>
+            <textarea class="css-window">
+
+
+{
+/* Styles would go here. */
+}
+
+/* Type a number to skip to a level.
+Ex → "5" for level 5
+*/
+            </textarea>
           </div>
           <div class="right-field">
             <div class="input-header">
               <span class="name">HTML Viewer</span>
               <span class="file">table.html</span>
             </div>
-            <div class="field-numbers__right">
-              1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />10
-            </div>
-            <div class="html-window">
-              &lt;div class="table"&gt;
-              <div class="">&lt;plate /&gt;</div>
-              <div class="">&lt;plate /&gt;</div>
-              &lt;/div&gt;
-            </div>
+            <!-- <div class="field-numbers__right">1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />10</div> -->
+            <textarea id="html-window" class="html-window" readonly>
+&lt;div class="table"&gt;
+   &lt;plate /&gt;
+   &lt;plate /&gt;
+&lt;/div&gt;
+            </textarea>
           </div>
         </div>
       </main>
