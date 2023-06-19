@@ -109,6 +109,7 @@
 
 .css-input:focus,
 .css-input:active {
+  background: none;
   outline: none;
 }
 

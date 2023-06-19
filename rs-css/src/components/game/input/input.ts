@@ -16,7 +16,7 @@ class Input {
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor, @typescript-eslint/no-empty-function
   constructor() {}
 
-  public editorRight(): void {
+  public editorRight(): CodeMirror.EditorFromTextArea | undefined {
     const editor = document.querySelector('.html-window');
     if (editor instanceof HTMLTextAreaElement) {
       const codeMirrorInstance = CodeMirror.fromTextArea(editor, {
@@ -31,7 +31,9 @@ class Input {
         viewportMargin: Infinity,
       });
       codeMirrorInstance.getWrapperElement().classList.add('html-window');
+      return codeMirrorInstance;
     }
+    return undefined;
   }
 
   public editorLeft(): void {

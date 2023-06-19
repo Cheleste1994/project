@@ -25,6 +25,13 @@ const baseConfig = {
           filename: 'icons/[name][ext]',
         },
       },
+      {
+        test: /\.json$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'data/[name][ext]',
+        },
+      },
     ],
   },
   resolve: {
