@@ -27,10 +27,7 @@ const baseConfig = {
       },
       {
         test: /\.json$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: 'data/[name][ext]',
-        },
+        type: 'json',
       },
     ],
   },

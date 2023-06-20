@@ -1,12 +1,16 @@
 import { EditorFromTextArea } from 'codemirror';
-// import ListLevels from './level.json';
+import ListLevels from './level.json';
 
 class Levels {
-  public async load(levels: EditorFromTextArea): Promise<void> {
-    const newValue = levels.getValue();
-    const res = await fetch('data/level.json');
-    const listLevels = await res.json();
-    console.log(listLevels);
+  public async load(editorHTML: EditorFromTextArea): Promise<void> {
+    const newValue = editorHTML.getValue();
+    // const res = await fetch(`${ListLevels}`);
+    // const listLevels = await res.json();
+    // const endLine = editorHTML.lastLine() - 1;
+    // for (let i = 0; i < listLevels[0].set.length; i += 1) {
+
+    // }
+    console.log(ListLevels);
     console.log(newValue);
     // levels.setValue(newValue);
   }
