@@ -1,18 +1,21 @@
 import { EditorFromTextArea } from 'codemirror';
+import Input from '../input/input';
 import ListLevels from './level.json';
+import { LevelsInterface } from '../control/interface';
 
-class Levels {
-  public async load(editorHTML: EditorFromTextArea): Promise<void> {
-    const newValue = editorHTML.getValue();
-    // const res = await fetch(`${ListLevels}`);
-    // const listLevels = await res.json();
-    // const endLine = editorHTML.lastLine() - 1;
-    // for (let i = 0; i < listLevels[0].set.length; i += 1) {
+class Levels extends Input {
+  public listLevels: LevelsInterface[];
 
-    // }
-    console.log(ListLevels);
-    console.log(newValue);
-    // levels.setValue(newValue);
+  constructor() {
+    super();
+    this.listLevels = ListLevels;
+  }
+
+  public load(editorHTML: EditorFromTextArea, numberLevel = 3): number {
+    const { firstLine, lastLine } = this.listLevels[numberLevel];
+    const setLine = this.listLevels[numberLevel].set.join('\n ');
+    editorHTML.setValue(`${firstLine}\n ${setLine}\n${lastLine}`);
+    return numberLevel;
   }
 }
 

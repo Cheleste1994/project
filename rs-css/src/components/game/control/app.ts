@@ -25,7 +25,9 @@ class Game {
     document.addEventListener('DOMContentLoaded', () => {
       const editorRight = this.input.editorRight();
       if (editorRight) {
-        this.levels.load(editorRight);
+        const numberLevel = this.levels.load(editorRight);
+        this.table.loadTable(this.levels.listLevels[numberLevel]);
+        console.log(this.levels.listLevels);
       }
       this.input.editorLeft();
     });

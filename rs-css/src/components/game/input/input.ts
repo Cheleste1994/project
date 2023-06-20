@@ -13,13 +13,16 @@ import 'codemirror/mode/clike/clike';
 import 'codemirror/mode/php/php';
 
 class Input {
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor, @typescript-eslint/no-empty-function
-  constructor() {}
+  public codeMirror: typeof CodeMirror;
+
+  constructor() {
+    this.codeMirror = CodeMirror;
+  }
 
   public editorRight(): CodeMirror.EditorFromTextArea | undefined {
     const editor = document.querySelector('.html-window');
     if (editor instanceof HTMLTextAreaElement) {
-      const codeMirrorInstance = CodeMirror.fromTextArea(editor, {
+      const codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
         lineNumbers: true,
         matchBrackets: true,
         mode: 'application/x-httpd-php',
@@ -39,7 +42,7 @@ class Input {
   public editorLeft(): void {
     const editor = document.querySelector('.css-window');
     if (editor instanceof HTMLTextAreaElement) {
-      const codeMirrorInstance = CodeMirror.fromTextArea(editor, {
+      const codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
         lineNumbers: true,
         matchBrackets: true,
         mode: 'css',
