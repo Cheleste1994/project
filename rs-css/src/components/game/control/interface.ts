@@ -1,6 +1,6 @@
 interface LevelsInterface {
   level: number;
-  set: string[];
+  target: string[];
   firstLine: string;
   lastLine: string;
   tag: (string | NestedTag)[];

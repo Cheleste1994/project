@@ -1,28 +1,37 @@
 [
   {
     "level": 1,
-    "set": ["<plate />;", "<plate />;"],
+    "target": ["<plate />;", "<plate />;"],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "tag": ["plate", "plate"]
   },
   {
     "level": 2,
-    "set": ["<bento />;", "<bento />;", "<plate />;", "<bento />;"],
+    "target": ["<bento />;", "<bento />;", "<plate />;", "<bento />;"],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "tag": ["bento", "bento", "plate", "bento"]
   },
   {
     "level": 3,
-    "set": ["<bento />;", "<bento />;", "<plate />;", "<bento />;"],
+    "target": ["bento", "plate", "apple"],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
-    "tag": ["bento", "apple", "plate", "bento"]
+    "tag": [
+      "bento",
+      {
+        "bento": {
+          "plate": ["apple"]
+        }
+      },
+      "plate",
+      "bento"
+    ]
   },
   {
     "level": 4,
-    "set": ["<bento />;", "<bento />;", "<plate />;", "<bento />;"],
+    "target": ["bento", "plate", "orange"],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "tag": [

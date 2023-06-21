@@ -24,6 +24,7 @@
   background: -webkit-linear-gradient(#dd992d,#cd8c26);
   background: linear-gradient(#dd992d,#cd8c26);
   width: var(--table-width);
+  min-width: min-content;
   height: 120px;
   margin: 0 auto;
   display: flex;
@@ -217,4 +218,19 @@ pickle {
 .table-field > * > * > pickle {
   max-width: 15px;
   max-height: 30px;
+}
+
+.target {
+    transform-origin: bottom;
+    animation: target 1s infinite;
+    animation-delay: 0s, .5s;
+}
+
+
+@keyframes target {
+  0% { transform:   skew(4deg,0deg) scaleX(1); }
+  10% { transform:  skew(1deg,0deg) scaleY(.8) ; }
+  50% { transform:  skew(-4deg,0deg) scaleX(1); }
+  60% { transform:  skew(-1deg,0deg) scaleY(.8) ; }
+  100% {transform: skew(4deg,0deg) scaleX(1); }
 }
