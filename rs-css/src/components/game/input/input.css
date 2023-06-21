@@ -9,43 +9,23 @@
 }
 
 .input-field_boom {
-  animation: boom ease-in-out 0.3s normal none infinite running ;
-  -moz-animation: boom ease-in-out 0.3s normal none infinite running ;
+  animation: boom .1s 5;
+  -moz-animation: boom .1s 5;
 }
 
 @keyframes boom {
-  0%,
-  50%,
-  100% {
-    transform: rotate(0deg);
-  }
-
-  10%,
-  30% {
-    transform: rotate(-5deg);
-  }
-
-  20%,
-  40% {
-    transform: rotate(5deg);
+  0%   { transform: translateX(0); }
+  25% {  transform: translateX(-5px); }
+  50% {  transform: translateX(0); }
+  75% {  transform: translateX(5px);
   }
 }
 
 @-moz-keyframes boom {
-  0%,
-  50%,
-  100% {
-    transform: rotate(0deg);
-  }
-
-  10%,
-  30% {
-    transform: rotate(-5deg);
-  }
-
-  20%,
-  40% {
-    transform: rotate(5deg);
+  0%   { transform: translateX(0); }
+  25% {  transform: translateX(-5px); }
+  50% {  transform: translateX(0); }
+  75% {  transform: translateX(5px);
   }
 }
 

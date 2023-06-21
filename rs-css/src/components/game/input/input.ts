@@ -103,6 +103,15 @@ class Input extends Levels {
     const level = this.listLevels[numberLevel];
     level.win = true;
   }
+
+  public BOOM(isBoom: boolean): void {
+    if (isBoom) {
+      document.querySelector('.input-field')?.classList.add('input-field_boom');
+      setTimeout(this.BOOM, 500);
+    } else {
+      document.querySelector('.input-field')?.classList.remove('input-field_boom');
+    }
+  }
 }
 
 export default Input;
