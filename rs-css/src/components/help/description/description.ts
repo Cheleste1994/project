@@ -12,6 +12,8 @@ const Selector: SelectorType = {
   examples: '.example',
 };
 
+const WIDTHPROGRESSBAR = 100;
+
 class Description {
   public json: LevelsInterface[];
 
@@ -29,6 +31,17 @@ class Description {
         }
       }
     });
+
+    const levelNameText = document.querySelector('.level-name__text');
+    const lengthJson = this.json.length;
+    if (levelNameText) {
+      levelNameText.innerHTML = `Level ${Number(localStorage.level) + 1} of ${lengthJson}`;
+    }
+
+    const progressLine = document.querySelector('.level-progress .progress') as HTMLElement;
+    if (progressLine) {
+      progressLine.style.width = `${(WIDTHPROGRESSBAR / lengthJson) * (Number(localStorage.level) + 1)}%`;
+    }
   }
 }
 

@@ -8,11 +8,6 @@ class Progress {
   }
 
   public loadLevelHeader(): void {
-    const levelNameText = document.querySelector('.level-name__text');
-    const lengthJson = this.json.length;
-    if (levelNameText) {
-      levelNameText.innerHTML = `Level ${Number(localStorage.level) + 1} of ${lengthJson}`;
-    }
     const list = document.querySelector('.list-levels');
     const fragment = document.createDocumentFragment();
     this.json.forEach((data) => {

@@ -1,16 +1,16 @@
 import './global.css';
 import Help from './components/help/control/help';
-import Game from './components/game/control/app';
+import Listeners from './components/game/control/listeners';
 
 const help = new Help();
-const game = new Game();
+const listener = new Listeners();
 
 help.start();
-game.start();
-game.listeners();
+listener.start();
 
 window.addEventListener('load', (event) => {
   localStorage.setItem('level', '0');
   const { body } = event.target as Document;
   body.style.opacity = '1';
+  listener.listeners();
 });
