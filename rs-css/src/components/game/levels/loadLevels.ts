@@ -1,13 +1,11 @@
 import { EditorFromTextArea } from 'codemirror';
-import Input from '../input/input';
 import ListLevels from './level.json';
 import { LevelsInterface } from '../control/interface';
 
-class Levels extends Input {
+class Levels {
   public listLevels: LevelsInterface[];
 
   constructor() {
-    super();
     this.listLevels = ListLevels;
   }
 

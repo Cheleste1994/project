@@ -10,6 +10,7 @@ game.start();
 game.listeners();
 
 window.addEventListener('load', (event) => {
+  localStorage.setItem('level', '0');
   const { body } = event.target as Document;
   body.style.opacity = '1';
 });

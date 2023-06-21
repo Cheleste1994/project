@@ -37,6 +37,9 @@ class Table {
       }
       fragment.appendChild(element);
     });
+    if (table !== null) {
+      table.innerHTML = '';
+    }
     table?.appendChild(fragment);
   }
 

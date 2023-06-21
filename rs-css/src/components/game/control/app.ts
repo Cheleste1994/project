@@ -54,13 +54,19 @@ class Game {
         if (this.input.findTarget()) {
           const { codeMirrorInstance } = this.input;
           if (codeMirrorInstance) {
-            this.table.loadTable(this.levels.listLevels[2]);
-            this.levels.load(codeMirrorInstance, 2);
+            const { level } = localStorage;
+            this.table.loadTable(this.levels.listLevels[Number(level) + 1]);
+            this.levels.load(codeMirrorInstance, level);
+            this.input.writeWin(Number(level));
+            localStorage.level = Number(level) + 1;
           }
         }
         this.input.addMarker<string>(inputValue);
         btnEnter?.classList.remove('enter-button_active');
         inputField?.classList.remove('input-field_boom');
+        const inputElement = event.target as HTMLInputElement;
+        this.input.removeMarker();
+        inputElement.value = '';
       }
     });
   }
