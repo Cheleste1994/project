@@ -40,7 +40,7 @@ class Table {
     table?.appendChild(fragment);
   }
 
-  public findTarget(element: Element, target: string[]): Element | null {
+  private findTarget(element: Element, target: string[]): Element | null {
     if (target.length === 0) return null;
 
     const tagName = target[0];

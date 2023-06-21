@@ -1,17 +1,17 @@
 [
   {
     "level": 1,
-    "target": ["<plate />;", "<plate />;"],
+    "target": ["plate"],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "tag": ["plate", "plate"]
   },
   {
     "level": 2,
-    "target": ["<bento />;", "<bento />;", "<plate />;", "<bento />;"],
+    "target": ["bento"],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
-    "tag": ["bento", "bento", "plate", "bento"]
+    "tag": ["bento", "orange", "plate", "bento"]
   },
   {
     "level": 3,
@@ -26,7 +26,7 @@
         }
       },
       "plate",
-      "bento"
+      "orange"
     ]
   },
   {

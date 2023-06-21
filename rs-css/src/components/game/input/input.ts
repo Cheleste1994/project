@@ -15,6 +15,8 @@ import 'codemirror/mode/php/php';
 class Input {
   public codeMirror: typeof CodeMirror;
 
+  public codeMirrorInstance: CodeMirror.EditorFromTextArea | undefined;
+
   constructor() {
     this.codeMirror = CodeMirror;
   }
@@ -22,7 +24,7 @@ class Input {
   public editorRight(): CodeMirror.EditorFromTextArea | undefined {
     const editor = document.querySelector('.html-window');
     if (editor instanceof HTMLTextAreaElement) {
-      const codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
+      this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
         lineNumbers: true,
         matchBrackets: true,
         mode: 'application/x-httpd-php',
@@ -33,8 +35,8 @@ class Input {
         lineWrapping: true,
         viewportMargin: Infinity,
       });
-      codeMirrorInstance.getWrapperElement().classList.add('html-window');
-      return codeMirrorInstance;
+      this.codeMirrorInstance.getWrapperElement().classList.add('html-window');
+      return this.codeMirrorInstance;
     }
     return undefined;
   }
@@ -57,6 +59,37 @@ class Input {
       });
       codeMirrorInstance.getWrapperElement().classList.add('css-window');
     }
+  }
+
+  public addMarker<T>(inputValue: T): void {
+    const tableField = document.querySelector('.table-field');
+    const targetElements = tableField?.querySelectorAll(`${inputValue}`);
+    if (targetElements) {
+      targetElements.forEach((element) => {
+        if (element.classList.contains('find')) {
+          element.classList.remove('find');
+        } else {
+          element.classList.add('find');
+        }
+      });
+    }
+  }
+
+  public findTarget(): boolean {
+    const target = document.querySelectorAll('.target');
+    const find = document.querySelectorAll('.find');
+    let isFind = false;
+
+    for (let i = 0; i < target.length; i += 1) {
+      if (target.length !== find.length) {
+        return false;
+      }
+      if (target[i].className !== find[i].className) {
+        return false;
+      }
+      isFind = true;
+    }
+    return isFind;
   }
 }
 

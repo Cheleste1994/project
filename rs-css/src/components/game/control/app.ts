@@ -16,19 +16,52 @@ class Game {
     this.levels = new Levels();
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  public start() {
+  public start(): void {
     const stuck = document.querySelector('.stuck');
     stuck?.addEventListener('click', () => {
       this.table.toogleStuck();
     });
+
     document.addEventListener('DOMContentLoaded', () => {
       const editorRight = this.input.editorRight();
       if (editorRight) {
-        this.table.loadTable(this.levels.listLevels[3]);
-        this.levels.load(editorRight, 3);
+        this.table.loadTable(this.levels.listLevels[0]);
+        this.levels.load(editorRight, 0);
       }
       this.input.editorLeft();
+    });
+  }
+
+  public listeners(): void {
+    const inputEnter = document.querySelector('.css-input');
+    const btnEnter = document.querySelector('.enter-button');
+    const inputField = document.querySelector('.input-field');
+
+    inputEnter?.addEventListener('keydown', (event: KeyboardEvent | Event) => {
+      if (event instanceof KeyboardEvent && event.code === 'Enter') {
+        const inputValue = (event.target as HTMLInputElement).value;
+        this.input.addMarker<string>(inputValue);
+        btnEnter?.classList.add('enter-button_active');
+        if (!this.input.findTarget()) {
+          inputField?.classList.add('input-field_boom');
+        }
+      }
+    });
+
+    inputEnter?.addEventListener('keyup', (event: KeyboardEvent | Event) => {
+      if (event instanceof KeyboardEvent && event.code === 'Enter') {
+        const inputValue = (event.target as HTMLInputElement).value;
+        if (this.input.findTarget()) {
+          const { codeMirrorInstance } = this.input;
+          if (codeMirrorInstance) {
+            this.table.loadTable(this.levels.listLevels[2]);
+            this.levels.load(codeMirrorInstance, 2);
+          }
+        }
+        this.input.addMarker<string>(inputValue);
+        btnEnter?.classList.remove('enter-button_active');
+        inputField?.classList.remove('input-field_boom');
+      }
     });
   }
 }

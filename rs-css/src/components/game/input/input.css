@@ -8,6 +8,48 @@
   border-radius: 4px;
 }
 
+.input-field_boom {
+  animation: boom ease-in-out 0.3s normal none infinite running ;
+  -moz-animation: boom ease-in-out 0.3s normal none infinite running ;
+}
+
+@keyframes boom {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  10%,
+  30% {
+    transform: rotate(-5deg);
+  }
+
+  20%,
+  40% {
+    transform: rotate(5deg);
+  }
+}
+
+@-moz-keyframes boom {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  10%,
+  30% {
+    transform: rotate(-5deg);
+  }
+
+  20%,
+  40% {
+    transform: rotate(5deg);
+  }
+}
+
+
 .left-field {
   display: flex;
   flex-direction: column;
@@ -113,15 +155,6 @@
   outline: none;
 }
 
-@keyframes input {
-  50% { background:none ; }
-}
-
-@-moz-keyframes input {
-  50% { background:none ; }
-}
-
-
 .enter-button {
   background: #ddd;
   display: block;
@@ -141,6 +174,12 @@
   border-width: 0;
   margin-bottom: 7px;
 }
+
+.enter-button_active {
+  border-width: 0;
+  margin-bottom: 7px;
+}
+
 
 .html-window {
   width: 100%;

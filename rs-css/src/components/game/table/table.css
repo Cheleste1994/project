@@ -1,5 +1,5 @@
 
-.table {
+.container-table {
   perspective: 800px;
   outline: solid 1px transparent;
   margin: 0px auto 10px auto;
@@ -87,17 +87,17 @@ plate {
 
 .table-field > plate {
   margin: 0 10px;
-  max-width: 100px;
+  max-width: 80px;
   max-height: 80px;
 }
 
-.table-field > * > bento {
-  max-width: 100px;
-  max-height: 50px;
+.table-field > * > plate {
+  max-width: 70px;
+  max-height: 70px;
 }
 
-.table-field > * > * > bento {
-  max-width: 100px;
+.table-field > * > * > plate {
+  max-width: 50px;
   max-height: 50px;
 }
 
@@ -226,11 +226,23 @@ pickle {
     animation-delay: 0s, .5s;
 }
 
+.find {
+  animation: target 1s infinite;
+  animation: find 1s infinite;
+}
 
 @keyframes target {
   0% { transform:   skew(4deg,0deg) scaleX(1); }
   10% { transform:  skew(1deg,0deg) scaleY(.8) ; }
   50% { transform:  skew(-4deg,0deg) scaleX(1); }
   60% { transform:  skew(-1deg,0deg) scaleY(.8) ; }
-  100% {transform: skew(4deg,0deg) scaleX(1); }
+  100% {
+    transform: skew(4deg,0deg) scaleX(1);
+  }
+}
+
+@keyframes find {
+ 100% {
+    opacity: 0;
+  }
 }
