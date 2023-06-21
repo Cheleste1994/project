@@ -22,7 +22,7 @@ class Description {
   }
 
   public loadLevelDescription(): void {
-    const { description } = this.json[localStorage.level];
+    const { description } = this.json[Number(localStorage.level)];
     Object.keys(Selector).forEach((name) => {
       if (typeof name === 'string') {
         const element = document.querySelector(Selector[`${name}`]);
