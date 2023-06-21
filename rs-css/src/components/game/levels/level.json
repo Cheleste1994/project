@@ -1,6 +1,14 @@
 [
   {
     "level": 0,
+    "title": "Title",
+    "description": {
+      "selector": "Type Selector",
+      "title": "Select elements by their type",
+      "syntax": "A",
+      "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
+      "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
+    },
     "target": ["plate"],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
@@ -9,6 +17,14 @@
   },
   {
     "level": 1,
+    "title": "Title",
+    "description": {
+      "selector": "Type Selector",
+      "title": "Select elements by their type",
+      "syntax": "A",
+      "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
+      "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
+    },
     "target": ["bento"],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
@@ -17,6 +33,14 @@
   },
   {
     "level": 2,
+    "title": "Title",
+    "description": {
+      "selector": "Type Selector",
+      "title": "Select elements by their type",
+      "syntax": "A",
+      "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
+      "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
+    },
     "target": ["bento", "plate", "apple"],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
@@ -34,6 +58,14 @@
   },
   {
     "level": 3,
+    "title": "Title",
+    "description": {
+      "selector": "Type Selector",
+      "title": "Select elements by their type",
+      "syntax": "A",
+      "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
+      "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
+    },
     "target": ["bento", "plate", "orange"],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",

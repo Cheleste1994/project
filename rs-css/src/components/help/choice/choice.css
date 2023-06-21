@@ -59,6 +59,12 @@
   transform: rotate(40deg);
 }
 
+.checkmark_active {
+  opacity: .55;
+  border: solid 3px #4cbb4a;
+  border-width: 0 3px 3px 0;
+}
+
 .level-number {
   color: #777;
   opacity: .6;

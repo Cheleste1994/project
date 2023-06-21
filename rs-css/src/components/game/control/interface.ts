@@ -1,5 +1,9 @@
 interface LevelsInterface {
   level: number;
+  title: string;
+  description: {
+    [key: string]: string;
+  };
   target: string[];
   firstLine: string;
   lastLine: string;
