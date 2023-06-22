@@ -18,7 +18,6 @@ class Listeners extends Game {
       btnEnter: null,
       inputField: null,
     };
-    this.start();
   }
 
   public listeners(): void {
