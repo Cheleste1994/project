@@ -113,12 +113,10 @@ class Table {
   private addListenerHoverTable(): void {
     const tableElements = document.querySelector('.table-field') as HTMLElement;
     const children = tableElements.querySelectorAll<HTMLElement>('*');
-    console.log(children);
     children.forEach((element: HTMLElement) => {
       element.addEventListener('mouseover', (event) => {
         const target = event.target as HTMLElement;
         target.classList.add('table_hover');
-        console.log(target.localName);
         target.setAttribute('data-content', `<${target.localName}></${target.localName}>`);
       });
 

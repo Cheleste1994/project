@@ -78,8 +78,8 @@ class Input {
           localStorage.level = num - 1;
           this.emmiter.emit('levelChangeViaInput', true);
         }
+        return;
       }
-      return;
     }
 
     if (!inputValue) return;

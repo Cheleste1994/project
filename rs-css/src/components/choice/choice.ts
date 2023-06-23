@@ -61,6 +61,7 @@ class Choice {
     this.addListenerLevelChange();
     this.addListenerLevelNext();
     this.addListenerLevelPrev();
+    this.addSaveBeforeUnload();
   }
 
   private toggleBurgerMenu(burgerIcon?: Element): void {
@@ -159,6 +160,16 @@ class Choice {
       const num = Number(localStorage.level);
       localStorage.level = num < this.listLevels.length && num > 0 ? num - 1 : this.listLevels.length - 1;
       this.emmiter.emit('levelPrev', true);
+    });
+  }
+
+  private addSaveBeforeUnload(): void {
+    window.addEventListener('beforeunload', () => {
+      const saveWin = [];
+      for (let i = 0; i < this.listLevels.length; i += 1) {
+        saveWin.push(this.listLevels[i].win);
+      }
+      localStorage.setItem('save', saveWin.join(','));
     });
   }
 }

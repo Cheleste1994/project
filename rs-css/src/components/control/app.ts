@@ -17,6 +17,7 @@ class Game {
   private choice: Choice;
 
   constructor() {
+    this.start();
     this.emmiter = new EventEmitter();
     this.table = new Table(this.emmiter);
     this.input = new Input(this.emmiter);

@@ -262,5 +262,5 @@ pickle {
   left: 0; top: -50px;
   background: #3988c975;
   color: #fff;
-  transform: rotateX(40deg);
+  transform: rotate(0 -40deg);
 }
