@@ -42,6 +42,11 @@ class Choice {
       this.loadLevelDescription();
       this.addListenerLevelChange();
     });
+    this.emmiter.subscribe('levelPrev', () => {
+      this.loadLevelHeader();
+      this.loadLevelDescription();
+      this.addListenerLevelChange();
+    });
   }
 
   private start(): void {
@@ -50,6 +55,7 @@ class Choice {
     this.addListenerBugerMenu();
     this.addListenerLevelChange();
     this.addListenerLevelNext();
+    this.addListenerLevelPrev();
   }
 
   private toggleBurgerMenu(burgerIcon?: Element): void {
@@ -139,6 +145,15 @@ class Choice {
     next?.addEventListener('click', () => {
       localStorage.level = Number(localStorage.level) < this.listLevels.length - 1 ? Number(localStorage.level) + 1 : 0;
       this.emmiter.emit('levelNext', true);
+    });
+  }
+
+  private addListenerLevelPrev(): void {
+    const prev = document.querySelector('.level-nav .prev');
+    prev?.addEventListener('click', () => {
+      const num = Number(localStorage.level);
+      localStorage.level = num < this.listLevels.length && num > 0 ? num - 1 : this.listLevels.length - 1;
+      this.emmiter.emit('levelPrev', true);
     });
   }
 }

@@ -22,6 +22,9 @@ class Table {
     this.emmiter.subscribe('levelNext', () => {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
     });
+    this.emmiter.subscribe('levelPrev', () => {
+      this.loadTable(this.listLevels[Number(localStorage.level)]);
+    });
   }
 
   private loadTable(level: LevelsInterface): void {
