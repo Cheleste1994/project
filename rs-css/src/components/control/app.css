@@ -45,15 +45,15 @@
 }
 
 .twitter {
-  background-image: url('../../../assets/icons/icon-twitter.svg');
+  background-image: url('../../assets/icons/icon-twitter.svg');
 }
 
 .facebook {
-  background-image: url('../../../assets/icons/icon-facebook.svg');
+  background-image: url('../../assets/icons/icon-facebook.svg');
 }
 
 .email {
-  background-image: url('../../../assets/icons/icon-email.svg');
+  background-image: url('../../assets/icons/icon-email.svg');
 }
 
 .description {

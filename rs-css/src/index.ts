@@ -1,17 +1,17 @@
 import './global.css';
-import Help from './components/help/control/help';
-import Listeners from './components/game/control/listeners';
+import Choice from './components/choice/choice';
+import Game from './components/control/app';
 
 localStorage.setItem('level', '0');
 
-const help = new Help();
-const listener = new Listeners();
+const game = new Game();
+const choice = new Choice();
 
-help.start();
-listener.start();
+game.start();
+choice.start();
 
 window.addEventListener('load', (event) => {
   const { body } = event.target as Document;
   body.style.opacity = '1';
-  listener.listeners();
+  // listener.listeners();
 });

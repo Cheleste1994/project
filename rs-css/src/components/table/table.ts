@@ -1,10 +1,21 @@
 import './table.css';
-import { LevelsInterface, NestedTag } from '../control/interface';
+import ListLevels from '../../assets/data/level.json';
+import { LevelsInterface, NestedTag } from '../../assets/data/interface';
+import EventEmitter from '../control/EventEmitter';
 
 class Table {
-  public toogleStuck(): void {
-    const stuck = document.querySelector('.stuck-open');
-    stuck?.classList.toggle('stuck-open_active');
+  public listLevels: LevelsInterface[];
+
+  public emmiter: EventEmitter;
+
+  constructor(emmiter: EventEmitter) {
+    this.emmiter = emmiter;
+    this.listLevels = ListLevels;
+    this.toogleStuck();
+    this.loadTable(this.listLevels[Number(localStorage.level)]);
+    this.emmiter.subscribe('targetFound', () => {
+      this.loadTable(this.listLevels[Number(localStorage.level)]);
+    });
   }
 
   public loadTable(level: LevelsInterface): void {
@@ -60,6 +71,12 @@ class Table {
       if (foundElement !== null) return foundElement;
     }
     return null;
+  }
+
+  public toogleStuck(): void {
+    document.querySelector('.stuck')?.addEventListener('click', () => {
+      document.querySelector('.stuck-open')?.classList.toggle('stuck-open_active');
+    });
   }
 }
 
