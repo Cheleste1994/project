@@ -15,21 +15,28 @@ class Table {
     this.loadTable(this.listLevels[Number(localStorage.level)]);
     this.emmiter.subscribe('targetFound', () => {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
+      this.addListenerHoverTable();
     });
     this.emmiter.subscribe('levelChange', () => {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
+      this.addListenerHoverTable();
     });
     this.emmiter.subscribe('levelNext', () => {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
+      this.addListenerHoverTable();
     });
     this.emmiter.subscribe('levelPrev', () => {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
+      this.addListenerHoverTable();
     });
   }
 
   protected start(): void {
-    this.addListenerToogleStuck();
-    this.addListenerHelp();
+    window.addEventListener('load', () => {
+      this.addListenerToogleStuck();
+      this.addListenerHelp();
+      this.addListenerHoverTable();
+    });
   }
 
   private loadTable(level: LevelsInterface): void {
@@ -96,6 +103,26 @@ class Table {
   private addListenerHelp(): void {
     document.querySelector('.note-toggle')?.addEventListener('click', () => {
       this.emmiter.emit('help', true);
+    });
+  }
+
+  private addListenerHoverTable(): void {
+    const tableElements = document.querySelector('.table-field') as HTMLElement;
+    const children = tableElements.querySelectorAll<HTMLElement>('*');
+    console.log(children);
+    children.forEach((element: HTMLElement) => {
+      element.addEventListener('mouseover', (event) => {
+        const target = event.target as HTMLElement;
+        target.classList.add('table_hover');
+        console.log(target.localName);
+        target.setAttribute('data-content', `<${target.localName}></${target.localName}>`);
+      });
+
+      element.addEventListener('mouseout', (event) => {
+        const target = event.target as HTMLElement;
+        target.classList.remove('table_hover');
+        target.removeAttribute('data-content');
+      });
     });
   }
 }

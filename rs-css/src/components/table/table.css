@@ -246,3 +246,21 @@ pickle {
     opacity: 0;
   }
 }
+
+
+.table_hover {
+  box-shadow: 0 0 0 6px rgba(255,255,255,.4);
+  position: relative;
+}
+
+.table_hover::after {
+  content: attr(data-content);
+  position: absolute;
+  min-width: 100px;
+  max-height: 40px;
+  font-size: 30px;
+  left: 0; top: -50px;
+  background: #3988c975;
+  color: #fff;
+  transform: rotateX(40deg);
+}
