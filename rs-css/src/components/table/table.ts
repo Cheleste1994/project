@@ -11,7 +11,7 @@ class Table {
   constructor(emmiter: EventEmitter) {
     this.emmiter = emmiter;
     this.listLevels = ListLevels;
-    this.toogleStuck();
+    this.start();
     this.loadTable(this.listLevels[Number(localStorage.level)]);
     this.emmiter.subscribe('targetFound', () => {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
@@ -25,6 +25,11 @@ class Table {
     this.emmiter.subscribe('levelPrev', () => {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
     });
+  }
+
+  protected start(): void {
+    this.addListenerToogleStuck();
+    this.addListenerHelp();
   }
 
   private loadTable(level: LevelsInterface): void {
@@ -82,9 +87,15 @@ class Table {
     return null;
   }
 
-  private toogleStuck(): void {
+  private addListenerToogleStuck(): void {
     document.querySelector('.stuck')?.addEventListener('click', () => {
       document.querySelector('.stuck-open')?.classList.toggle('stuck-open_active');
+    });
+  }
+
+  private addListenerHelp(): void {
+    document.querySelector('.note-toggle')?.addEventListener('click', () => {
+      this.emmiter.emit('help', true);
     });
   }
 }

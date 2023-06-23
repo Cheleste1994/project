@@ -39,6 +39,7 @@ class Input {
       btnEnter: null,
       inputField: null,
     };
+    this.emmiter.subscribe('help', () => this.addHintInputField());
   }
 
   private start(): void {
@@ -123,7 +124,35 @@ class Input {
       document.querySelector('.input-field')?.classList.add('input-field_boom');
       setTimeout(this.BOOM, 500);
     } else {
+      const input = document.querySelector('.css-input') as HTMLInputElement;
+      if (input) {
+        input.value = '';
+      }
       document.querySelector('.input-field')?.classList.remove('input-field_boom');
+    }
+  }
+
+  private addHintInputField(): void {
+    const input = this.elements.inputEnter;
+    if (input) {
+      if (input.value.length > 0) {
+        input.value = '';
+      }
+      const letters = this.listLevels[Number(localStorage.level)].target.join(' ');
+      if (letters) {
+        this.addEffectPrint(letters);
+      }
+    }
+  }
+
+  private addEffectPrint(letters: string, index = 0): void {
+    const input = document.querySelector('.css-input') as HTMLInputElement;
+    const str = letters;
+    if (index < str.length) {
+      if (input) {
+        input.value += str[index];
+      }
+      setTimeout(this.addEffectPrint.bind(this), 300, str, index + 1);
     }
   }
 
