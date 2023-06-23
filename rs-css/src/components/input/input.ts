@@ -68,6 +68,10 @@ class Input {
   }
 
   private addMarker<T>(inputValue: T): void {
+    if (typeof inputValue === 'string' && inputValue.length !== 0) {
+      if (!inputValue || Number(inputValue[0])) return;
+    }
+
     if (!inputValue) return;
 
     const tableField = document.querySelector('.table-field');

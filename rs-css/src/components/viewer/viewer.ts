@@ -37,14 +37,14 @@ class Viewer {
 
   private start(): void {
     document.addEventListener('DOMContentLoaded', () => {
-      const editorRight = this.editorRight();
+      const editorRight = this.addEditorRight();
       if (editorRight) {
         this.load(Number(localStorage.level));
       }
     });
   }
 
-  private editorRight(): CodeMirror.EditorFromTextArea | undefined {
+  private addEditorRight(): CodeMirror.EditorFromTextArea | undefined {
     const editor = document.querySelector('.html-window');
     if (editor instanceof HTMLTextAreaElement) {
       this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
