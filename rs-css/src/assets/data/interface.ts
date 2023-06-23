@@ -7,7 +7,7 @@ interface LevelsInterface {
   target: string[];
   firstLine: string;
   lastLine: string;
-  win: boolean;
+  isWin: boolean;
   tag: (string | NestedTag)[];
 }
 

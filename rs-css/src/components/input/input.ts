@@ -123,7 +123,7 @@ class Input {
 
   private writeWin(numberLevel: number): void {
     const level = this.listLevels[numberLevel];
-    level.win = true;
+    level.isWin = true;
     localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : 0;
     this.emmiter.emit('targetFound', true);
   }

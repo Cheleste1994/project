@@ -101,7 +101,7 @@ class Choice {
       const elementCheckmark = document.createElement('span');
       elementCheckmark.classList.add('checkmark');
 
-      if (data.win) {
+      if (data.isWin) {
         elementCheckmark.classList.add('checkmark_active');
       }
 
@@ -115,7 +115,7 @@ class Choice {
       fragment.appendChild(elementA);
     });
 
-    if (this.listLevels[Number(localStorage.level)].win) {
+    if (this.listLevels[Number(localStorage.level)].isWin) {
       document.querySelector('.level-name__checkmark')?.classList.add('checkmark_active');
     } else {
       document.querySelector('.level-name__checkmark')?.classList.remove('checkmark_active');
@@ -167,7 +167,7 @@ class Choice {
     window.addEventListener('beforeunload', () => {
       const saveWin = [];
       for (let i = 0; i < this.listLevels.length; i += 1) {
-        saveWin.push(this.listLevels[i].win);
+        saveWin.push(this.listLevels[i].isWin);
       }
       localStorage.setItem('save', saveWin.join(','));
     });

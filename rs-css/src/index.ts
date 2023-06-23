@@ -11,7 +11,7 @@ function loadGameSave(): Promise<void> {
     if (localStorage.getItem('save')) {
       const save = localStorage.getItem('save');
       save?.split(',').forEach((value, index) => {
-        ListLevels[index].win = value === 'true';
+        ListLevels[index].isWin = value === 'true';
       });
     }
 
