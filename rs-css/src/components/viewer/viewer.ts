@@ -16,25 +16,25 @@ import 'codemirror/mode/php/php';
 import EventEmitter from '../control/EventEmitter';
 
 class Viewer {
-  public codeMirror: typeof CodeMirror;
+  private codeMirror: typeof CodeMirror;
 
-  public codeMirrorInstance: CodeMirror.EditorFromTextArea | undefined;
+  private codeMirrorInstance: CodeMirror.EditorFromTextArea | undefined;
 
-  public listLevels: LevelsInterface[];
+  private listLevels: LevelsInterface[];
 
-  public emmiter: EventEmitter;
+  private emmiter: EventEmitter;
 
   constructor(emmiter: EventEmitter) {
     this.emmiter = emmiter;
     this.codeMirror = CodeMirror;
     this.listLevels = ListLevels;
     this.start();
-    this.emmiter.subscribe('targetFound', () => {
-      this.load(Number(localStorage.level));
-    });
+    this.emmiter.subscribe('targetFound', () => this.load(Number(localStorage.level)));
+    this.emmiter.subscribe('levelChange', () => this.load(Number(localStorage.level)));
+    this.emmiter.subscribe('levelNext', () => this.load(Number(localStorage.level)));
   }
 
-  public start(): void {
+  private start(): void {
     document.addEventListener('DOMContentLoaded', () => {
       const editorRight = this.editorRight();
       if (editorRight) {

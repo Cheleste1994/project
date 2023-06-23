@@ -18,8 +18,6 @@ import 'codemirror/mode/php/php';
 class Input {
   private codeMirror: typeof CodeMirror;
 
-  private codeMirrorInstance: CodeMirror.EditorFromTextArea | undefined;
-
   private listLevels: LevelsInterface[];
 
   private elements: {
@@ -28,7 +26,7 @@ class Input {
     inputField: Element | null;
   };
 
-  public emmiter: EventEmitter;
+  private emmiter: EventEmitter;
 
   constructor(emmiter: EventEmitter) {
     this.emmiter = emmiter;
@@ -43,13 +41,13 @@ class Input {
     };
   }
 
-  public start(): void {
+  private start(): void {
     document.addEventListener('DOMContentLoaded', () => {
       this.editorLeft();
     });
   }
 
-  public editorLeft(): void {
+  private editorLeft(): void {
     const editor = document.querySelector('.css-window');
     if (editor instanceof HTMLTextAreaElement) {
       const codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
@@ -69,7 +67,7 @@ class Input {
     }
   }
 
-  public addMarker<T>(inputValue: T): void {
+  private addMarker<T>(inputValue: T): void {
     if (!inputValue) return;
 
     const tableField = document.querySelector('.table-field');
@@ -81,14 +79,14 @@ class Input {
     }
   }
 
-  public removeMarker(): void {
+  private removeMarker(): void {
     const tableField = document.querySelectorAll('.find');
     tableField?.forEach((element) => {
       element.classList.remove('find');
     });
   }
 
-  public targetSearch(): boolean {
+  private targetSearch(): boolean {
     const target = document.querySelectorAll('.target');
     const find = document.querySelectorAll('.find');
     let isFind = false;
@@ -109,14 +107,14 @@ class Input {
     return false;
   }
 
-  public writeWin(numberLevel: number): void {
+  private writeWin(numberLevel: number): void {
     const level = this.listLevels[numberLevel];
     level.win = true;
     localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : 0;
     this.emmiter.emit('targetFound', true);
   }
 
-  public BOOM(isBoom: boolean): void {
+  private BOOM(isBoom: boolean): void {
     if (isBoom) {
       document.querySelector('.input-field')?.classList.add('input-field_boom');
       setTimeout(this.BOOM, 500);
@@ -125,7 +123,7 @@ class Input {
     }
   }
 
-  public listeners(): void {
+  private listeners(): void {
     window.addEventListener('load', () => {
       this.elements.inputEnter = document.querySelector('.css-input');
       this.elements.btnEnter = document.querySelector('.enter-button');

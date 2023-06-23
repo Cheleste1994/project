@@ -2,6 +2,7 @@ import './help.css';
 import './choice.css';
 import { LevelsInterface } from '../../assets/data/interface';
 import ListLevels from '../../assets/data/level.json';
+import EventEmitter from '../control/EventEmitter';
 
 type SelectorType = {
   [key: string]: string;
@@ -18,26 +19,47 @@ const Selector: SelectorType = {
 const WIDTHPROGRESSBAR = 100;
 
 class Choice {
-  private json: LevelsInterface[];
+  private listLevels: LevelsInterface[];
 
-  constructor() {
-    this.json = ListLevels;
+  protected emmiter: EventEmitter;
+
+  constructor(emmiter: EventEmitter) {
+    this.emmiter = emmiter;
+    this.listLevels = ListLevels;
+    this.start();
+    this.emmiter.subscribe('targetFound', () => {
+      this.loadLevelHeader();
+      this.loadLevelDescription();
+      this.addListenerLevelChange();
+    });
+    this.emmiter.subscribe('levelChange', () => {
+      this.loadLevelHeader();
+      this.loadLevelDescription();
+      this.addListenerLevelChange();
+    });
+    this.emmiter.subscribe('levelNext', () => {
+      this.loadLevelHeader();
+      this.loadLevelDescription();
+      this.addListenerLevelChange();
+    });
   }
 
-  public start(): void {
+  private start(): void {
     this.loadLevelHeader();
     this.loadLevelDescription();
-    this.listenersBugerMenu();
+    this.addListenerBugerMenu();
+    this.addListenerLevelChange();
+    this.addListenerLevelNext();
   }
 
-  public toggleBurgerMenu(burgerIcon?: Element): void {
+  private toggleBurgerMenu(burgerIcon?: Element): void {
     const menu = document.querySelector('.burger-menu');
     menu?.classList.toggle('burger-menu_open');
     burgerIcon?.classList.toggle('burger-menu__icon_open');
   }
 
-  public loadLevelDescription(): void {
-    const { description } = this.json[Number(localStorage.level)];
+  private loadLevelDescription(): void {
+    const { description } = this.listLevels[Number(localStorage.level)];
     Object.keys(Selector).forEach((name) => {
       if (typeof name === 'string') {
         const element = document.querySelector(Selector[`${name}`]);
@@ -48,21 +70,21 @@ class Choice {
     });
 
     const levelNameText = document.querySelector('.level-name__text');
-    const lengthJson = this.json.length;
+    const lengthlistLevels = this.listLevels.length;
     if (levelNameText) {
-      levelNameText.innerHTML = `Level ${Number(localStorage.level) + 1} of ${lengthJson}`;
+      levelNameText.innerHTML = `Level ${Number(localStorage.level) + 1} of ${lengthlistLevels}`;
     }
 
     const progressLine = document.querySelector('.level-progress .progress') as HTMLElement;
     if (progressLine) {
-      progressLine.style.width = `${(WIDTHPROGRESSBAR / lengthJson) * (Number(localStorage.level) + 1)}%`;
+      progressLine.style.width = `${(WIDTHPROGRESSBAR / lengthlistLevels) * (Number(localStorage.level) + 1)}%`;
     }
   }
 
-  public loadLevelHeader(): void {
+  private loadLevelHeader(): void {
     const list = document.querySelector('.list-levels');
     const fragment = document.createDocumentFragment();
-    this.json.forEach((data) => {
+    this.listLevels.forEach((data) => {
       const elementA = document.createElement('a');
       const elementCheckmark = document.createElement('span');
       elementCheckmark.classList.add('checkmark');
@@ -80,19 +102,44 @@ class Choice {
 
       fragment.appendChild(elementA);
     });
+
+    if (this.listLevels[Number(localStorage.level)].win) {
+      document.querySelector('.level-name__checkmark')?.classList.add('checkmark_active');
+    } else {
+      document.querySelector('.level-name__checkmark')?.classList.remove('checkmark_active');
+    }
+
     if (list) {
       list.innerHTML = '';
     }
     list?.appendChild(fragment);
   }
 
-  private listenersBugerMenu(): void {
+  private addListenerBugerMenu(): void {
     const burger = document.querySelector('.burger-menu__icon');
     burger?.addEventListener('click', () => {
       this.toggleBurgerMenu(burger);
     });
-    this.loadLevelHeader();
-    this.loadLevelDescription();
+  }
+
+  private addListenerLevelChange(): void {
+    const levels = document.querySelectorAll('.list-levels a');
+    levels.forEach((level, index) => {
+      level.addEventListener('click', () => {
+        localStorage.level = index;
+        document.querySelector('.burger-menu')?.classList.remove('burger-menu_open');
+        document.querySelector('.burger-menu__icon')?.classList.toggle('burger-menu__icon_open');
+        this.emmiter.emit('levelChange', true);
+      });
+    });
+  }
+
+  private addListenerLevelNext(): void {
+    const next = document.querySelector('.level-nav .next');
+    next?.addEventListener('click', () => {
+      localStorage.level = Number(localStorage.level) < this.listLevels.length - 1 ? Number(localStorage.level) + 1 : 0;
+      this.emmiter.emit('levelNext', true);
+    });
   }
 }
 

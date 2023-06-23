@@ -4,9 +4,9 @@ import { LevelsInterface, NestedTag } from '../../assets/data/interface';
 import EventEmitter from '../control/EventEmitter';
 
 class Table {
-  public listLevels: LevelsInterface[];
+  private listLevels: LevelsInterface[];
 
-  public emmiter: EventEmitter;
+  private emmiter: EventEmitter;
 
   constructor(emmiter: EventEmitter) {
     this.emmiter = emmiter;
@@ -16,9 +16,15 @@ class Table {
     this.emmiter.subscribe('targetFound', () => {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
     });
+    this.emmiter.subscribe('levelChange', () => {
+      this.loadTable(this.listLevels[Number(localStorage.level)]);
+    });
+    this.emmiter.subscribe('levelNext', () => {
+      this.loadTable(this.listLevels[Number(localStorage.level)]);
+    });
   }
 
-  public loadTable(level: LevelsInterface): void {
+  private loadTable(level: LevelsInterface): void {
     const table = document.querySelector('.table-field');
     const fragment = document.createDocumentFragment();
 
@@ -73,7 +79,7 @@ class Table {
     return null;
   }
 
-  public toogleStuck(): void {
+  private toogleStuck(): void {
     document.querySelector('.stuck')?.addEventListener('click', () => {
       document.querySelector('.stuck-open')?.classList.toggle('stuck-open_active');
     });
