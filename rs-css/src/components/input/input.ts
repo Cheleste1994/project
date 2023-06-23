@@ -70,7 +70,16 @@ class Input {
 
   private addMarker<T>(inputValue: T): void {
     if (typeof inputValue === 'string' && inputValue.length !== 0) {
-      if (!inputValue || Number(inputValue[0])) return;
+      if (!inputValue) return;
+
+      if (Number(inputValue[0])) {
+        const num = Number(inputValue);
+        if (num <= this.listLevels.length && num > 0) {
+          localStorage.level = num - 1;
+          this.emmiter.emit('levelChangeViaInput', true);
+        }
+      }
+      return;
     }
 
     if (!inputValue) return;
