@@ -17,14 +17,6 @@ class Table {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
       this.addListenerHoverTable();
     });
-    this.emmiter.subscribe('levelNext', () => {
-      this.loadTable(this.listLevels[Number(localStorage.level)]);
-      this.addListenerHoverTable();
-    });
-    this.emmiter.subscribe('levelPrev', () => {
-      this.loadTable(this.listLevels[Number(localStorage.level)]);
-      this.addListenerHoverTable();
-    });
   }
 
   protected start(): void {

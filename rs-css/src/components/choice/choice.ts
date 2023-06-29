@@ -28,16 +28,6 @@ class Choice {
       this.loadLevelDescription();
       this.addListenerLevelChange();
     });
-    this.emmiter.subscribe('levelNext', () => {
-      this.loadLevelHeader();
-      this.loadLevelDescription();
-      this.addListenerLevelChange();
-    });
-    this.emmiter.subscribe('levelPrev', () => {
-      this.loadLevelHeader();
-      this.loadLevelDescription();
-      this.addListenerLevelChange();
-    });
   }
 
   private start(): void {
@@ -134,7 +124,7 @@ class Choice {
     const next = document.querySelector('.level-nav .next');
     next?.addEventListener('click', () => {
       localStorage.level = Number(localStorage.level) < this.listLevels.length - 1 ? Number(localStorage.level) + 1 : 0;
-      this.emmiter.emit('levelNext', true);
+      this.emmiter.emit('levelChange', true);
     });
   }
 
@@ -143,7 +133,7 @@ class Choice {
     prev?.addEventListener('click', () => {
       const num = Number(localStorage.level);
       localStorage.level = num < this.listLevels.length && num > 0 ? num - 1 : this.listLevels.length - 1;
-      this.emmiter.emit('levelPrev', true);
+      this.emmiter.emit('levelChange', true);
     });
   }
 
