@@ -73,7 +73,7 @@ class Input {
       if (!inputValue) return;
 
       if (Number(inputValue[0])) {
-        const num = Number(inputValue);
+        const num = Number(inputValue[0]);
         if (num <= this.listLevels.length && num > 0) {
           localStorage.level = num - 1;
           this.emmiter.emit('levelChange', true);
