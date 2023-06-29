@@ -68,15 +68,21 @@ class Input {
     }
   }
 
+  private processNumericInput<T>(inputValue: T): void {
+    if (typeof inputValue === 'string') {
+      const num = Number(inputValue[0]);
+      if (num <= this.listLevels.length && num > 0) {
+        localStorage.level = num - 1;
+        this.emmiter.emit('levelChange', true);
+      }
+    }
+  }
+
   private addMarker<T>(inputValue: T): void {
     if (!inputValue) return;
     if (typeof inputValue === 'string' && inputValue.length !== 0) {
       if (Number(inputValue[0])) {
-        const num = Number(inputValue[0]);
-        if (num <= this.listLevels.length && num > 0) {
-          localStorage.level = num - 1;
-          this.emmiter.emit('levelChange', true);
-        }
+        this.processNumericInput<T>(inputValue);
         return;
       }
     }
