@@ -1,5 +1,4 @@
 import CodeMirror from 'codemirror';
-// import { EditorFromTextArea } from 'codemirror';
 import ListLevels from '../../assets/data/level.json';
 import { LevelsInterface } from '../../assets/data/interface';
 
