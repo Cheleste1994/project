@@ -97,7 +97,7 @@ class Input {
     });
   }
 
-  private targetSearch(): boolean {
+  private isTargetFound(): boolean {
     const target = document.querySelectorAll('.target');
     const find = document.querySelectorAll('.find');
     let isFind = false;
@@ -182,7 +182,7 @@ class Input {
         const inputValue = (event.target as HTMLInputElement).value;
         this.addMarker<string>(inputValue);
         this.elements.btnEnter?.classList.add('enter-button_active');
-        if (!this.targetSearch()) {
+        if (!this.isTargetFound()) {
           this.BOOM(true);
         }
       }
@@ -194,7 +194,7 @@ class Input {
       const event = this.elements.inputEnter;
       if (event) {
         this.addMarker<string>(event.value);
-        if (!this.targetSearch()) {
+        if (!this.isTargetFound()) {
           this.BOOM(true);
         }
       }
