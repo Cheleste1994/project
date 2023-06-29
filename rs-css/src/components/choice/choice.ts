@@ -63,13 +63,10 @@ class Choice {
 
   private loadLevelDescription(): void {
     const { description } = this.listLevels[Number(localStorage.level)];
-    Object.keys(Selector).forEach((name) => {
-      if (typeof name === 'string') {
-        const selectorKey = name as keyof typeof Selector;
-        const element = document.querySelector(Selector[selectorKey]);
-        if (element) {
-          element.innerHTML = description[name];
-        }
+    (Object.keys(Selector) as (keyof typeof Selector)[]).forEach((name) => {
+      const element = document.querySelector(Selector[name]);
+      if (element) {
+        element.innerHTML = description[name];
       }
     });
 
