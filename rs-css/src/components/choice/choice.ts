@@ -37,11 +37,6 @@ class Choice {
       this.loadLevelDescription();
       this.addListenerLevelChange();
     });
-    this.emmiter.subscribe('levelChangeViaInput', () => {
-      this.loadLevelHeader();
-      this.loadLevelDescription();
-      this.addListenerLevelChange();
-    });
     this.emmiter.subscribe('levelNext', () => {
       this.loadLevelHeader();
       this.loadLevelDescription();
