@@ -106,7 +106,6 @@ class Input {
   private isTargetFound(): boolean {
     const target = document.querySelectorAll('.target');
     const find = document.querySelectorAll('.find');
-    let isFind = false;
 
     if (target.length !== find.length) {
       return false;
@@ -116,13 +115,10 @@ class Input {
       if (target[i].className !== find[i].className) {
         return false;
       }
-      isFind = true;
     }
-    if (isFind) {
-      this.writeWin(Number(localStorage.level));
-      return isFind;
-    }
-    return false;
+
+    this.writeWin(Number(localStorage.level));
+    return true;
   }
 
   private writeWin(numberLevel: number): void {
