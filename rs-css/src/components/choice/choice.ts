@@ -4,17 +4,13 @@ import { LevelsInterface } from '../../assets/data/interface';
 import ListLevels from '../../assets/data/level.json';
 import EventEmitter from '../control/EventEmitter';
 
-type SelectorType = {
-  [key: string]: string;
-};
-
-const Selector: SelectorType = {
-  selector: '.selector-name',
-  title: 'h2.title',
-  syntax: '.syntax',
-  hint: '.hint',
-  examples: '.example',
-};
+enum Selector {
+  selector = '.selector-name',
+  title = 'h2.title',
+  syntax = '.syntax',
+  hint = '.hint',
+  examples = '.example',
+}
 
 const WIDTHPROGRESSBAR = 100;
 
@@ -69,7 +65,8 @@ class Choice {
     const { description } = this.listLevels[Number(localStorage.level)];
     Object.keys(Selector).forEach((name) => {
       if (typeof name === 'string') {
-        const element = document.querySelector(Selector[`${name}`]);
+        const selectorKey = name as keyof typeof Selector;
+        const element = document.querySelector(Selector[selectorKey]);
         if (element) {
           element.innerHTML = description[name];
         }
