@@ -63,13 +63,12 @@ class Viewer {
     return undefined;
   }
 
-  private load(numberLevel: number): number {
+  private load(numberLevel: number): void {
     const { firstLine, lastLine } = this.listLevels[numberLevel];
     const divElement = document.querySelector('.table-field');
     const tagsWithIndent = this.tagsElements(divElement).trim();
 
     this.codeMirrorInstance?.setValue(`${firstLine}\n ${tagsWithIndent}\n${lastLine}`);
-    return numberLevel;
   }
 
   private tagsElements(element: Element | null, indent = 0, isCentralTag = false): string {
