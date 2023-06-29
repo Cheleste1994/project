@@ -133,10 +133,6 @@ class Input {
       document.querySelector('.input-field')?.classList.add('input-field_snake');
       setTimeout(this.addSnake, 500);
     } else {
-      const input = document.querySelector('.css-input') as HTMLInputElement;
-      if (input) {
-        input.value = '';
-      }
       document.querySelector('.input-field')?.classList.remove('input-field_snake');
     }
   }
@@ -210,9 +206,7 @@ class Input {
 
         this.addMarker<string>(inputValue);
         this.elements.btnEnter?.classList.remove('enter-button_active');
-        const inputElement = event.target as HTMLInputElement;
         this.removeMarker();
-        inputElement.value = '';
       }
     });
   }
@@ -221,11 +215,10 @@ class Input {
     this.elements.btnEnter?.addEventListener('mouseup', () => {
       const input = this.elements.inputEnter;
       if (input) {
-        let inputValue = input.value;
+        const inputValue = input.value;
 
         this.addMarker<string>(inputValue);
         this.removeMarker();
-        inputValue = '';
       }
     });
   }
