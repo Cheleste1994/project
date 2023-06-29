@@ -51,10 +51,7 @@ class Table {
 
     const elements = processTags(level.tag);
     elements.forEach((element) => {
-      const target = this.findTarget(element, level.target);
-      if (target !== null) {
-        target.className = 'target';
-      }
+      this.findAndPlaceTarget(element, level.target);
       fragment.appendChild(element);
     });
     if (table !== null) {
@@ -63,33 +60,23 @@ class Table {
     table?.appendChild(fragment);
   }
 
-  private findTarget(element: Element, target: string[]): Element | null {
+  private findAndPlaceTarget(element: Element, target: string[]): void {
     const targetCopy = [...target];
-
-    if (targetCopy.length === 0) {
-      return null;
-    }
-
     const tagName = targetCopy.shift();
 
     if (element.tagName.toLowerCase() !== tagName) {
-      return null;
+      return;
     }
 
     if (targetCopy.length === 0) {
-      return element;
+      element.classList.add('target');
+      return;
     }
 
     for (let i = 0; i < element.children.length; i += 1) {
       const childElement = element.children[i];
-      const foundElement = this.findTarget(childElement, targetCopy);
-
-      if (foundElement !== null) {
-        return foundElement;
-      }
+      this.findAndPlaceTarget(childElement, targetCopy);
     }
-
-    return null;
   }
 
   private addListenerToogleStuck(): void {
