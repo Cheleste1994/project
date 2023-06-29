@@ -7,8 +7,8 @@ function loadGameSave(): void {
     localStorage.setItem('level', '0');
   }
 
-  if (localStorage.getItem('save')) {
-    const save = localStorage.getItem('save');
+  const save = localStorage.getItem('save');
+  if (save) {
     save?.split(',').forEach((value, index) => {
       ListLevels[index].isWin = value === 'true';
     });
