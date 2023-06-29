@@ -150,12 +150,11 @@ class Input {
 
   private addEffectPrint(letters: string, index = 0): void {
     const input = document.querySelector('.css-input') as HTMLInputElement;
-    const str = letters;
-    if (index < str.length) {
+    if (index < letters.length) {
       if (input) {
-        input.value += str[index];
+        input.value += letters[index];
       }
-      setTimeout(this.addEffectPrint.bind(this), 300, str, index + 1);
+      setTimeout(this.addEffectPrint.bind(this), 300, letters, index + 1);
     }
   }
 
