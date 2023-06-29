@@ -125,7 +125,7 @@ class Input {
     const level = this.listLevels[numberLevel];
     level.isWin = true;
     localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : 0;
-    this.emmiter.emit('targetFound', true);
+    this.emmiter.emit('levelNext', true);
   }
 
   private BOOM(isBoom: boolean): void {

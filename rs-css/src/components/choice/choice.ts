@@ -23,11 +23,6 @@ class Choice {
     this.emmiter = emmiter;
     this.listLevels = ListLevels;
     this.start();
-    this.emmiter.subscribe('targetFound', () => {
-      this.loadLevelHeader();
-      this.loadLevelDescription();
-      this.addListenerLevelChange();
-    });
     this.emmiter.subscribe('levelChange', () => {
       this.loadLevelHeader();
       this.loadLevelDescription();

@@ -28,7 +28,6 @@ class Viewer {
     this.codeMirror = CodeMirror;
     this.listLevels = ListLevels;
     this.start();
-    this.emmiter.subscribe('targetFound', () => this.load(Number(localStorage.level)));
     this.emmiter.subscribe('levelChange', () => this.load(Number(localStorage.level)));
     this.emmiter.subscribe('levelNext', () => this.load(Number(localStorage.level)));
     this.emmiter.subscribe('levelPrev', () => this.load(Number(localStorage.level)));

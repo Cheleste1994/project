@@ -13,10 +13,6 @@ class Table {
     this.listLevels = ListLevels;
     this.start();
     this.loadTable(this.listLevels[Number(localStorage.level)]);
-    this.emmiter.subscribe('targetFound', () => {
-      this.loadTable(this.listLevels[Number(localStorage.level)]);
-      this.addListenerHoverTable();
-    });
     this.emmiter.subscribe('levelChange', () => {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
       this.addListenerHoverTable();
