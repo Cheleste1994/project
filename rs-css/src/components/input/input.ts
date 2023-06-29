@@ -102,10 +102,11 @@ class Input {
     const find = document.querySelectorAll('.find');
     let isFind = false;
 
+    if (target.length !== find.length) {
+      return false;
+    }
+
     for (let i = 0; i < target.length; i += 1) {
-      if (target.length !== find.length) {
-        return false;
-      }
       if (target[i].className !== find[i].className) {
         return false;
       }
