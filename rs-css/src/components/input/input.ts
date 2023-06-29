@@ -39,7 +39,7 @@ class Input {
       btnEnter: null,
       inputField: null,
     };
-    this.emmiter.subscribe('help', () => this.addHintInputField());
+    this.emmiter.subscribe('help', this.addHintInputField.bind(this));
   }
 
   private start(): void {
