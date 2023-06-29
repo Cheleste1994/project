@@ -1,7 +1,7 @@
 import './input.css';
 import CodeMirror from 'codemirror';
 import ListLevels from '../../assets/data/level.json';
-import { LevelsInterface } from '../../assets/data/interface';
+import { LevelsInterface, WinInfo } from '../../assets/data/interface';
 import EventEmitter from '../control/EventEmitter';
 
 import 'codemirror/lib/codemirror.css';
@@ -28,8 +28,11 @@ class Input {
 
   private emmiter: EventEmitter;
 
-  constructor(emmiter: EventEmitter) {
+  private winCollection: Map<number, WinInfo>;
+
+  constructor(emmiter: EventEmitter, winCollection: Map<number, WinInfo>) {
     this.emmiter = emmiter;
+    this.winCollection = winCollection;
     this.codeMirror = CodeMirror;
     this.listLevels = ListLevels;
     this.start();
@@ -122,8 +125,10 @@ class Input {
   }
 
   private writeWin(numberLevel: number): void {
-    const level = this.listLevels[numberLevel];
-    level.isWin = true;
+    const level = this.winCollection.get(numberLevel);
+    if (level) {
+      level.isWin = true;
+    }
     localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : 0;
     this.emmiter.emit('levelChange', localStorage.level);
   }

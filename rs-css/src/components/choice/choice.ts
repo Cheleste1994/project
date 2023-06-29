@@ -1,6 +1,6 @@
 import './help.css';
 import './choice.css';
-import { LevelsInterface } from '../../assets/data/interface';
+import { LevelsInterface, WinInfo } from '../../assets/data/interface';
 import ListLevels from '../../assets/data/level.json';
 import EventEmitter from '../control/EventEmitter';
 
@@ -19,8 +19,11 @@ class Choice {
 
   protected emmiter: EventEmitter;
 
-  constructor(emmiter: EventEmitter) {
+  private winCollection: Map<number, WinInfo>;
+
+  constructor(emmiter: EventEmitter, winCollection: Map<number, WinInfo>) {
     this.emmiter = emmiter;
+    this.winCollection = winCollection;
     this.listLevels = ListLevels;
     this.start();
     this.emmiter.subscribe('levelChange', () => {
@@ -70,12 +73,12 @@ class Choice {
   private loadLevelHeader(): void {
     const list = document.querySelector('.list-levels');
     const fragment = document.createDocumentFragment();
-    this.listLevels.forEach((data) => {
+    this.listLevels.forEach((data, index) => {
       const elementA = document.createElement('a');
       const elementCheckmark = document.createElement('span');
       elementCheckmark.classList.add('checkmark');
 
-      if (data.isWin) {
+      if (this.winCollection.get(index)?.isWin) {
         elementCheckmark.classList.add('checkmark_active');
       }
 
@@ -89,7 +92,7 @@ class Choice {
       fragment.appendChild(elementA);
     });
 
-    if (this.listLevels[Number(localStorage.level)].isWin) {
+    if (this.winCollection.get(Number(localStorage.level))?.isWin) {
       document.querySelector('.level-name__checkmark')?.classList.add('checkmark_active');
     } else {
       document.querySelector('.level-name__checkmark')?.classList.remove('checkmark_active');
@@ -141,7 +144,7 @@ class Choice {
     window.addEventListener('beforeunload', () => {
       const saveWin = [];
       for (let i = 0; i < this.listLevels.length; i += 1) {
-        saveWin.push(this.listLevels[i].isWin);
+        saveWin.push(this.winCollection.get(i)?.isWin);
       }
       localStorage.setItem('save', saveWin.join(','));
     });

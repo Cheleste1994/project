@@ -15,4 +15,9 @@ interface NestedTag {
   [key: string]: string | string[] | NestedTag | undefined;
 }
 
-export { LevelsInterface, NestedTag };
+interface WinInfo {
+  level: number;
+  isWin: boolean;
+}
+
+export { LevelsInterface, NestedTag, WinInfo };
