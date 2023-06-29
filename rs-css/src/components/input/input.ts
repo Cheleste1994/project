@@ -73,7 +73,7 @@ class Input {
       const num = Number(inputValue[0]);
       if (num <= this.listLevels.length && num > 0) {
         localStorage.level = num - 1;
-        this.emmiter.emit('levelChange', true);
+        this.emmiter.emit('levelChange', localStorage.level);
       }
     }
   }
@@ -125,7 +125,7 @@ class Input {
     const level = this.listLevels[numberLevel];
     level.isWin = true;
     localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : 0;
-    this.emmiter.emit('levelChange', true);
+    this.emmiter.emit('levelChange', localStorage.level);
   }
 
   private addSnake(): void {
