@@ -33,7 +33,7 @@ class Input {
     this.codeMirror = CodeMirror;
     this.listLevels = ListLevels;
     this.start();
-    this.listeners();
+    this.selectorInputArea();
     this.elements = {
       inputEnter: null,
       btnEnter: null,
@@ -128,13 +128,11 @@ class Input {
     this.emmiter.emit('levelNext', true);
   }
 
-  private addSnake(isSnake: boolean): void {
-    if (isSnake) {
-      document.querySelector('.input-field')?.classList.add('input-field_snake');
-      setTimeout(this.addSnake, 500);
-    } else {
+  private addSnake(): void {
+    document.querySelector('.input-field')?.classList.add('input-field_snake');
+    setTimeout(() => {
       document.querySelector('.input-field')?.classList.remove('input-field_snake');
-    }
+    }, 500);
   }
 
   private addHintInputField(): void {
@@ -161,7 +159,7 @@ class Input {
     }
   }
 
-  private listeners(): void {
+  private selectorInputArea(): void {
     window.addEventListener('load', () => {
       this.elements.inputEnter = document.querySelector('.css-input');
       this.elements.btnEnter = document.querySelector('.enter-button');
@@ -181,7 +179,7 @@ class Input {
         this.addMarker<string>(inputValue);
         this.elements.btnEnter?.classList.add('enter-button_active');
         if (!this.isTargetFound()) {
-          this.addSnake(true);
+          this.addSnake();
         }
       }
     });
@@ -193,7 +191,7 @@ class Input {
       if (event) {
         this.addMarker<string>(event.value);
         if (!this.isTargetFound()) {
-          this.addSnake(true);
+          this.addSnake();
         }
       }
     });
