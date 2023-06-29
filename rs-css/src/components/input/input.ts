@@ -172,15 +172,25 @@ class Input {
     });
   }
 
+  private handleInputEvent(inputValue: string, isEnterDown: boolean): void {
+    this.addMarker<string>(inputValue);
+
+    if (isEnterDown) {
+      this.elements.btnEnter?.classList.add('enter-button_active');
+      if (!this.isTargetFound()) {
+        this.addSnake();
+      }
+    } else {
+      this.elements.btnEnter?.classList.remove('enter-button_active');
+      this.removeMarker();
+    }
+  }
+
   private listenerEnterDown(): void {
     this.elements.inputEnter?.addEventListener('keydown', (event: KeyboardEvent | Event) => {
       if (event instanceof KeyboardEvent && event.code === 'Enter') {
         const inputValue = (event.target as HTMLInputElement).value;
-        this.addMarker<string>(inputValue);
-        this.elements.btnEnter?.classList.add('enter-button_active');
-        if (!this.isTargetFound()) {
-          this.addSnake();
-        }
+        this.handleInputEvent(inputValue, true);
       }
     });
   }
@@ -189,10 +199,8 @@ class Input {
     this.elements.btnEnter?.addEventListener('mousedown', () => {
       const event = this.elements.inputEnter;
       if (event) {
-        this.addMarker<string>(event.value);
-        if (!this.isTargetFound()) {
-          this.addSnake();
-        }
+        const inputValue = event.value;
+        this.handleInputEvent(inputValue, true);
       }
     });
   }
@@ -201,10 +209,7 @@ class Input {
     this.elements.inputEnter?.addEventListener('keyup', (event: KeyboardEvent | Event) => {
       if (event instanceof KeyboardEvent && event.code === 'Enter') {
         const inputValue = (event.target as HTMLInputElement).value;
-
-        this.addMarker<string>(inputValue);
-        this.elements.btnEnter?.classList.remove('enter-button_active');
-        this.removeMarker();
+        this.handleInputEvent(inputValue, false);
       }
     });
   }
@@ -214,9 +219,7 @@ class Input {
       const input = this.elements.inputEnter;
       if (input) {
         const inputValue = input.value;
-
-        this.addMarker<string>(inputValue);
-        this.removeMarker();
+        this.handleInputEvent(inputValue, false);
       }
     });
   }
