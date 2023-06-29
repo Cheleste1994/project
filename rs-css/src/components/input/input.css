@@ -8,12 +8,12 @@
   border-radius: 4px;
 }
 
-.input-field_boom {
-  animation: boom .1s 5;
-  -moz-animation: boom .1s 5;
+.input-field_snake {
+  animation: snake .1s 5;
+  -moz-animation: snake .1s 5;
 }
 
-@keyframes boom {
+@keyframes snake {
   0%   { transform: translateX(0); }
   25% {  transform: translateX(-5px); }
   50% {  transform: translateX(0); }
@@ -21,7 +21,7 @@
   }
 }
 
-@-moz-keyframes boom {
+@-moz-keyframes snake {
   0%   { transform: translateX(0); }
   25% {  transform: translateX(-5px); }
   50% {  transform: translateX(0); }

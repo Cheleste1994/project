@@ -128,16 +128,16 @@ class Input {
     this.emmiter.emit('levelNext', true);
   }
 
-  private BOOM(isBoom: boolean): void {
-    if (isBoom) {
-      document.querySelector('.input-field')?.classList.add('input-field_boom');
-      setTimeout(this.BOOM, 500);
+  private addSnake(isSnake: boolean): void {
+    if (isSnake) {
+      document.querySelector('.input-field')?.classList.add('input-field_snake');
+      setTimeout(this.addSnake, 500);
     } else {
       const input = document.querySelector('.css-input') as HTMLInputElement;
       if (input) {
         input.value = '';
       }
-      document.querySelector('.input-field')?.classList.remove('input-field_boom');
+      document.querySelector('.input-field')?.classList.remove('input-field_snake');
     }
   }
 
@@ -185,7 +185,7 @@ class Input {
         this.addMarker<string>(inputValue);
         this.elements.btnEnter?.classList.add('enter-button_active');
         if (!this.isTargetFound()) {
-          this.BOOM(true);
+          this.addSnake(true);
         }
       }
     });
@@ -197,7 +197,7 @@ class Input {
       if (event) {
         this.addMarker<string>(event.value);
         if (!this.isTargetFound()) {
-          this.BOOM(true);
+          this.addSnake(true);
         }
       }
     });
