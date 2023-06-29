@@ -69,9 +69,8 @@ class Input {
   }
 
   private addMarker<T>(inputValue: T): void {
+    if (!inputValue) return;
     if (typeof inputValue === 'string' && inputValue.length !== 0) {
-      if (!inputValue) return;
-
       if (Number(inputValue[0])) {
         const num = Number(inputValue[0]);
         if (num <= this.listLevels.length && num > 0) {
@@ -81,8 +80,6 @@ class Input {
         return;
       }
     }
-
-    if (!inputValue) return;
 
     const tableField = document.querySelector('.table-field');
     const targetElements = tableField?.querySelectorAll(`${inputValue}`);
