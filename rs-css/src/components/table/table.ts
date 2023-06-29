@@ -64,20 +64,28 @@ class Table {
   }
 
   private findTarget(element: Element, target: string[]): Element | null {
-    if (target.length === 0) return null;
+    if (target.length === 0) {
+      return null;
+    }
 
     const tagName = target[0];
     const remainingTags = target.slice(1);
 
-    if (element.tagName.toLowerCase() !== tagName) return null;
+    if (element.tagName.toLowerCase() !== tagName) {
+      return null;
+    }
 
-    if (remainingTags.length === 0) return element;
+    if (remainingTags.length === 0) {
+      return element;
+    }
 
     for (let i = 0; i < element.children.length; i += 1) {
       const childElement = element.children[i];
       const foundElement = this.findTarget(childElement, remainingTags);
 
-      if (foundElement !== null) return foundElement;
+      if (foundElement !== null) {
+        return foundElement;
+      }
     }
     return null;
   }
