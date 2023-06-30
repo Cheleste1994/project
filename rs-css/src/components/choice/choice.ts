@@ -40,6 +40,7 @@ class Choice {
     this.addListenerLevelChange();
     this.addListenerLevelNext();
     this.addListenerLevelPrev();
+    this.addListenerButtonReset();
     this.addSaveBeforeUnload();
   }
 
@@ -136,6 +137,21 @@ class Choice {
     prev?.addEventListener('click', () => {
       const num = Number(localStorage.level);
       localStorage.level = num < this.listLevels.length && num > 0 ? num - 1 : this.listLevels.length - 1;
+      this.emmiter.emit('levelChange', localStorage.level);
+    });
+  }
+
+  private addListenerButtonReset(): void {
+    document.querySelector('.reset-progress')?.addEventListener('click', () => {
+      document.querySelector('.burger-menu')?.classList.remove('burger-menu_open');
+      document.querySelector('.burger-menu__icon')?.classList.toggle('burger-menu__icon_open');
+      localStorage.level = 0;
+      this.winCollection.forEach((lvl, i) => {
+        const level = this.winCollection.get(i);
+        if (level) {
+          level.isWin = false;
+        }
+      });
       this.emmiter.emit('levelChange', localStorage.level);
     });
   }
