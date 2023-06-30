@@ -164,6 +164,6 @@
   resize: none;
 }
 
-.CodeMirror-line:hover {
+.html-window__line_hover {
   opacity: 0.2;
 }

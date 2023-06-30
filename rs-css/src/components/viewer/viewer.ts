@@ -29,7 +29,10 @@ class Viewer {
     this.codeMirror = CodeMirror;
     this.listLevels = ListLevels;
     this.start();
-    this.emmiter.subscribe('levelChange', () => this.load(Number(localStorage.level)));
+    this.emmiter.subscribe('levelChange', () => {
+      this.load(Number(localStorage.level));
+      this.addListenerClickEditWindow();
+    });
   }
 
   private start(): void {
@@ -55,7 +58,7 @@ class Viewer {
         readOnly: true,
         lineWrapping: true,
         viewportMargin: Infinity,
-        matchTags: { bothTags: true },
+        // matchTags: { bothTags: true },
       });
       this.codeMirrorInstance.getWrapperElement().classList.add('html-window');
       return this.codeMirrorInstance;
@@ -101,7 +104,7 @@ class Viewer {
     return tagsString;
   }
 
-  private processElementEditWindow(event: Event): HTMLElement | null {
+  private processElementEditWindow(event: Event, indexEvent: number, editorLength: number): HTMLElement | null {
     const target = (event.target as HTMLElement).innerText;
     const tagName = target.replace(/<|>/g, '').split(' ');
     tagName?.forEach((el, index) => {
@@ -119,23 +122,66 @@ class Viewer {
         tagName[index] = el.trim().slice(1);
       }
     });
-    const element = document.querySelector(`${tagName?.join('')}`) as HTMLElement;
-    return element;
+    const element = document.querySelectorAll(`${tagName?.join('')}`);
+    const indexElement = indexEvent <= editorLength / 2 && indexEvent !== 2 ? 0 : 1;
+    console.log(indexEvent);
+    return element[indexElement] as HTMLElement;
+  }
+
+  private changeHoverLineEditWindow(
+    event: Event,
+    editor: NodeListOf<HTMLElement>,
+    isAdd: boolean,
+    indexElement: number,
+  ): void {
+    const target = (event.target as HTMLElement).innerText;
+    const tagName = target.trim().replace(/<|>/g, '').split(' ');
+    if (isAdd) {
+      for (let index = indexElement; index < editor.length; index += 1) {
+        if (editor[index].innerText === target) {
+          editor[index].classList.add('html-window__line_hover');
+          if (tagName.length === 1) {
+            if (tagName[0].includes('/')) {
+              for (let i = index - 1; i >= 0; i -= 1) {
+                const tag = target.replace(/[\s<>]/g, '');
+                if (editor[i].innerText.includes(tag.slice(1))) {
+                  editor[i].classList.add('html-window__line_hover');
+                  return;
+                }
+              }
+            } else {
+              for (let i = index + 1; i < editor.length; i += 1) {
+                if (editor[i].innerText.includes(`/${tagName[0]}`)) {
+                  editor[i].classList.add('html-window__line_hover');
+                  return;
+                }
+              }
+            }
+          }
+          return;
+        }
+      }
+    }
+    editor.forEach((el) => el.classList.remove('html-window__line_hover'));
   }
 
   private addListenerClickEditWindow(): void {
     const editors = document.querySelector('.CodeMirror.html-window');
-    const editor = editors?.querySelectorAll('.CodeMirror-line');
+    const editor = editors?.querySelectorAll('.CodeMirror-line') as NodeListOf<HTMLElement>;
     if (editor) {
       for (let i = 1; i < editor.length - 1; i += 1) {
         editor[i].addEventListener('mouseenter', (event) => {
-          const element = this.processElementEditWindow(event);
+          this.changeHoverLineEditWindow(event, editor, true, i);
+
+          const element = this.processElementEditWindow(event, i, editor.length);
           if (element) {
             this.emmiter.emit('changeHoverELementTable', { element, isAdd: true });
           }
         });
         editor[i].addEventListener('mouseleave', (event) => {
-          const element = this.processElementEditWindow(event);
+          this.changeHoverLineEditWindow(event, editor, false, i);
+
+          const element = this.processElementEditWindow(event, i, editor.length);
           if (element) {
             this.emmiter.emit('changeHoverELementTable', { element, isAdd: false });
           }
