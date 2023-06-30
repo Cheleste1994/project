@@ -123,8 +123,7 @@ class Viewer {
       }
     });
     const element = document.querySelectorAll(`${tagName?.join('')}`);
-    const indexElement = indexEvent <= editorLength / 2 && indexEvent !== 2 ? 0 : 1;
-    console.log(indexEvent);
+    const indexElement = (indexEvent <= editorLength / 2 && indexEvent !== 2) || element.length === 1 ? 0 : 1;
     return element[indexElement] as HTMLElement;
   }
 
@@ -188,10 +187,6 @@ class Viewer {
         });
       }
     }
-    // this.codeMirrorInstance?.on('cursorActivity', (event) => {
-    //   const line = event.getCursor();
-    //   console.log(event.getLine(line.line));
-    // });
   }
 }
 
