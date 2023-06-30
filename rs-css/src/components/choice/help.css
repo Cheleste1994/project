@@ -4,6 +4,7 @@
   background: rgba(0,0,0,.2);
   display: flex;
   user-select: none;
+  overflow: hidden;
 }
 
 .help {
@@ -196,4 +197,18 @@ top: 10px;
   font-size: 15px;
   padding: 10px 0 12px 0;
   line-height: 170%;
+}
+
+.reset-progress {
+  width: 70%;
+  margin: auto auto 50px auto;
+  text-align: center;
+  cursor: pointer;
+  border: solid 2px rgba(255,255,255,.2);
+  color: rgba(255,255,255,.4);
+  padding: 9px 0 11px 0;
+}
+
+.reset-progress:hover {
+  background: rgba(255,255,255,.05);
 }
