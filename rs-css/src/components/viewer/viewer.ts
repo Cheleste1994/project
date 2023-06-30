@@ -6,6 +6,7 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/darcula.css';
 import 'codemirror/theme/3024-day.css';
 import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/matchtags';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
@@ -36,6 +37,7 @@ class Viewer {
       const editorRight = this.addEditorRight();
       if (editorRight) {
         this.load(Number(localStorage.level));
+        this.addListenerClickEditWindow();
       }
     });
   }
@@ -53,6 +55,7 @@ class Viewer {
         readOnly: true,
         lineWrapping: true,
         viewportMargin: Infinity,
+        matchTags: { bothTags: true },
       });
       this.codeMirrorInstance.getWrapperElement().classList.add('html-window');
       return this.codeMirrorInstance;
@@ -68,7 +71,7 @@ class Viewer {
     this.codeMirrorInstance?.setValue(`${firstLine}\n ${tagsWithIndent}\n${lastLine}`);
   }
 
-  private tagsElements(element: Element | null, indent = 0, isCentralTag = false): string {
+  private tagsElements(element: Element | null, indent = 0, isCentralTag = false, line = 0): string {
     let tagsString = '';
 
     if (element !== null) {
@@ -86,7 +89,7 @@ class Viewer {
 
       for (let i = 0; i < element.children.length; i += 1) {
         const childElement = element.children[i];
-        tagsString += this.tagsElements(childElement, indent + 2, isCentralTag);
+        tagsString += this.tagsElements(childElement, indent + 2, isCentralTag, line + 1);
       }
 
       if (!isCentral && element.children.length > 0) {
@@ -96,6 +99,53 @@ class Viewer {
     }
 
     return tagsString;
+  }
+
+  private processElementEditWindow(event: Event): HTMLElement | null {
+    const target = (event.target as HTMLElement).innerText;
+    const tagName = target.replace(/<|>/g, '').split(' ');
+    tagName?.forEach((el, index) => {
+      tagName[index] = el.trim();
+      if (index === 0) {
+        tagName[index] = '.table-field > ';
+      }
+      if (el.trim() === '') {
+        tagName[index] = '* > ';
+      }
+      if (el === '/') {
+        tagName[index] = '';
+      }
+      if (el.includes('/') && el.length > 0) {
+        tagName[index] = el.trim().slice(1);
+      }
+    });
+    const element = document.querySelector(`${tagName?.join('')}`) as HTMLElement;
+    return element;
+  }
+
+  private addListenerClickEditWindow(): void {
+    const editors = document.querySelector('.CodeMirror.html-window');
+    const editor = editors?.querySelectorAll('.CodeMirror-line');
+    if (editor) {
+      for (let i = 1; i < editor.length - 1; i += 1) {
+        editor[i].addEventListener('mouseenter', (event) => {
+          const element = this.processElementEditWindow(event);
+          if (element) {
+            this.emmiter.emit('changeHoverELementTable', { element, isAdd: true });
+          }
+        });
+        editor[i].addEventListener('mouseleave', (event) => {
+          const element = this.processElementEditWindow(event);
+          if (element) {
+            this.emmiter.emit('changeHoverELementTable', { element, isAdd: false });
+          }
+        });
+      }
+    }
+    // this.codeMirrorInstance?.on('cursorActivity', (event) => {
+    //   const line = event.getCursor();
+    //   console.log(event.getLine(line.line));
+    // });
   }
 }
 

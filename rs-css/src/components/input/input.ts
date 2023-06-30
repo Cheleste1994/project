@@ -8,6 +8,7 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/darcula.css';
 import 'codemirror/theme/3024-day.css';
 import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/matchtags';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
@@ -66,6 +67,7 @@ class Input {
         firstLineNumber: 2,
         lineWiseCopyCut: false,
         undoDepth: 50,
+        matchTags: { bothTags: true },
       });
       codeMirrorInstance.getWrapperElement().classList.add('css-window');
     }

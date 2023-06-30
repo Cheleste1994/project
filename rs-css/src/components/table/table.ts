@@ -17,6 +17,11 @@ class Table {
       this.loadTable(this.listLevels[Number(localStorage.level)]);
       this.addListenerHoverTable();
     });
+    this.emmiter.subscribe('changeHoverELementTable', (obj) => {
+      if (typeof obj === 'object') {
+        this.changeHoverElementTable(obj.element, obj.isAdd);
+      }
+    });
   }
 
   protected start(): void {
@@ -91,20 +96,28 @@ class Table {
     });
   }
 
+  private changeHoverElementTable(element: HTMLElement, isAdd: boolean): void {
+    if (isAdd) {
+      element.classList.add('table_hover');
+      element.setAttribute('data-content', `<${element.localName}></${element.localName}>`);
+    } else {
+      element.classList.remove('table_hover');
+      element.removeAttribute('data-content');
+    }
+  }
+
   private addListenerHoverTable(): void {
     const tableElements = document.querySelector('.table-field') as HTMLElement;
     const children = tableElements.querySelectorAll<HTMLElement>('*');
     children.forEach((element: HTMLElement) => {
       element.addEventListener('mouseover', (event) => {
         const target = event.target as HTMLElement;
-        target.classList.add('table_hover');
-        target.setAttribute('data-content', `<${target.localName}></${target.localName}>`);
+        this.changeHoverElementTable(target, true);
       });
 
       element.addEventListener('mouseout', (event) => {
         const target = event.target as HTMLElement;
-        target.classList.remove('table_hover');
-        target.removeAttribute('data-content');
+        this.changeHoverElementTable(target, false);
       });
     });
   }

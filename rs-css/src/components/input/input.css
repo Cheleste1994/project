@@ -87,18 +87,6 @@
   padding-left: 18px;
 }
 
-/* .field-numbers__left {
-  color: #999;
-  background: #DDD;
-} */
-
-/* .field-numbers__right {
-  color: #666;
-  background: rgba(0,0,0,.3);
-  border-right: solid 1px #333;
-  flex-wrap: nowrap;
-} */
-
 .field-input {
   display: flex;
   flex-flow: row nowrap;
@@ -174,4 +162,8 @@
   outline: none;
   border: none;
   resize: none;
+}
+
+.CodeMirror-line:hover {
+  opacity: 0.2;
 }
