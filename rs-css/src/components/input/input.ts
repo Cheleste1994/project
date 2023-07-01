@@ -108,7 +108,7 @@ class Input {
     });
   }
 
-  private isTargetFound(): boolean {
+  private async isTargetFound(): Promise<boolean> {
     const target = document.querySelectorAll('.target');
     const find = document.querySelectorAll('.find');
 
@@ -121,8 +121,17 @@ class Input {
         return false;
       }
     }
+
+    await this.addWinReaction(find);
     this.writeWin(Number(localStorage.level));
     return true;
+  }
+
+  private async addWinReaction(elements: NodeListOf<Element>): Promise<void> {
+    elements?.forEach((element) => element.classList.add('target_find'));
+    return new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
   }
 
   private writeWin(numberLevel: number): void {
@@ -141,7 +150,7 @@ class Input {
     document.querySelector('.input-field')?.classList.add('input-field_snake');
     setTimeout(() => {
       document.querySelector('.input-field')?.classList.remove('input-field_snake');
-    }, 500);
+    }, 1000);
   }
 
   private addHintInputField(): void {

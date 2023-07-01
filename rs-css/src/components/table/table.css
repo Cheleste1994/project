@@ -228,7 +228,6 @@ pickle {
 
 .find {
   animation: target 1s infinite;
-  animation: find 1s infinite;
 }
 
 @keyframes target {
@@ -241,12 +240,12 @@ pickle {
   }
 }
 
-@keyframes find {
- 100% {
-    opacity: 0;
-  }
-}
 
+
+.target_find {
+  transition: all 1s;
+  opacity: 0;
+}
 
 .table_hover {
   box-shadow: 0 0 0 6px rgba(255,255,255,.4);
