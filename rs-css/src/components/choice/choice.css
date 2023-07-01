@@ -24,7 +24,7 @@
   color: white;
   opacity: .4;
   font-weight: normal;
-  padding: 23px 0 14px 16px;
+  padding: 23px 0 5px 16px;
 }
 
 .list-levels {
@@ -37,6 +37,10 @@
 
 .list-levels a {
   padding: 5px 12px 5px 22px;
+}
+
+.list-levels a:first-child {
+  margin-top: 20px;
 }
 
 .list-levels a:hover {
@@ -53,7 +57,7 @@
 .checkmark {
   position: relative;
   display: inline-block;
-  margin-right: 14px;
+  margin-right: 2px;
   width: 8px;
   height: 13px;
   opacity: 2;
@@ -71,11 +75,34 @@
   border-width: 0 3px 3px 0;
 }
 
+.help-icon_active {
+  background-image: url('../../assets/icons/icons-help.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding: 8px;
+  filter: invert();
+  opacity: 0.5;
+  position: relative;
+}
+
+.help-icon_active:hover::before {
+  content: 'Help';
+  position: absolute;
+  top: -18px;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  color:rgb(255, 255, 255);
+  filter: invert();
+  font-size: 12px;
+}
+
 .level-number {
   color: #777;
   opacity: .6;
   min-width: 24px;
   display: inline-block;
+  margin-left: 8px;
 }
 
 

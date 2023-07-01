@@ -18,6 +18,7 @@ interface NestedTag {
 interface WinInfo {
   level: number;
   isWin: boolean;
+  isHelp: boolean;
 }
 
 export { LevelsInterface, NestedTag, WinInfo };

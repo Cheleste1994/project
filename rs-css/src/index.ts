@@ -8,14 +8,20 @@ function loadGameSave(winCollection: Map<number, WinInfo>): void {
     localStorage.setItem('level', '0');
   }
 
-  const save = localStorage.getItem('save');
-  if (save) {
-    save?.split(',').forEach((value, index) => {
-      winCollection.set(index, { level: index, isWin: value === 'true' });
-    });
+  const saveWin = localStorage.getItem('saveWin');
+  const saveHelp = localStorage.getItem('saveHelp');
+
+  if (saveWin && saveHelp) {
+    for (let index = 0; index < ListLevels.length; index += 1) {
+      winCollection.set(index, {
+        level: index,
+        isWin: saveWin.split(',')[index] === 'true',
+        isHelp: saveHelp.split(',')[index] === 'true',
+      });
+    }
   } else {
     ListLevels.forEach((lvl, index) => {
-      winCollection.set(index, { level: index, isWin: lvl.isWin });
+      winCollection.set(index, { level: index, isWin: lvl.isWin, isHelp: false });
     });
   }
 }

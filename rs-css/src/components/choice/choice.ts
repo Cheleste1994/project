@@ -88,9 +88,14 @@ class Choice {
       elementLevelNumber.classList.add('level-number');
       elementLevelNumber.innerText = `${data.level + 1}`;
       elementA.appendChild(elementCheckmark);
+
+      if (this.winCollection.get(index)?.isHelp) {
+        const elementIconHelp = document.createElement('span');
+        elementIconHelp.classList.add('help-icon_active');
+        elementA.appendChild(elementIconHelp);
+      }
       elementA.appendChild(elementLevelNumber);
       elementA.innerHTML += data.title;
-
       fragment.appendChild(elementA);
     });
 
@@ -163,6 +168,7 @@ class Choice {
         const level = this.winCollection.get(i);
         if (level) {
           level.isWin = false;
+          level.isHelp = false;
         }
       });
       this.emmiter.emit('levelChange', localStorage.level);
@@ -172,10 +178,13 @@ class Choice {
   private addSaveBeforeUnload(): void {
     window.addEventListener('beforeunload', () => {
       const saveWin = [];
+      const saveHelp = [];
       for (let i = 0; i < this.listLevels.length; i += 1) {
         saveWin.push(this.winCollection.get(i)?.isWin);
+        saveHelp.push(this.winCollection.get(i)?.isHelp);
       }
-      localStorage.setItem('save', saveWin.join(','));
+      localStorage.setItem('saveWin', saveWin.join(','));
+      localStorage.setItem('saveHelp', saveHelp.join(','));
     });
   }
 }

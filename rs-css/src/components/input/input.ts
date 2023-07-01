@@ -174,6 +174,10 @@ class Input {
     if (letters) {
       this.addEffectPrint(letters);
     }
+    const level = this.winCollection.get(Number(localStorage.level));
+    if (level) {
+      level.isHelp = true;
+    }
   }
 
   private addEffectPrint(letters: string, index = 0): void {
