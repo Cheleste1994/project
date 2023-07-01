@@ -121,7 +121,6 @@ class Input {
         return false;
       }
     }
-
     this.writeWin(Number(localStorage.level));
     return true;
   }
@@ -130,6 +129,9 @@ class Input {
     const level = this.winCollection.get(numberLevel);
     if (level) {
       level.isWin = true;
+    }
+    if (this.elements.inputEnter) {
+      this.elements.inputEnter.value = '';
     }
     localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : 0;
     this.emmiter.emit('levelChange', localStorage.level);
