@@ -31,13 +31,14 @@ class Input {
 
   private winCollection: Map<number, WinInfo>;
 
+  private codeMirrorInstance: CodeMirror.EditorFromTextArea | undefined;
+
   constructor(emmiter: EventEmitter, winCollection: Map<number, WinInfo>) {
     this.emmiter = emmiter;
     this.winCollection = winCollection;
     this.codeMirror = CodeMirror;
     this.listLevels = ListLevels;
     this.start();
-    this.selectorInputArea();
     this.elements = {
       inputEnter: null,
       btnEnter: null,
@@ -49,13 +50,14 @@ class Input {
   private start(): void {
     document.addEventListener('DOMContentLoaded', () => {
       this.editorLeft();
+      this.selectorInputArea();
     });
   }
 
-  private editorLeft(): void {
+  private editorLeft(): CodeMirror.EditorFromTextArea | undefined {
     const editor = document.querySelector('.css-window');
     if (editor instanceof HTMLTextAreaElement) {
-      const codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
+      this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
         lineNumbers: true,
         matchBrackets: true,
         mode: 'css',
@@ -64,13 +66,15 @@ class Input {
         theme: '3024-day',
         lineWrapping: true,
         viewportMargin: Infinity,
-        firstLineNumber: 2,
+        firstLineNumber: 1,
         lineWiseCopyCut: false,
         undoDepth: 50,
         matchTags: { bothTags: true },
       });
-      codeMirrorInstance.getWrapperElement().classList.add('css-window');
+      this.codeMirrorInstance.getWrapperElement().classList.add('css-window');
+      return this.codeMirrorInstance;
     }
+    return undefined;
   }
 
   private processNumericInput<T>(inputValue: T): void {
@@ -93,11 +97,15 @@ class Input {
     }
 
     const tableField = document.querySelector('.table-field');
-    const targetElements = tableField?.querySelectorAll(`${inputValue}`);
-    if (targetElements) {
-      targetElements.forEach((element) => {
-        element.classList.add('find');
-      });
+    try {
+      const targetElements = tableField?.querySelectorAll(`${inputValue}`);
+      if (targetElements) {
+        targetElements.forEach((element) => {
+          element.classList.add('find');
+        });
+      }
+    } catch {
+      /* не найдено */
     }
   }
 
@@ -139,9 +147,11 @@ class Input {
     if (level) {
       level.isWin = true;
     }
-    if (this.elements.inputEnter) {
-      this.elements.inputEnter.value = '';
-    }
+    this.codeMirrorInstance?.replaceRange(
+      '',
+      { line: 0, ch: 0 },
+      { line: 0, ch: this.codeMirrorInstance.getLine(0).length },
+    );
     localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : 0;
     this.emmiter.emit('levelChange', localStorage.level);
   }
@@ -154,24 +164,26 @@ class Input {
   }
 
   private addHintInputField(): void {
-    const input = this.elements.inputEnter;
-    if (input) {
-      if (input.value.length > 0) {
-        input.value = '';
-      }
-      const letters = this.listLevels[Number(localStorage.level)].target.join(' ');
-      if (letters) {
-        this.addEffectPrint(letters);
-      }
+    this.codeMirrorInstance?.replaceRange(
+      '',
+      { line: 0, ch: 0 },
+      { line: 0, ch: this.codeMirrorInstance.getLine(0).length },
+    );
+
+    const letters = this.listLevels[Number(localStorage.level)].target.join(' ');
+    if (letters) {
+      this.addEffectPrint(letters);
     }
   }
 
   private addEffectPrint(letters: string, index = 0): void {
-    const input = document.querySelector('.css-input') as HTMLInputElement;
     if (index < letters.length) {
-      if (input) {
-        input.value += letters[index];
-      }
+      const currentLine = this.codeMirrorInstance?.getLine(0);
+      this.codeMirrorInstance?.replaceRange(
+        currentLine + letters[index],
+        { line: 0, ch: 0 },
+        { line: 0, ch: this.codeMirrorInstance.getLine(0).length },
+      );
       setTimeout(this.addEffectPrint.bind(this), 300, letters, index + 1);
     }
   }
@@ -189,12 +201,14 @@ class Input {
     });
   }
 
-  private handleInputEvent(inputValue: string, isEnterDown: boolean): void {
-    this.addMarker<string>(inputValue);
+  private async handleInputEvent(inputValue: string, isEnterDown: boolean): Promise<void> {
+    const value = inputValue.replace(/[<>,(){}[\]]/g, '');
+    this.addMarker<string>(value);
 
     if (isEnterDown) {
       this.elements.btnEnter?.classList.add('enter-button_active');
-      if (!this.isTargetFound()) {
+
+      if (!(await this.isTargetFound())) {
         this.addSnake();
       }
     } else {
@@ -204,38 +218,40 @@ class Input {
   }
 
   private listenerEnterDown(): void {
-    this.elements.inputEnter?.addEventListener('keydown', (event: KeyboardEvent | Event) => {
+    document.querySelector('.CodeMirror.css-window')?.addEventListener('keydown', (event: KeyboardEvent | Event) => {
       if (event instanceof KeyboardEvent && event.code === 'Enter') {
-        const inputValue = (event.target as HTMLInputElement).value;
-        this.handleInputEvent(inputValue, true);
+        const inputValue = this.codeMirrorInstance?.getLine(0);
+        if (inputValue) {
+          this.handleInputEvent(inputValue, true);
+        }
       }
     });
   }
 
   private listenerClickDown(): void {
     this.elements.btnEnter?.addEventListener('mousedown', () => {
-      const event = this.elements.inputEnter;
-      if (event) {
-        const inputValue = event.value;
+      const inputValue = this.codeMirrorInstance?.getLine(0);
+      if (inputValue) {
         this.handleInputEvent(inputValue, true);
       }
     });
   }
 
   private listenerEnterUp(): void {
-    this.elements.inputEnter?.addEventListener('keyup', (event: KeyboardEvent | Event) => {
+    document.querySelector('.CodeMirror.css-window')?.addEventListener('keyup', (event: KeyboardEvent | Event) => {
       if (event instanceof KeyboardEvent && event.code === 'Enter') {
-        const inputValue = (event.target as HTMLInputElement).value;
-        this.handleInputEvent(inputValue, false);
+        const inputValue = this.codeMirrorInstance?.getLine(0);
+        if (inputValue) {
+          this.handleInputEvent(inputValue, false);
+        }
       }
     });
   }
 
   private listenerClickUp(): void {
     this.elements.btnEnter?.addEventListener('mouseup', () => {
-      const input = this.elements.inputEnter;
-      if (input) {
-        const inputValue = input.value;
+      const inputValue = this.codeMirrorInstance?.getLine(0);
+      if (inputValue) {
         this.handleInputEvent(inputValue, false);
       }
     });
