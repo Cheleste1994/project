@@ -42,6 +42,7 @@ class Choice {
     this.addListenerLevelPrev();
     this.addListenerButtonReset();
     this.addSaveBeforeUnload();
+    this.addBacklightActiveLevel();
   }
 
   private toggleBurgerMenu(burgerIcon?: Element): void {
@@ -98,11 +99,23 @@ class Choice {
     } else {
       document.querySelector('.level-name__checkmark')?.classList.remove('checkmark_active');
     }
-
     if (list) {
       list.innerHTML = '';
     }
     list?.appendChild(fragment);
+
+    const addBacklightActiveLevel = this.addBacklightActiveLevel();
+    addBacklightActiveLevel();
+  }
+
+  private addBacklightActiveLevel(): () => void {
+    let saveIndex = 0;
+    return () => {
+      const levels = document.querySelectorAll('.list-levels a');
+      levels[saveIndex].classList.remove('list-level_active');
+      levels[Number(localStorage.level)].classList.add('list-level_active');
+      saveIndex = Number(localStorage.level);
+    };
   }
 
   private addListenerBugerMenu(): void {

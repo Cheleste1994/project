@@ -5,6 +5,7 @@
   display: flex;
   user-select: none;
   overflow: hidden;
+  position: relative;
 }
 
 .help {
@@ -115,6 +116,7 @@ top: 10px;
 
 .level-progress {
   background: rgba(0,0,0,.4);
+  margin: 5px 0;
 }
 
 .level-progress .progress {
@@ -139,6 +141,7 @@ top: 10px;
 
 .level-description {
   margin-top: 30px;
+  overflow-x: auto;
 }
 
 .level-description .title {
@@ -211,4 +214,13 @@ top: 10px;
 
 .reset-progress:hover {
   background: rgba(255,255,255,.05);
+}
+
+
+@media (max-width: 750px) {
+  .level-header {
+    margin-top: 50px;
+    font-size: 0.8rem;
+  }
+
 }
