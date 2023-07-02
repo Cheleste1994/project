@@ -186,7 +186,7 @@ class Input {
       { line: 0, ch: this.codeMirrorInstance.getLine(0).length },
     );
 
-    const letters = this.listLevels[Number(localStorage.level)].target.join(' ');
+    const letters = this.listLevels[Number(localStorage.level)].help;
     if (letters) {
       this.addEffectPrint(letters);
     }
