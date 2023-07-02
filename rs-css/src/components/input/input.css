@@ -174,19 +174,72 @@
 .CodeMirror.css-window .CodeMirror-lines:before {
   content: '';
   position: absolute;
-  top: 8;
+  top: 5px;
   left: 0;
   padding: 5px;
   color: #9999993f;
-  width: 80%;
+  width: 90%;
   height: 10px;
-  background: rgba(62,203,255,.4);
-  opacity: 1;
-  transition: all 0.3s;
+  background: rgba(62, 203, 255, .4);
+  opacity: 0;
+  transition: opacity 0.3s;
   display: flex;
   align-items: center;
+  animation: fade 0.5s infinite alternate;
 }
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 
 .CodeMirror.css-window .CodeMirror-lines:hover::before {
   opacity: 0;
+  animation: fadeHover 1s infinite alternate;
+}
+
+
+@keyframes fadeHover {
+  100% {
+    opacity: 0;
+  }
+}
+
+.game-win {
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  align-self: center;
+  background: #33333369;
+  z-index: 1000;
+  overflow: hidden;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.game-win_active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.game-win_open {
+  text-align: center;
+  padding: 30px 30px;
+  background: rgba(0,0,0,.6);
+  color: rgba(255,255,255,.9);
+  border-radius: 20px;
+  cursor: pointer;
+
 }

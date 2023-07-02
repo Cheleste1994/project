@@ -216,6 +216,10 @@ top: 10px;
   background: rgba(255,255,255,.05);
 }
 
+.reset-progress_completed {
+  border: solid 2px #4cbb4a;
+  color: #4cbb4a;
+}
 
 @media (max-width: 750px) {
   .level-header {

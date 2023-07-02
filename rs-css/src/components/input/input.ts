@@ -132,7 +132,18 @@ class Input {
 
     await this.addWinReaction(find);
     this.writeWin(Number(localStorage.level));
+    const isGameCompleted = [...this.winCollection.values()].every((level) => level.isWin === true);
+    if (isGameCompleted) {
+      this.gameCompleted();
+    }
     return true;
+  }
+
+  private gameCompleted(): void {
+    const gameWin = document.querySelector('.game-win');
+    gameWin?.classList.add('game-win_active');
+    this.addListenerCLickGameCompleted();
+    this.emmiter.emit('gameOver', true);
   }
 
   private async addWinReaction(elements: NodeListOf<Element>): Promise<void> {
@@ -258,6 +269,13 @@ class Input {
       if (inputValue) {
         this.handleInputEvent(inputValue, false);
       }
+    });
+  }
+
+  private addListenerCLickGameCompleted(): void {
+    const gameCompleted = document.querySelector('.game-win');
+    gameCompleted?.addEventListener('click', () => {
+      gameCompleted.classList.remove('game-win_active');
     });
   }
 }

@@ -31,6 +31,9 @@ class Choice {
       this.loadLevelDescription();
       this.addListenerLevelChange();
     });
+    this.emmiter.subscribe('gameOver', () => {
+      this.addActiveBtnReset();
+    });
   }
 
   private start(): void {
@@ -121,6 +124,11 @@ class Choice {
       levels[Number(localStorage.level)].classList.add('list-level_active');
       saveIndex = Number(localStorage.level);
     };
+  }
+
+  private addActiveBtnReset(): void {
+    document.querySelector('.reset-progress')?.classList.add('reset-progress_completed');
+    document.querySelector('.burger-menu')?.classList.add('burger-menu_open');
   }
 
   private addListenerBugerMenu(): void {
