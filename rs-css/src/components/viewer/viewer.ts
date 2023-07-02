@@ -80,13 +80,13 @@ class Viewer {
     if (element !== null) {
       const tagName = element.tagName.toLowerCase();
       const isCentral = isCentralTag || tagName === 'div';
-
+      const className = element.className.includes('small') ? 'class="small"' : '';
       if (!isCentral) {
         tagsString += ' '.repeat(indent);
         if (element.children.length === 0) {
-          tagsString += `<${tagName} />\n`;
+          tagsString += `<${tagName} ${className}/>\n`;
         } else {
-          tagsString += `<${tagName}>\n`;
+          tagsString += `<${tagName}${className}>\n`;
         }
       }
 
@@ -106,7 +106,8 @@ class Viewer {
 
   private processElementEditWindow(event: Event, indexEvent: number, editorLength: number): HTMLElement | null {
     const target = (event.target as HTMLElement).innerText;
-    const tagName = target.replace(/<|>/g, '').split(' ');
+
+    const tagName = target.replace(/<|>/g, '').replace('class="small"', '').split(' ');
     tagName?.forEach((el, index) => {
       tagName[index] = el.trim();
       if (index === 0) {

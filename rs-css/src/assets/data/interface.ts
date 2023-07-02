@@ -4,6 +4,7 @@ interface LevelsInterface {
     [key: string]: string;
   };
   target: string[][];
+  help: string;
   firstLine: string;
   lastLine: string;
   isWin: boolean;

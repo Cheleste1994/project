@@ -243,3 +243,12 @@
   cursor: pointer;
 
 }
+
+
+
+ @media (max-width: 750px) {
+  .input-field {
+    width: 95%;
+  }
+
+}

@@ -10,12 +10,17 @@
       "examples": "<strong>div</strong> выбирает все <strong>&lt;div&gt;</strong> элементы."
     },
     "target": [["plate"]],
+    "help": "plate",
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "isWin": false,
-    "tag": ["plate", "plate", {
-      "bento": "apple"
-    }]
+    "tag": [
+      "plate",
+      "plate",
+      {
+        "bento": "apple"
+      }
+    ]
   },
   {
     "level": 1,
@@ -28,65 +33,184 @@
       "examples": "<strong>div, span</strong> выбирает все <strong>&lt;div&gt;</strong> и <strong>&lt;span&gt;</strong> элементы."
     },
     "target": [["orange"], ["plate", "apple"]],
-    "firstLine": "<div class=\"table\">",
-    "lastLine": "</div>;",
-    "isWin": false,
-    "tag": ["orange", "bento", "orange", "plate", {
-      "plate": "apple"
-    }]
-  },
-  {
-    "level": 2,
-    "description": {
-      "task": "Выберите тарелки",
-      "selector": "",
-      "title": "",
-      "syntax": "A",
-      "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
-      "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
-    },
-    "target": [["bento"]],
-    "firstLine": "<div class=\"table\">",
-    "lastLine": "</div>;",
-    "isWin": false,
-    "tag": ["bento", "orange", "plate", "bento"]
-  },
-  {
-    "level": 3,
-    "description": {
-      "task": "Выберите тарелки",
-      "selector": "Type Selector",
-      "title": "Select elements by their type",
-      "syntax": "A",
-      "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
-      "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
-    },
-    "target": [["bento", "plate", "apple"]],
+    "help": "orange, apple",
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "isWin": false,
     "tag": [
+      "orange",
       "bento",
+      "orange class=\"small\"",
+      "plate",
+      {
+        "plate": "apple"
+      }
+    ]
+  },
+  {
+    "level": 2,
+    "description": {
+      "task": "Выберите всех маленьких!",
+      "selector": "Работа с классами",
+      "title": "Выберите элементы с по их классам",
+      "syntax": ".className",
+      "hint": "Выбирает все классы <strong>.className</strong>, <strong>B</strong>. Например, <strong>.name</strong> выбирает все <strong>&lt;div&gt;</strong> с классом <strong>name</strong>.",
+      "examples": "<strong>.name</strong> выбирает все <strong>&lt;div class=\"name\"&gt;</strong> элементы."
+    },
+    "target": [["orange"], ["bento", "plate", "apple"]],
+    "help": ".small",
+    "firstLine": "<div class=\"table\">",
+    "lastLine": "</div>;",
+    "isWin": false,
+    "tag": [
+      {
+        "bento": "orange"
+      },
+      "orange class=\"small\"",
+      "plate",
       {
         "bento": {
-          "plate": ["apple"]
+          "plate": "apple class=\"small\""
+        }
+      }
+    ]
+  },
+  {
+    "level": 3,
+    "description": {
+      "task": "Выберите всё, что лежит на тарелке!",
+      "selector": "Универсальный селектор",
+      "title": "Выберите все элементы внутри A",
+      "syntax": "A *",
+      "hint": "Выбирает все элементы внутри тега <strong>div *</strong>.",
+      "examples": "<strong>div *</strong> выбирает все элементы внутри тега<strong>&lt;div&gt;</strong>."
+    },
+    "target": [
+      ["bento", "plate", "apple"],
+      ["plate", "orange"],
+      ["plate", "apple"]
+    ],
+    "help": "plate *",
+    "firstLine": "<div class=\"table\">",
+    "lastLine": "</div>;",
+    "isWin": false,
+    "tag": [
+      "apple",
+      {
+        "bento": {
+          "plate": ["apple class=\"small\""]
         }
       },
-      "plate",
-      "orange"
+      {
+        "plate": "orange"
+      },
+      "pickle",
+      {
+        "plate": "apple"
+      }
     ]
   },
   {
     "level": 4,
     "description": {
-      "task": "Выберите тарелки",
-      "selector": "Type Selector",
-      "title": "Select elements by their type",
-      "syntax": "A",
-      "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
-      "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
+      "task": "Выберите самый последний!",
+      "selector": "Псевдокласс last-child",
+      "title": "Выберите последний элемент",
+      "syntax": ":last-child",
+      "hint": "CSS псевдокласс <strong>:last-child</strong> находит любой элемент, являющийся последним в его родителе.",
+      "examples": "<strong>div:last-child</strong> выбирает последний элемент внутри тега<strong>&lt;div&gt;</strong>."
     },
-    "target": [["bento", "plate", "orange"]],
+    "target": [
+      ["plate", "plate", "plate", "apple"]
+    ],
+    "help": "plate:last-child apple:last-child",
+    "firstLine": "<div class=\"table\">",
+    "lastLine": "</div>;",
+    "isWin": false,
+    "tag": [
+      {
+          "plate": ["apple class=\"small\""]
+
+      },
+      "bento",
+      {
+        "plate": "orange class=\"small\""
+      },
+      "bento",
+      {
+        "plate": ["pickle"]
+      },
+      {
+        "plate": {
+          "plate": {
+            "plate": "apple class=\"small\""
+          }
+        }
+      }
+    ]
+  },
+  {
+    "level": 5,
+    "description": {
+      "task": "Выберите первый и последний!",
+      "selector": "Псевдокласс last-child и first-child",
+      "title": "Выберите первый и последний элемент",
+      "syntax": ":last-child :first-child",
+      "hint": "CSS псевдокласс <strong>:first-child</strong> находит любой элемент, являющийся первым в своём родителе.",
+      "examples": "<strong>div:first-child</strong> выбирает первый элемент внутри тега<strong>&lt;div&gt;</strong>."
+    },
+    "target": [
+      ["bento", "plate", "plate", "plate", "orange"],
+      ["plate", "plate", "plate", "apple"]
+    ],
+    "help": "plate:first-child orange:first-child, plate:last-child apple:last-child",
+    "firstLine": "<div class=\"table\">",
+    "lastLine": "</div>;",
+    "isWin": false,
+    "tag": [
+      {
+        "bento": {
+          "plate": {
+            "plate": {
+              "plate": "orange class=\"small\""
+            }
+          }
+        }
+      },
+      {
+        "bento": "orange"
+      },
+      {
+        "plate": "orange class=\"small\""
+      },
+      "bento",
+      {
+        "plate": ["pickle"]
+      },
+      {
+        "plate": {
+          "plate": {
+            "plate": "apple class=\"small\""
+          }
+        }
+      }
+    ]
+  },
+  {
+    "level": 6,
+    "description": {
+      "task": "Выберите тарелки на бэнто!",
+      "selector": "Псевдокласс only-child",
+      "title": "Выберите элементы, которые являются единстенными потомками",
+      "syntax": ":only-child",
+      "hint": "CSS псевдокласс <strong>:only-child</strong> находит любой элемент, являющийся единственным потомком родителя. Это тоже, что и <strong>:first-child:last-child</strong> или <strong>:nth-child(1):nth-last-child(1)</strong>, но с меньшей специфичностью.",
+      "examples": "<strong>div:only-child</strong> выбирает все элементы тега<strong>&lt;div&gt;</strong>, которые являются единстенными потомками."
+    },
+    "target": [
+      ["bento", "plate"],
+      ["bento", "plate"]
+    ],
+    "help": "plate:only-child",
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "isWin": false,
@@ -100,7 +224,7 @@
         }
       },
       {
-        "bento": ["plate"]
+        "bento": ["orange"]
       },
       {
         "bento": {
@@ -109,6 +233,151 @@
       },
       {
         "plate": ["apple"]
+      }
+    ]
+  },
+  {
+    "level": 7,
+    "description": {
+      "task": "Выберите апельсин и яблоко на терелке!",
+      "selector": "Комбинатора дочерних элементов",
+      "title": "Выберите элементы, которые являются прямыми дочерними элементами",
+      "syntax": "А > Б",
+      "hint": "Вы можете выбрать элементы, которые являются прямыми дочерними элементами других элементов. Дочерний элемент — это любой элемент, вложенный непосредственно в другой элемент.",
+      "examples": "<strong>А > Б</strong> выбирает все элементы <strong> B</strong>, которые являются прямыми дочерними элементами <strong> A</strong>."
+    },
+    "target": [
+      ["bento", "plate", "orange"],
+      ["plate", "apple"]
+    ],
+    "help": "plate > orange, plate > apple",
+    "firstLine": "<div class=\"table\">",
+    "lastLine": "</div>;",
+    "isWin": false,
+    "tag": [
+      "pickle",
+      {
+        "bento": {
+          "plate": {
+            "orange": ["pickle"]
+          }
+        }
+      },
+      {
+        "bento": ["orange"]
+      },
+      {
+        "bento": ["plate"]
+      },
+      {
+        "plate": ["apple"]
+      }
+    ]
+  },
+  {
+    "level": 8,
+    "description": {
+      "task": "Выберите маленькие яблоки рядом с апельсином!",
+      "selector": "Селектор следующего элемента",
+      "title": "Выберите элементы, которые следуют за другим элементом",
+      "syntax": "А ~ Б",
+      "hint": "Общий комбинатор смежных селекторов <strong> ~</strong> разделяет два селектора и находит второй элемент только если ему предшествует первый, и они оба имеют общего родителя. Свойства будут применены ко всем элементам, указанным в правой части, следующим за элементом, указанным в левой части.",
+      "examples": "<strong>А ~ Б</strong> выбирает все элементы <strong> B</strong>, которые следуют за <strong> A</strong>."
+    },
+    "target": [
+      ["bento", "orange", "apple"],
+      ["bento", "apple", "apple"]
+    ],
+    "help": "orange~bento .small",
+    "firstLine": "<div class=\"table\">",
+    "lastLine": "</div>;",
+    "isWin": false,
+    "tag": [
+      "pickle",
+      "apple class=\"small\"",
+      {
+        "bento": {
+          "plate": {
+            "orange": ["pickle"]
+          }
+        }
+      },
+      "orange",
+      {
+        "bento": {
+          "orange": "apple class=\"small\""
+        }
+      },
+      {
+        "bento": {
+          "apple": "apple class=\"small\""
+        }
+      },
+      {
+        "plate": ["apple"]
+      }
+    ]
+  },
+  {
+    "level": 9,
+    "description": {
+      "task": "Снемите все с самого верха, что лежит на четных стопках тарелок!",
+      "selector": "Псевдокласс nth-of-type",
+      "title": "Выберите четные элементы, среди группы соседних элементов",
+      "syntax": ":nth-of-type()",
+      "hint": "CSS псевдокласс <strong>:nth-of-type()</strong> находит один или более элементов с заданным тегом, основываясь на их позиции среди группы соседних элементов.",
+      "examples": "<strong>div:nth-of-type(2n)</strong> выбирает четны <strong>&lt;div&gt;</strong>."
+    },
+    "target": [
+      ["plate", "plate", "orange", "apple"],
+      ["plate", "plate", "apple", "pickle"],
+      ["plate", "plate", "plate", "orange"]
+    ],
+    "help": "plate:nth-of-type(2n) > * > * *",
+    "firstLine": "<div class=\"table\">",
+    "lastLine": "</div>;",
+    "isWin": false,
+    "tag": [
+      "pickle",
+      {
+        "plate": {
+          "plate": {
+            "orange": ["pickle"]
+          }
+        }
+      },
+      {
+        "plate": {
+          "plate": {
+            "orange": ["apple class=\"small\""]
+          }
+        }
+      },
+      {
+        "plate": {
+          "plate": {
+            "orange": ["pickle"]
+          }
+        }
+      },
+      {
+        "plate": {
+          "plate": {
+            "apple": ["pickle"]
+          }
+        }
+      },
+      {
+        "plate": {
+          "apple": "apple class=\"small\""
+        }
+      },
+      {
+        "plate": {
+          "plate": {
+              "plate": "orange class=\"small\""
+          }
+        }
       }
     ]
   }

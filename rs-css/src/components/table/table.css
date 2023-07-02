@@ -2,10 +2,11 @@
 .container-table {
   perspective: 800px;
   outline: solid 1px transparent;
-  margin: 0px auto 10px auto;
+  margin: 0px 0 10px 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
   white-space: nowrap;
   width: 100%;
   opacity: 0.9;
@@ -26,7 +27,6 @@
   width: var(--table-width);
   min-width: min-content;
   height: 120px;
-  margin: 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -35,7 +35,6 @@
 
 .table-butt {
   width: var(--table-width);
-  margin: 0 auto;
   background: #ac741c;
   height: 15px;
   transform: rotateX(-45deg);
@@ -46,7 +45,6 @@
   display: flex;
   justify-content: space-between;
   width: calc(var(--table-width) - 5%);
-  margin: 0 auto;
   transform: rotateX(-50deg);
   transform-origin: 100% -50%;
 }
@@ -86,7 +84,7 @@ plate {
 }
 
 .table-field > plate {
-  margin: 0 10px;
+  margin: 0 5px;
   max-width: 80px;
   max-height: 80px;
 }
@@ -220,6 +218,37 @@ pickle {
   max-height: 30px;
 }
 
+
+.table-field > .small {
+  max-width: 10px;
+  max-height: 10px;
+  box-shadow: 0px 0px 0px rgba(0,0,0,.2);
+
+}
+.table-field > * > .small {
+  max-width: 10px;
+  max-height: 10px;
+  box-shadow: 0px 0px 0px rgba(0,0,0,.2);
+
+}
+.table-field > * > * > .small {
+  max-width: 10px;
+  max-height: 10px;
+  box-shadow: 0px 0px 0px rgba(0,0,0,.2);
+}
+.table-field > * > * > * > .small {
+  max-width: 10px;
+  max-height: 10px;
+  box-shadow: 0px 0px 0px rgba(0,0,0,.2);
+}
+.table-field > * > * > * > * > .small {
+  max-width: 10px;
+  max-height: 10px;
+  box-shadow: 0px 0px 0px rgba(0,0,0,.2);
+}
+
+
+
 .target {
     transform-origin: bottom;
     animation: target 1s infinite;
@@ -262,4 +291,29 @@ pickle {
   background: #3988c975;
   color: #fff;
   transform: rotate(0 -40deg);
+}
+
+
+@media (max-width: 750px) {
+  .table-field {
+    width: 95%;
+  }
+  .table-butt {
+    width: 95%;
+
+  }
+
+  .table-legs {
+    width: 90%;
+
+  }
+
+  bento {
+    margin: 5px;
+  }
+
+  orange {
+    width: 50%;
+    height: 50%;
+  }
 }

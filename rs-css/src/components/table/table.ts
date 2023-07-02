@@ -48,7 +48,11 @@ class Table {
           return element;
         }
         if (typeof tag === 'string') {
-          return document.createElement(tag);
+          const newElement = document.createElement(tag.split(' ')[0]);
+          if (tag.split(' ')[1]) {
+            newElement.classList.add('small');
+          }
+          return newElement;
         }
         throw new Error(`Invalid tag: ${tag}`);
       });
