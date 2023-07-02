@@ -163,8 +163,13 @@ class Input {
       { line: 0, ch: 0 },
       { line: 0, ch: this.codeMirrorInstance.getLine(0).length },
     );
-    localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : 0;
+    localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : this.addLevelChangeCheck();
     this.emmiter.emit('levelChange', localStorage.level);
+  }
+
+  private addLevelChangeCheck(): number {
+    const index = [...this.winCollection.values()].findIndex((level) => level.isWin === false);
+    return index !== -1 ? index : 0;
   }
 
   private addSnake(): void {

@@ -129,6 +129,7 @@ class Choice {
   private addActiveBtnReset(): void {
     document.querySelector('.reset-progress')?.classList.add('reset-progress_completed');
     document.querySelector('.burger-menu')?.classList.add('burger-menu_open');
+    document.querySelector('.burger-menu__icon')?.classList.add('burger-menu__icon_open');
   }
 
   private addListenerBugerMenu(): void {
