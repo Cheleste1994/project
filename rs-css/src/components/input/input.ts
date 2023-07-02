@@ -222,7 +222,7 @@ class Input {
   }
 
   private async handleInputEvent(inputValue: string, isEnterDown: boolean): Promise<void> {
-    const value = inputValue.replace(/[<>,(){}[\]]/g, '');
+    const value = inputValue.replace(/[<>(){}[\]]/g, '');
     this.addMarker<string>(value);
 
     if (isEnterDown) {

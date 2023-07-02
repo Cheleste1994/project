@@ -5,6 +5,7 @@ import ListLevels from '../../assets/data/level.json';
 import EventEmitter from '../control/EventEmitter';
 
 enum Selector {
+  task = '.description h2',
   selector = '.selector-name',
   title = 'h2.title',
   syntax = '.syntax',
@@ -98,7 +99,7 @@ class Choice {
         elementA.appendChild(elementIconHelp);
       }
       elementA.appendChild(elementLevelNumber);
-      elementA.innerHTML += data.title;
+      elementA.innerHTML += data.description.syntax;
       fragment.appendChild(elementA);
     });
 

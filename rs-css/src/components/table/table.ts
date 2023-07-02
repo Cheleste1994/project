@@ -56,7 +56,7 @@ class Table {
 
     const elements = processTags(level.tag);
     elements.forEach((element) => {
-      this.findAndPlaceTarget(element, level.target);
+      level.target.forEach((target) => this.findAndPlaceTarget(element, target));
       fragment.appendChild(element);
     });
     if (table !== null) {

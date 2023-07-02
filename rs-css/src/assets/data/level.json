@@ -1,47 +1,67 @@
 [
   {
     "level": 0,
-    "title": "Title",
     "description": {
-      "selector": "Type Selector",
-      "title": "Select elements by their type",
+      "task": "Выберите тарелки!",
+      "selector": "Тип селектора",
+      "title": "Выберите элемент по их типу",
       "syntax": "A",
-      "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
-      "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
+      "hint": "Выбирает все элементы типа <strong>A</strong>. Тип относится к типу тега, поэтому <strong>div</strong>, <strong>p</strong> и <strong>ul</strong> - все это разные типы элементов.",
+      "examples": "<strong>div</strong> выбирает все <strong>&lt;div&gt;</strong> элементы."
     },
-    "target": ["plate"],
+    "target": [["plate"]],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "isWin": false,
-    "tag": ["plate", "plate"]
+    "tag": ["plate", "plate", {
+      "bento": "apple"
+    }]
   },
   {
     "level": 1,
-    "title": "Title",
     "description": {
+      "task": "Выберите все фрукты на столе!",
+      "selector": "Комбинированный селектор",
+      "title": "Выберите элементы с определенными свойствами",
+      "syntax": "A,B",
+      "hint": "Выбирает все элементы типа <strong>A</strong>, <strong>B</strong>. Например, <strong>div, span</strong> выбирает все <strong>&lt;div&gt;</strong> и <strong>&lt;span&gt;</strong> элементы.",
+      "examples": "<strong>div, span</strong> выбирает все <strong>&lt;div&gt;</strong> и <strong>&lt;span&gt;</strong> элементы."
+    },
+    "target": [["orange"], ["plate", "apple"]],
+    "firstLine": "<div class=\"table\">",
+    "lastLine": "</div>;",
+    "isWin": false,
+    "tag": ["orange", "bento", "orange", "plate", {
+      "plate": "apple"
+    }]
+  },
+  {
+    "level": 2,
+    "description": {
+      "task": "Выберите тарелки",
       "selector": "",
       "title": "",
       "syntax": "A",
       "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
       "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
     },
-    "target": ["bento"],
+    "target": [["bento"]],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "isWin": false,
     "tag": ["bento", "orange", "plate", "bento"]
   },
   {
-    "level": 2,
-    "title": "Title",
+    "level": 3,
     "description": {
+      "task": "Выберите тарелки",
       "selector": "Type Selector",
       "title": "Select elements by their type",
       "syntax": "A",
       "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
       "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
     },
-    "target": ["bento", "plate", "apple"],
+    "target": [["bento", "plate", "apple"]],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "isWin": false,
@@ -57,16 +77,16 @@
     ]
   },
   {
-    "level": 3,
-    "title": "Title",
+    "level": 4,
     "description": {
+      "task": "Выберите тарелки",
       "selector": "Type Selector",
       "title": "Select elements by their type",
       "syntax": "A",
       "hint": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>div</strong>, <strong>p</strong> and <strong>ul</strong> are all different element types.",
       "examples": "<strong>div</strong> selects all <strong>div</strong> elements."
     },
-    "target": ["bento", "plate", "orange"],
+    "target": [["bento", "plate", "orange"]],
     "firstLine": "<div class=\"table\">",
     "lastLine": "</div>;",
     "isWin": false,
