@@ -1,4 +1,4 @@
-type EventListener = (data: boolean | string | { element: HTMLElement; isAdd: boolean }) => void;
+type EventListener = (data: boolean | string | { element: HTMLElement; isAdd: boolean; index: number }) => void;
 
 class EventEmitter {
   private events: { [eventName: string]: EventListener[] };
@@ -19,7 +19,7 @@ class EventEmitter {
     this.events[event] = this.events[event].filter((eventFn) => callback !== eventFn);
   }
 
-  public emit(event: string, data: boolean | string | { element: HTMLElement; isAdd: boolean }): void {
+  public emit(event: string, data: boolean | string | { element: HTMLElement; isAdd: boolean; index: number }): void {
     const eventCallbacks = this.events[event];
     if (eventCallbacks) {
       eventCallbacks.forEach((callback) => {

@@ -33,6 +33,11 @@ class Viewer {
       this.load(Number(localStorage.level));
       this.addListenerClickEditWindow();
     });
+    this.emmiter.subscribe('changeHoverLineEditHTML', (obj) => {
+      if (typeof obj === 'object') {
+        this.changeHoverLineEditHtml(obj.element, obj.isAdd, obj.index);
+      }
+    });
   }
 
   private start(): void {
@@ -123,8 +128,10 @@ class Viewer {
         tagName[index] = el.trim().slice(1);
       }
     });
-    const element = document.querySelectorAll(`${tagName?.join('')}`);
-    const indexElement = (indexEvent <= editorLength / 2 && indexEvent !== 2) || element.length === 1 ? 0 : 1;
+    const tableElements = document.querySelector('.table-field') as HTMLElement;
+    const element = tableElements.querySelectorAll(`${tagName?.join('')}`);
+    console.log(indexEvent);
+    const indexElement = (indexEvent <= editorLength / 2 && indexEvent !== 2) || element.length === 2 ? 0 : 1;
     return element[indexElement] as HTMLElement;
   }
 
@@ -165,6 +172,32 @@ class Viewer {
     editor.forEach((el) => el.classList.remove('html-window__line_hover'));
   }
 
+  public changeHoverLineEditHtml(element: HTMLElement, isAdd: boolean, index: number): void {
+    // const tagName = element.tagName.toLocaleLowerCase();
+    // const childrensLength = element.children.length;
+    const editors = document.querySelector('.CodeMirror.html-window');
+    const lines = editors?.querySelectorAll('.CodeMirror-line') as NodeListOf<HTMLElement>;
+    const tableElements = document.querySelector('.table-field') as HTMLElement;
+    const children = tableElements.querySelectorAll<HTMLElement>('*');
+    let newIndex = index * 2 + 1;
+    newIndex -= [...children].slice(0, index).filter((el) => el.children.length === 0).length;
+    // newIndex = element.children.length === 0 ? newIndex - 1 : newIndex;
+    if (isAdd) {
+      lines[newIndex].classList.add('html-window__line_hover');
+      if (element.children.length !== 0) {
+        lines[newIndex + 2].classList.add('html-window__line_hover');
+      }
+      // console.log(children[index]);
+      // console.log(lines[index]);
+      console.log(newIndex);
+    } else {
+      lines[newIndex].classList.remove('html-window__line_hover');
+      if (element.children.length !== 0) {
+        lines[newIndex + 2].classList.remove('html-window__line_hover');
+      }
+    }
+  }
+
   private addListenerClickEditWindow(): void {
     const editors = document.querySelector('.CodeMirror.html-window');
     const editor = editors?.querySelectorAll('.CodeMirror-line') as NodeListOf<HTMLElement>;
@@ -175,7 +208,7 @@ class Viewer {
 
           const element = this.processElementEditWindow(event, i, editor.length);
           if (element) {
-            this.emmiter.emit('changeHoverELementTable', { element, isAdd: true });
+            this.emmiter.emit('changeHoverELementTable', { element, isAdd: true, index: 0 });
           }
         });
         editor[i].addEventListener('mouseleave', (event) => {
@@ -183,7 +216,7 @@ class Viewer {
 
           const element = this.processElementEditWindow(event, i, editor.length);
           if (element) {
-            this.emmiter.emit('changeHoverELementTable', { element, isAdd: false });
+            this.emmiter.emit('changeHoverELementTable', { element, isAdd: false, index: 0 });
           }
         });
       }

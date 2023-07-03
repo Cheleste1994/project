@@ -113,15 +113,18 @@ class Table {
   private addListenerHoverTable(): void {
     const tableElements = document.querySelector('.table-field') as HTMLElement;
     const children = tableElements.querySelectorAll<HTMLElement>('*');
-    children.forEach((element: HTMLElement) => {
-      element.addEventListener('mouseover', (event) => {
-        const target = event.target as HTMLElement;
-        this.changeHoverElementTable(target, true);
+    children.forEach((el: HTMLElement, index) => {
+      el.addEventListener('mouseenter', (event: MouseEvent) => {
+        const element = event.target as HTMLElement;
+        this.changeHoverElementTable(element, true);
+        this.emmiter.emit('changeHoverLineEditHTML', { element, isAdd: true, index });
+        // console.log(event);
       });
 
-      element.addEventListener('mouseout', (event) => {
-        const target = event.target as HTMLElement;
-        this.changeHoverElementTable(target, false);
+      el.addEventListener('mouseleave', (event) => {
+        const element = event.target as HTMLElement;
+        this.changeHoverElementTable(element, false);
+        this.emmiter.emit('changeHoverLineEditHTML', { element, isAdd: false, index });
       });
     });
   }
