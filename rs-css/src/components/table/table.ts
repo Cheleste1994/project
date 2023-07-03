@@ -118,7 +118,6 @@ class Table {
         const element = event.target as HTMLElement;
         this.changeHoverElementTable(element, true);
         this.emmiter.emit('changeHoverLineEditHTML', { element, isAdd: true, index });
-        // console.log(event);
       });
 
       el.addEventListener('mouseleave', (event) => {

@@ -109,30 +109,25 @@ class Viewer {
     return tagsString;
   }
 
-  private processElementEditWindow(event: Event, indexEvent: number, editorLength: number): HTMLElement | null {
-    const target = (event.target as HTMLElement).innerText;
-
-    const tagName = target.replace(/<|>/g, '').replace('class="small"', '').split(' ');
-    tagName?.forEach((el, index) => {
-      tagName[index] = el.trim();
-      if (index === 0) {
-        tagName[index] = '.table-field > ';
-      }
-      if (el.trim() === '') {
-        tagName[index] = '* > ';
-      }
-      if (el === '/') {
-        tagName[index] = '';
-      }
-      if (el.includes('/') && el.length > 0) {
-        tagName[index] = el.trim().slice(1);
-      }
-    });
+  private processElementEditWindow(event: Event, indexEvent: number): HTMLElement | null {
     const tableElements = document.querySelector('.table-field') as HTMLElement;
-    const element = tableElements.querySelectorAll(`${tagName?.join('')}`);
-    console.log(indexEvent);
-    const indexElement = (indexEvent <= editorLength / 2 && indexEvent !== 2) || element.length === 2 ? 0 : 1;
-    return element[indexElement] as HTMLElement;
+    const element = tableElements.querySelectorAll(`*`);
+    const editors = document.querySelector('.CodeMirror.html-window');
+    const elements = editors?.querySelectorAll('.CodeMirror-line') as NodeListOf<HTMLElement>;
+    let count = 0;
+    for (let i = 1; i <= indexEvent; i += 1) {
+      if (elements[i].innerText.includes('</')) {
+        count -= 1;
+      }
+      count += 1;
+    }
+    const tagName = (event.target as HTMLElement).innerText.trim().replace(/[<>/]/g, '');
+    for (let i = count - 1; i >= 0; i -= 1) {
+      if (element[i].tagName.toLocaleLowerCase() === tagName) {
+        return element[i] as HTMLElement;
+      }
+    }
+    return element[count - 1] as HTMLElement;
   }
 
   private changeHoverLineEditWindow(
@@ -206,7 +201,7 @@ class Viewer {
         editor[i].addEventListener('mouseenter', (event) => {
           this.changeHoverLineEditWindow(event, editor, true, i);
 
-          const element = this.processElementEditWindow(event, i, editor.length);
+          const element = this.processElementEditWindow(event, i);
           if (element) {
             this.emmiter.emit('changeHoverELementTable', { element, isAdd: true, index: 0 });
           }
@@ -214,7 +209,7 @@ class Viewer {
         editor[i].addEventListener('mouseleave', (event) => {
           this.changeHoverLineEditWindow(event, editor, false, i);
 
-          const element = this.processElementEditWindow(event, i, editor.length);
+          const element = this.processElementEditWindow(event, i);
           if (element) {
             this.emmiter.emit('changeHoverELementTable', { element, isAdd: false, index: 0 });
           }
