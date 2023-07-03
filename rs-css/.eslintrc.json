@@ -56,6 +56,12 @@
     "jest-dom/prefer-checked": "error",
     "jest-dom/prefer-enabled-disabled": "error",
     "jest-dom/prefer-required": "error",
-    "jest-dom/prefer-to-have-attribute": "error"
+    "jest-dom/prefer-to-have-attribute": "error",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ]
   }
 }

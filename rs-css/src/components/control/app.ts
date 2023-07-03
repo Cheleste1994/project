@@ -15,7 +15,7 @@ class Game {
 
   public emmiter: EventEmitter;
 
-  private choice: Choice;
+  public choice: Choice;
 
   constructor(winCollection: Map<number, WinInfo>) {
     this.start();
