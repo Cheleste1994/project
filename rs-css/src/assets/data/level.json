@@ -15,7 +15,7 @@
     "lastLine": "</div>;",
     "isWin": false,
     "tag": [
-      "plate",
+      "bento",
       "plate",
       {
         "bento": "apple"
@@ -104,7 +104,9 @@
       {
         "plate": "orange"
       },
-      "pickle",
+      {
+        "bento": "pickle"
+      },
       {
         "plate": "apple"
       }
@@ -121,7 +123,7 @@
       "examples": "<strong>div:last-child</strong> выбирает последний элемент внутри тега<strong>&lt;div&gt;</strong>."
     },
     "target": [
-      ["plate", "plate", "plate", "apple"]
+      ["bento", "plate", "plate", "apple"]
     ],
     "help": "plate:last-child apple:last-child",
     "firstLine": "<div class=\"table\">",
@@ -138,10 +140,10 @@
       },
       "bento",
       {
-        "plate": ["pickle"]
+        "orange": ["pickle"]
       },
       {
-        "plate": {
+        "bento": {
           "plate": {
             "plate": "apple class=\"small\""
           }

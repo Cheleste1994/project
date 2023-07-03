@@ -103,7 +103,11 @@ class Table {
   private changeHoverElementTable(element: HTMLElement, isAdd: boolean): void {
     if (isAdd) {
       element.classList.add('table_hover');
-      element.setAttribute('data-content', `<${element.localName}></${element.localName}>`);
+      if (element.classList.contains('small')) {
+        element.setAttribute('data-content', `<${element.localName} class="small"/>`);
+      } else {
+        element.setAttribute('data-content', `<${element.localName}> </${element.localName}>`);
+      }
     } else {
       element.classList.remove('table_hover');
       element.removeAttribute('data-content');
