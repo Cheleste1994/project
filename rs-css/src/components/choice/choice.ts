@@ -37,7 +37,7 @@ class Choice {
     });
   }
 
-  private start(): void {
+  public start(): void {
     this.loadLevelHeader();
     this.loadLevelDescription();
     this.addListenerBugerMenu();
@@ -49,14 +49,14 @@ class Choice {
     this.addBacklightActiveLevel();
   }
 
-  private toggleBurgerMenu(burgerIcon?: Element): void {
+  public toggleBurgerMenu(burgerIcon?: Element): void {
     const menu = document.querySelector('.burger-menu');
     menu?.classList.toggle('burger-menu_open');
     burgerIcon?.classList.toggle('burger-menu__icon_open');
   }
 
   private loadLevelDescription(): void {
-    const { description } = this.listLevels[Number(localStorage.level)];
+    const description = this.listLevels[Number(localStorage.level)]?.description;
     (Object.keys(Selector) as (keyof typeof Selector)[]).forEach((name) => {
       const element = document.querySelector(Selector[name]);
       if (element) {
@@ -117,12 +117,12 @@ class Choice {
     addBacklightActiveLevel();
   }
 
-  private addBacklightActiveLevel(): () => void {
+  public addBacklightActiveLevel(): () => void {
     let saveIndex = 0;
     return () => {
       const levels = document.querySelectorAll('.list-levels a');
-      levels[saveIndex].classList.remove('list-level_active');
-      levels[Number(localStorage.level)].classList.add('list-level_active');
+      levels[saveIndex]?.classList.remove('list-level_active');
+      levels[Number(localStorage.level)]?.classList.add('list-level_active');
       saveIndex = Number(localStorage.level);
     };
   }

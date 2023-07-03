@@ -40,7 +40,7 @@ class Viewer {
     });
   }
 
-  private start(): void {
+  public start(): void {
     document.addEventListener('DOMContentLoaded', () => {
       const editorRight = this.addEditorRight();
       if (editorRight) {
@@ -79,7 +79,7 @@ class Viewer {
     this.codeMirrorInstance?.setValue(`${firstLine}\n ${tagsWithIndent}\n${lastLine}`);
   }
 
-  private tagsElements(element: Element | null, indent = 0, isCentralTag = false, line = 0): string {
+  public tagsElements(element: Element | null, indent = 0, isCentralTag = false, line = 0): string {
     let tagsString = '';
 
     if (element !== null) {

@@ -47,7 +47,7 @@ class Input {
     this.emmiter.subscribe('help', this.addHintInputField.bind(this));
   }
 
-  private start(): void {
+  public start(): void {
     document.addEventListener('DOMContentLoaded', () => {
       this.editorLeft();
       this.selectorInputArea();
@@ -87,7 +87,7 @@ class Input {
     }
   }
 
-  private addMarker<T>(inputValue: T): void {
+  public addMarker<T>(inputValue: T): void {
     if (!inputValue) return;
     if (typeof inputValue === 'string' && inputValue.length !== 0) {
       if (Number(inputValue[0])) {
