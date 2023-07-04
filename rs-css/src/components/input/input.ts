@@ -243,6 +243,8 @@ class Input {
         const inputValue = this.codeMirrorInstance?.getLine(0);
         if (inputValue) {
           this.handleInputEvent(inputValue, true);
+        } else {
+          this.handleInputEvent('', true);
         }
       }
     });
@@ -273,6 +275,8 @@ class Input {
       const inputValue = this.codeMirrorInstance?.getLine(0);
       if (inputValue) {
         this.handleInputEvent(inputValue, false);
+      } else {
+        this.handleInputEvent('', false);
       }
     });
   }
