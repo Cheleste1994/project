@@ -6,6 +6,12 @@ import { WinInfo } from './assets/data/interface';
 function loadGameSave(winCollection: Map<number, WinInfo>): void {
   if (!localStorage.getItem('level')) {
     localStorage.setItem('level', '0');
+  } else if (!Number(localStorage.getItem('level'))) {
+    localStorage.setItem('level', '0');
+  } else if (Number(localStorage.level) >= ListLevels.length) {
+    localStorage.setItem('level', '0');
+  } else if (localStorage.getItem('level') === '') {
+    localStorage.setItem('level', '0');
   }
 
   const saveWin = localStorage.getItem('saveWin');
@@ -21,26 +27,24 @@ function loadGameSave(winCollection: Map<number, WinInfo>): void {
     }
   } else {
     ListLevels.forEach((lvl, index) => {
-      winCollection.set(index, { level: index, isWin: lvl.isWin, isHelp: false });
+      winCollection.set(index, { level: index, isWin: false, isHelp: false });
     });
   }
 }
 
 function startGame(): void {
-  const winCollection: Map<number, WinInfo> = new Map();
-  loadGameSave(winCollection);
-  const game = new Game(winCollection);
-  game.start();
+  try {
+    const winCollection: Map<number, WinInfo> = new Map();
+    loadGameSave(winCollection);
 
-  window.addEventListener('load', (event) => {
-    try {
-      const { body } = event.target as Document;
-      body.style.opacity = '1';
-    } catch (error) {
-      localStorage.clear();
-      document.location.reload();
-    }
-  });
+    const game = new Game(winCollection);
+    game.start();
+
+    const body = document.querySelector('body') as HTMLElement;
+    body.style.opacity = '1';
+  } catch (error) {
+    localStorage.clear();
+  }
 }
 
 startGame();
