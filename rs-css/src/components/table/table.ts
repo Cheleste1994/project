@@ -118,13 +118,13 @@ class Table {
     const tableElements = document.querySelector('.table-field') as HTMLElement;
     const children = tableElements.querySelectorAll<HTMLElement>('*');
     children.forEach((el: HTMLElement, index) => {
-      el.addEventListener('mouseenter', (event: MouseEvent) => {
+      el.addEventListener('mouseover', (event: MouseEvent) => {
         const element = event.target as HTMLElement;
         this.changeHoverElementTable(element, true);
         this.emmiter.emit('changeHoverLineEditHTML', { element, isAdd: true, index });
       });
 
-      el.addEventListener('mouseleave', (event) => {
+      el.addEventListener('mouseout', (event) => {
         const element = event.target as HTMLElement;
         this.changeHoverElementTable(element, false);
         this.emmiter.emit('changeHoverLineEditHTML', { element, isAdd: false, index });

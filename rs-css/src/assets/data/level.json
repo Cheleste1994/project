@@ -15,6 +15,10 @@
     "lastLine": "</div>;",
     "isWin": false,
     "tag": [
+      "orange",
+      {
+        "plate": "apple"
+      },
       "bento",
       "plate",
       {
