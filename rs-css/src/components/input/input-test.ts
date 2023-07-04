@@ -18,7 +18,7 @@ describe('Input', () => {
     const winCollection: Map<number, WinInfo> = new Map();
 
     ListLevels.forEach((lvl, index) => {
-      winCollection.set(index, { level: index, isWin: lvl.isWin, isHelp: false });
+      winCollection.set(index, { isWin: lvl.isWin, isHelp: false });
     });
 
     input = new Input(emitter, winCollection);

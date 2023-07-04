@@ -16,7 +16,7 @@ describe('Choice', () => {
     const winCollection: Map<number, WinInfo> = new Map();
 
     ListLevels.forEach((lvl, index) => {
-      winCollection.set(index, { level: index, isWin: lvl.isWin, isHelp: false });
+      winCollection.set(index, { isWin: lvl.isWin, isHelp: false });
     });
 
     choice = new Choice(emitter, winCollection);
@@ -40,7 +40,7 @@ describe('toggleBurgerMenu', () => {
     const winCollection: Map<number, WinInfo> = new Map();
 
     ListLevels.forEach((lvl, index) => {
-      winCollection.set(index, { level: index, isWin: lvl.isWin, isHelp: false });
+      winCollection.set(index, { isWin: lvl.isWin, isHelp: false });
     });
 
     choice = new Choice(emitter, winCollection);

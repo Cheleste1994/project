@@ -195,6 +195,9 @@ class Choice {
       }
       localStorage.setItem('saveWin', saveWin.join(','));
       localStorage.setItem('saveHelp', saveHelp.join(','));
+      // const winCollectionString = JSON.stringify(Object.fromEntries(this.winCollection));
+      const winCollectionString = JSON.stringify([...this.winCollection]);
+      localStorage.setItem('saveWinCollection', winCollectionString);
     });
   }
 }

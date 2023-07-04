@@ -16,15 +16,16 @@ import 'codemirror/mode/css/css';
 import 'codemirror/mode/clike/clike';
 import 'codemirror/mode/php/php';
 
+const NON_LITERAL_SYMBOLS = /[<>{}[\]]/g;
+
 class Input {
   private codeMirror: typeof CodeMirror;
 
   private listLevels: LevelsInterface[];
 
   private elements: {
-    inputEnter: HTMLInputElement | null;
+    selectorInputArea: HTMLInputElement | null;
     btnEnter: Element | null;
-    inputField: Element | null;
   };
 
   private emmiter: EventEmitter;
@@ -40,9 +41,8 @@ class Input {
     this.listLevels = ListLevels;
     this.start();
     this.elements = {
-      inputEnter: null,
+      selectorInputArea: null,
       btnEnter: null,
-      inputField: null,
     };
     this.emmiter.subscribe('help', this.addHintInputField.bind(this));
   }
@@ -50,7 +50,7 @@ class Input {
   public start(): void {
     document.addEventListener('DOMContentLoaded', () => {
       this.editorLeft();
-      this.selectorInputArea();
+      this.addListeners();
     });
   }
 
@@ -113,7 +113,7 @@ class Input {
     });
   }
 
-  private async isTargetFound(): Promise<boolean> {
+  private isTargetFound(): boolean {
     const target = document.querySelectorAll('.target');
     const find = document.querySelectorAll('.find');
 
@@ -126,14 +126,19 @@ class Input {
         return false;
       }
     }
+    return true;
+  }
+
+  private async addEventWin(): Promise<void> {
+    const find = document.querySelectorAll('.find');
 
     await this.addWinReaction(find);
     this.writeWin(Number(localStorage.level));
+    this.clearInputField();
     const isGameCompleted = [...this.winCollection.values()].every((level) => level.isWin === true);
     if (isGameCompleted) {
       this.gameCompleted();
     }
-    return true;
   }
 
   private gameCompleted(): void {
@@ -150,21 +155,27 @@ class Input {
     });
   }
 
-  private writeWin(numberLevel: number): void {
-    const level = this.winCollection.get(numberLevel);
-    if (level) {
-      level.isWin = true;
-    }
+  private clearInputField(): void {
     this.codeMirrorInstance?.replaceRange(
       '',
       { line: 0, ch: 0 },
       { line: 0, ch: this.codeMirrorInstance.getLine(0).length },
     );
-    localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : this.addLevelChangeCheck();
+  }
+
+  private writeWin(numberLevel: number): void {
+    const level = this.winCollection.get(numberLevel);
+    if (level) {
+      level.isWin = true;
+    }
+    localStorage.level = this.addLevelChangeCheck(numberLevel);
     this.emmiter.emit('levelChange');
   }
 
-  private addLevelChangeCheck(): number {
+  private addLevelChangeCheck(numberLevel: number): number {
+    if (numberLevel < this.listLevels.length - 1) {
+      return numberLevel + 1;
+    }
     const index = [...this.winCollection.values()].findIndex((level) => level.isWin === false);
     return index !== -1 ? index : 0;
   }
@@ -177,11 +188,7 @@ class Input {
   }
 
   private addHintInputField(): void {
-    this.codeMirrorInstance?.replaceRange(
-      '',
-      { line: 0, ch: 0 },
-      { line: 0, ch: this.codeMirrorInstance.getLine(0).length },
-    );
+    this.clearInputField();
 
     const letters = this.listLevels[Number(localStorage.level)].help;
     if (letters) {
@@ -201,15 +208,14 @@ class Input {
         { line: 0, ch: 0 },
         { line: 0, ch: this.codeMirrorInstance.getLine(0).length },
       );
-      setTimeout(this.addEffectPrint.bind(this), 300, letters, index + 1);
+      setTimeout(this.addEffectPrint.bind(this), 150, letters, index + 1);
     }
   }
 
-  private selectorInputArea(): void {
+  private addListeners(): void {
     window.addEventListener('load', () => {
-      this.elements.inputEnter = document.querySelector('.css-input');
+      this.elements.selectorInputArea = document.querySelector('.css-input');
       this.elements.btnEnter = document.querySelector('.enter-button');
-      this.elements.inputField = document.querySelector('.input-field');
 
       this.listenerEnterDown();
       this.listenerClickDown();
@@ -219,14 +225,16 @@ class Input {
   }
 
   private async handleInputEvent(inputValue: string, isEnterDown: boolean): Promise<void> {
-    const value = inputValue.replace(/[<>{}[\]]/g, '');
+    const value = inputValue.replace(NON_LITERAL_SYMBOLS, '');
     this.addMarker(value);
 
     if (isEnterDown) {
       this.elements.btnEnter?.classList.add('enter-button_active');
 
-      if (!(await this.isTargetFound())) {
+      if (!this.isTargetFound()) {
         this.addSnake();
+      } else {
+        await this.addEventWin();
       }
     } else {
       this.elements.btnEnter?.classList.remove('enter-button_active');
