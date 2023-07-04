@@ -26,6 +26,7 @@
   background: linear-gradient(#dd992d,#cd8c26);
   width: var(--table-width);
   min-width: min-content;
+  max-width: 570px;
   height: 120px;
   display: flex;
   flex-direction: row;
@@ -39,6 +40,8 @@
   height: 15px;
   transform: rotateX(-45deg);
   transform-origin: top;
+  max-width: 570px;
+
 }
 
 .table-legs {
@@ -47,6 +50,7 @@
   width: calc(var(--table-width) - 5%);
   transform: rotateX(-50deg);
   transform-origin: 100% -50%;
+  max-width: 550px;
 }
 
 .left-butt {

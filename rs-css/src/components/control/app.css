@@ -4,6 +4,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   overflow: auto;
   overflow-x: hidden;
 }
