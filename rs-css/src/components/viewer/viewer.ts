@@ -50,7 +50,7 @@ class Viewer {
     });
   }
 
-  private addEditorRight(): CodeMirror.EditorFromTextArea | undefined {
+  private addEditorRight(): CodeMirror.EditorFromTextArea {
     const editor = document.querySelector('.html-window');
     if (editor instanceof HTMLTextAreaElement) {
       this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
@@ -68,7 +68,7 @@ class Viewer {
       this.codeMirrorInstance.getWrapperElement().classList.add('html-window');
       return this.codeMirrorInstance;
     }
-    return undefined;
+    throw new Error('CodeMirror not found');
   }
 
   private load(numberLevel: number): void {

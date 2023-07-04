@@ -96,7 +96,7 @@ class Table {
 
   private addListenerHelp(): void {
     document.querySelector('.note-toggle')?.addEventListener('click', () => {
-      this.emmiter.emit('help', true);
+      this.emmiter.emit('help');
     });
   }
 

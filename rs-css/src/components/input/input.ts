@@ -54,7 +54,7 @@ class Input {
     });
   }
 
-  private editorLeft(): CodeMirror.EditorFromTextArea | undefined {
+  private editorLeft(): CodeMirror.EditorFromTextArea {
     const editor = document.querySelector('.css-window');
     if (editor instanceof HTMLTextAreaElement) {
       this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
@@ -74,24 +74,21 @@ class Input {
       this.codeMirrorInstance.getWrapperElement().classList.add('css-window');
       return this.codeMirrorInstance;
     }
-    return undefined;
+    throw new Error('CodeMirror not found');
   }
 
-  private processNumericInput<T>(inputValue: T): void {
-    if (typeof inputValue === 'string') {
-      const num = Number(inputValue[0]);
-      if (num <= this.listLevels.length && num > 0) {
-        localStorage.level = num - 1;
-        this.emmiter.emit('levelChange', localStorage.level);
-      }
+  private processNumericInput(num: number): void {
+    if (num <= this.listLevels.length && num > 0) {
+      localStorage.level = Math.trunc(num) - 1;
+      this.emmiter.emit('levelChange');
     }
   }
 
-  public addMarker<T>(inputValue: T): void {
+  public addMarker(inputValue: string): void {
     if (!inputValue) return;
     if (typeof inputValue === 'string' && inputValue.length !== 0) {
-      if (Number(inputValue[0])) {
-        this.processNumericInput<T>(inputValue);
+      if (Number(inputValue)) {
+        this.processNumericInput(Number(inputValue));
         return;
       }
     }
@@ -143,7 +140,7 @@ class Input {
     const gameWin = document.querySelector('.game-win');
     gameWin?.classList.add('game-win_active');
     this.addListenerCLickGameCompleted();
-    this.emmiter.emit('gameOver', true);
+    this.emmiter.emit('gameOver');
   }
 
   private async addWinReaction(elements: NodeListOf<Element>): Promise<void> {
@@ -164,7 +161,7 @@ class Input {
       { line: 0, ch: this.codeMirrorInstance.getLine(0).length },
     );
     localStorage.level = numberLevel < this.listLevels.length - 1 ? numberLevel + 1 : this.addLevelChangeCheck();
-    this.emmiter.emit('levelChange', localStorage.level);
+    this.emmiter.emit('levelChange');
   }
 
   private addLevelChangeCheck(): number {
@@ -223,7 +220,7 @@ class Input {
 
   private async handleInputEvent(inputValue: string, isEnterDown: boolean): Promise<void> {
     const value = inputValue.replace(/[<>{}[\]]/g, '');
-    this.addMarker<string>(value);
+    this.addMarker(value);
 
     if (isEnterDown) {
       this.elements.btnEnter?.classList.add('enter-button_active');
