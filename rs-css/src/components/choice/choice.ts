@@ -187,15 +187,6 @@ class Choice {
 
   private addSaveBeforeUnload(): void {
     window.addEventListener('beforeunload', () => {
-      const saveWin = [];
-      const saveHelp = [];
-      for (let i = 0; i < this.listLevels.length; i += 1) {
-        saveWin.push(this.winCollection.get(i)?.isWin);
-        saveHelp.push(this.winCollection.get(i)?.isHelp);
-      }
-      localStorage.setItem('saveWin', saveWin.join(','));
-      localStorage.setItem('saveHelp', saveHelp.join(','));
-      // const winCollectionString = JSON.stringify(Object.fromEntries(this.winCollection));
       const winCollectionString = JSON.stringify([...this.winCollection]);
       localStorage.setItem('saveWinCollection', winCollectionString);
     });
