@@ -1,6 +1,6 @@
 import CodeMirror from 'codemirror';
 import ListLevels from '../../assets/data/level.json';
-import { LevelsInterface } from '../../assets/data/interface';
+import { EventData, LevelsInterface } from '../../assets/data/interface';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/darcula.css';
@@ -22,9 +22,9 @@ class Viewer {
 
   private listLevels: LevelsInterface[];
 
-  private emmiter: EventEmitter;
+  private emmiter: EventEmitter<EventData>;
 
-  constructor(emmiter: EventEmitter) {
+  constructor(emmiter: EventEmitter<EventData>) {
     this.emmiter = emmiter;
     this.codeMirror = CodeMirror;
     this.listLevels = ListLevels;

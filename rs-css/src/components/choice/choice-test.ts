@@ -2,12 +2,12 @@ import EventEmitter from '../control/EventEmitter';
 import ListLevels from '../../assets/data/level.json';
 
 import Choice from './choice';
-import { WinInfo } from '../../assets/data/interface';
+import { EventData, WinInfo } from '../../assets/data/interface';
 
 jest.mock('./help.css', () => {});
 jest.mock('./choice.css', () => {});
 
-let emitter: EventEmitter;
+let emitter: EventEmitter<EventData>;
 let choice: Choice;
 
 describe('Choice', () => {

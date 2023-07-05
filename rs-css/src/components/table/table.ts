@@ -1,14 +1,14 @@
 import './table.css';
 import ListLevels from '../../assets/data/level.json';
-import { LevelsInterface, NestedTag } from '../../assets/data/interface';
+import { EventData, LevelsInterface, NestedTag } from '../../assets/data/interface';
 import EventEmitter from '../control/EventEmitter';
 
 class Table {
   private listLevels: LevelsInterface[];
 
-  private emmiter: EventEmitter;
+  private emmiter: EventEmitter<EventData>;
 
-  constructor(emmiter: EventEmitter) {
+  constructor(emmiter: EventEmitter<EventData>) {
     this.emmiter = emmiter;
     this.listLevels = ListLevels;
     this.start();

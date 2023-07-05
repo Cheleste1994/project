@@ -1,7 +1,7 @@
 import './input.css';
 import CodeMirror from 'codemirror';
 import ListLevels from '../../assets/data/level.json';
-import { LevelsInterface, WinInfo } from '../../assets/data/interface';
+import { EventData, LevelsInterface, WinInfo } from '../../assets/data/interface';
 import EventEmitter from '../control/EventEmitter';
 
 import 'codemirror/lib/codemirror.css';
@@ -28,13 +28,13 @@ class Input {
     btnEnter: Element | null;
   };
 
-  private emmiter: EventEmitter;
+  private emmiter: EventEmitter<EventData>;
 
   private winCollection: Map<number, WinInfo>;
 
   private codeMirrorInstance: CodeMirror.EditorFromTextArea | undefined;
 
-  constructor(emmiter: EventEmitter, winCollection: Map<number, WinInfo>) {
+  constructor(emmiter: EventEmitter<EventData>, winCollection: Map<number, WinInfo>) {
     this.emmiter = emmiter;
     this.winCollection = winCollection;
     this.codeMirror = CodeMirror;

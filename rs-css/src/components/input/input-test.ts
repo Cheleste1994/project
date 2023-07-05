@@ -2,14 +2,14 @@ import EventEmitter from '../control/EventEmitter';
 import ListLevels from '../../assets/data/level.json';
 
 import Input from './input';
-import { WinInfo } from '../../assets/data/interface';
+import { EventData, WinInfo } from '../../assets/data/interface';
 
 jest.mock('./input.css', () => {});
 jest.mock('codemirror/lib/codemirror.css', () => {});
 jest.mock('codemirror/theme/darcula.css', () => {});
 jest.mock('codemirror/theme/3024-day.css', () => {});
 
-let emitter: EventEmitter;
+let emitter: EventEmitter<EventData>;
 let input: Input;
 
 describe('Input', () => {

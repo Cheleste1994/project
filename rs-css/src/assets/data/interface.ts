@@ -20,4 +20,10 @@ interface WinInfo {
   isHelp: boolean;
 }
 
-export { LevelsInterface, NestedTag, WinInfo };
+interface EventData {
+  element: HTMLElement;
+  isAdd: boolean;
+  index: number;
+}
+
+export { LevelsInterface, NestedTag, WinInfo, EventData };

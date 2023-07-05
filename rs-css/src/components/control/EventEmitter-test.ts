@@ -1,7 +1,8 @@
+import { EventData } from '../../assets/data/interface';
 import EventEmitter from './EventEmitter';
 
 describe('EventEmitter', () => {
-  let emmiter: EventEmitter;
+  let emmiter: EventEmitter<EventData>;
   beforeEach(() => {
     emmiter = new EventEmitter();
   });

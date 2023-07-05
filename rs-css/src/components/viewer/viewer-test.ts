@@ -1,3 +1,4 @@
+import { EventData } from '../../assets/data/interface';
 import EventEmitter from '../control/EventEmitter';
 
 import Viewer from './viewer';
@@ -6,7 +7,7 @@ jest.mock('codemirror/lib/codemirror.css', () => {});
 jest.mock('codemirror/theme/darcula.css', () => {});
 jest.mock('codemirror/theme/3024-day.css', () => {});
 
-let emitter: EventEmitter;
+let emitter: EventEmitter<EventData>;
 let viewer: Viewer;
 
 describe('Viewer', () => {

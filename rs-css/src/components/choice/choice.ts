@@ -1,6 +1,6 @@
 import './help.css';
 import './choice.css';
-import { LevelsInterface, WinInfo } from '../../assets/data/interface';
+import { EventData, LevelsInterface, WinInfo } from '../../assets/data/interface';
 import ListLevels from '../../assets/data/level.json';
 import EventEmitter from '../control/EventEmitter';
 
@@ -18,11 +18,11 @@ const WIDTHPROGRESSBAR = 100;
 class Choice {
   private listLevels: LevelsInterface[];
 
-  protected emmiter: EventEmitter;
+  protected emmiter: EventEmitter<EventData>;
 
   private winCollection: Map<number, WinInfo>;
 
-  constructor(emmiter: EventEmitter, winCollection: Map<number, WinInfo>) {
+  constructor(emmiter: EventEmitter<EventData>, winCollection: Map<number, WinInfo>) {
     this.emmiter = emmiter;
     this.winCollection = winCollection;
     this.listLevels = ListLevels;
