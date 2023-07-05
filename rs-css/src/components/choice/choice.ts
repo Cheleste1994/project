@@ -174,13 +174,7 @@ class Choice {
       document.querySelector('.burger-menu')?.classList.remove('burger-menu_open');
       document.querySelector('.burger-menu__icon')?.classList.toggle('burger-menu__icon_open');
       localStorage.level = 0;
-      this.winCollection.forEach((lvl, i) => {
-        const level = this.winCollection.get(i);
-        if (level) {
-          level.isWin = false;
-          level.isHelp = false;
-        }
-      });
+      this.winCollection.forEach((lvl, i) => this.winCollection.set(i, { isWin: false, isHelp: false }));
       this.emmiter.emit('levelChange');
     });
   }

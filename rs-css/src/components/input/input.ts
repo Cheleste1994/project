@@ -174,7 +174,10 @@ class Input {
 
   private addLevelChangeCheck(numberLevel: number): number {
     if (numberLevel < this.listLevels.length - 1) {
-      return numberLevel + 1;
+      const nextLevel = [...this.winCollection.values()].slice(numberLevel).findIndex((level) => level.isWin === false);
+      if (nextLevel !== -1) {
+        return numberLevel + nextLevel;
+      }
     }
     const index = [...this.winCollection.values()].findIndex((level) => level.isWin === false);
     return index !== -1 ? index : 0;
