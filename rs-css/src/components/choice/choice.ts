@@ -113,18 +113,13 @@ class Choice {
     }
     list?.appendChild(fragment);
 
-    const addBacklightActiveLevel = this.addBacklightActiveLevel();
-    addBacklightActiveLevel();
+    this.addBacklightActiveLevel();
   }
 
-  public addBacklightActiveLevel(): () => void {
-    let saveIndex = 0;
-    return () => {
-      const levels = document.querySelectorAll('.list-levels a');
-      levels[saveIndex]?.classList.remove('list-level_active');
-      levels[Number(localStorage.level)]?.classList.add('list-level_active');
-      saveIndex = Number(localStorage.level);
-    };
+  public addBacklightActiveLevel(): void {
+    const levels = document.querySelectorAll('.list-levels a');
+    levels.forEach((level) => level.classList.remove('list-level_active'));
+    levels[Number(localStorage.level)]?.classList.add('list-level_active');
   }
 
   private addActiveBtnReset(): void {
