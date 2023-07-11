@@ -22,7 +22,7 @@
     "node": true
   },
   "rules": {
-    "no-debugger": "off",
+    "no-debugger": "error",
     "no-console": 0,
     "class-methods-use-this": "off",
     "import/extensions": "off",
