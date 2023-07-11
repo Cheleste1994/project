@@ -19,7 +19,11 @@ class Table {
     });
     this.emmiter.subscribe('changeHoverELementTable', (obj) => {
       if (typeof obj === 'object') {
-        this.changeHoverElementTable(obj.element, obj.isAdd);
+        if (obj.isAdd) {
+          this.addHoverElementTable(obj.element);
+        } else {
+          this.removeHoverElementTable(obj.element);
+        }
       }
     });
   }
@@ -100,18 +104,18 @@ class Table {
     });
   }
 
-  private changeHoverElementTable(element: HTMLElement, isAdd: boolean): void {
-    if (isAdd) {
-      element.classList.add('table_hover');
-      if (element.classList.contains('small')) {
-        element.setAttribute('data-content', `<${element.localName} class="small"/>`);
-      } else {
-        element.setAttribute('data-content', `<${element.localName}> </${element.localName}>`);
-      }
+  private addHoverElementTable(element: HTMLElement): void {
+    element.classList.add('table_hover');
+    if (element.classList.contains('small')) {
+      element.setAttribute('data-content', `<${element.localName} class="small"/>`);
     } else {
-      element.classList.remove('table_hover');
-      element.removeAttribute('data-content');
+      element.setAttribute('data-content', `<${element.localName}> </${element.localName}>`);
     }
+  }
+
+  private removeHoverElementTable(element: HTMLElement): void {
+    element.classList.remove('table_hover');
+    element.removeAttribute('data-content');
   }
 
   private addListenerHoverTable(): void {
@@ -120,13 +124,13 @@ class Table {
     children.forEach((el: HTMLElement, index) => {
       el.addEventListener('mouseover', (event: MouseEvent) => {
         const element = event.target as HTMLElement;
-        this.changeHoverElementTable(element, true);
+        this.addHoverElementTable(element);
         this.emmiter.emit('changeHoverLineEditHTML', { element, isAdd: true, index });
       });
 
       el.addEventListener('mouseout', (event) => {
         const element = event.target as HTMLElement;
-        this.changeHoverElementTable(element, false);
+        this.removeHoverElementTable(element);
         this.emmiter.emit('changeHoverLineEditHTML', { element, isAdd: false, index });
       });
     });
