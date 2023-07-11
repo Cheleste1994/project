@@ -26,31 +26,15 @@ describe('Choice', () => {
     jest.clearAllMocks();
   });
 
-  it('должен создаться экземпляр Choice', () => {
+  it('should create an instance of Choice', () => {
     expect(choice).toBeInstanceOf(Choice);
   });
-  it('должен содержать метод start', () => {
+
+  it('should have the start method', () => {
     expect(choice.start).toBeInstanceOf(Function);
   });
-});
 
-describe('toggleBurgerMenu', () => {
-  beforeEach(() => {
-    emitter = new EventEmitter();
-    const winCollection: Map<number, WinInfo> = new Map();
-
-    ListLevels.forEach((lvl, index) => {
-      winCollection.set(index, { isWin: lvl.isWin, isHelp: false });
-    });
-
-    choice = new Choice(emitter, winCollection);
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('должен изменять классы для переданного элемента', () => {
+  it('should modify classes for the provided element', () => {
     const burgerIcon = document.createElement('div');
 
     choice.toggleBurgerMenu(burgerIcon);

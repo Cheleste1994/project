@@ -22,8 +22,8 @@
     "node": true
   },
   "rules": {
-    "no-debugger": "off",
-    "no-console": 0,
+    "no-debugger": "error",
+    "no-console": 2,
     "class-methods-use-this": "off",
     "import/extensions": "off",
     "prettier/prettier": "error",

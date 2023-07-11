@@ -103,10 +103,11 @@ class Choice {
       fragment.appendChild(elementA);
     });
 
+    const checkmark = document.querySelector('.level-name__checkmark');
     if (this.winCollection.get(Number(localStorage.level))?.isWin) {
-      document.querySelector('.level-name__checkmark')?.classList.add('checkmark_active');
+      checkmark?.classList.add('checkmark_active');
     } else {
-      document.querySelector('.level-name__checkmark')?.classList.remove('checkmark_active');
+      checkmark?.classList.remove('checkmark_active');
     }
     if (list) {
       list.innerHTML = '';

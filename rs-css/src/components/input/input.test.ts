@@ -20,34 +20,34 @@ describe('Input', () => {
     ListLevels.forEach((lvl, index) => {
       winCollection.set(index, { isWin: lvl.isWin, isHelp: false });
     });
-
     input = new Input(emitter, winCollection);
   });
   afterEach(() => {
     jest.clearAllMocks();
   });
-  it('должен создаться экземпляр Input', () => {
+  it('should create an instance of Input', () => {
     expect(input).toBeInstanceOf(Input);
   });
-  it('должен содержать метод start', () => {
+  it('should have the start method', () => {
     expect(input.start).toBeInstanceOf(Function);
   });
 
-  it('не должен вызывать ошибку при неверных данных', () => {
+  it('should not throw an error with invalid data', () => {
     const inputValue = 'orange?bento .sm*-=++-=all';
     expect(() => {
       try {
         input.addMarker(inputValue);
       } catch (error) {
-        fail('Ошибка была вызвана');
+        fail('An error was thrown');
       }
     }).not.toThrow();
+
     const validInputValue = 'plate:nth-of-type(2n) > * > * *';
     expect(() => {
       try {
         input.addMarker(validInputValue);
       } catch (error) {
-        fail('Ошибка была вызвана');
+        fail('An error was thrown');
       }
     }).not.toThrow();
   });

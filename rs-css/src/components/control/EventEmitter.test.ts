@@ -9,16 +9,18 @@ describe('EventEmitter', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  it('должен создаться экземпляр EventEmitter', () => {
+  it('should create an instance of EventEmitter', () => {
     expect(emmiter).toBeInstanceOf(EventEmitter);
   });
-  it('должен содержать метод subscribe', () => {
+
+  it('should have the subscribe method', () => {
     expect(emmiter.subscribe).toBeInstanceOf(Function);
   });
-  it('должен содержать метод emit', () => {
+
+  it('should have the emit method', () => {
     expect(emmiter.emit).toBeInstanceOf(Function);
   });
-  it('должен вызывать зарегистрированные обработчики при вызове функции emit', () => {
+  it('should invoke registered handlers when the emit function is called', () => {
     const handler1 = jest.fn();
     const handler2 = jest.fn();
     const events = ['help', 'changeHoverLineEditHTML', 'changeHoverELementTable'];

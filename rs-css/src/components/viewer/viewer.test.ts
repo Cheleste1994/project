@@ -18,13 +18,15 @@ describe('Viewer', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  it('должен создаться экземпляр Viewer', () => {
+  it('should create an instance of Viewer', () => {
     expect(viewer).toBeInstanceOf(Viewer);
   });
-  it('должен содержать метод tagsElements', () => {
+
+  it('should have the tagsElements method', () => {
     expect(viewer.tagsElements).toBeInstanceOf(Function);
   });
-  it('должен возвращать ожидаемую строку тегов', () => {
+
+  it('should return the expected string of tags', () => {
     const orangeElement = document.createElement('orange');
     const appleElement = document.createElement('apple');
     const childElement = document.createElement('bento');
