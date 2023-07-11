@@ -18,7 +18,7 @@ import EventEmitter from '../control/EventEmitter';
 class Viewer {
   private codeMirror: typeof CodeMirror;
 
-  private codeMirrorInstance: CodeMirror.EditorFromTextArea | undefined;
+  private codeMirrorInstance!: CodeMirror.EditorFromTextArea;
 
   private listLevels: LevelsInterface[];
 
@@ -51,24 +51,20 @@ class Viewer {
   }
 
   private addEditorRight(): CodeMirror.EditorFromTextArea {
-    const editor = document.querySelector('.html-window');
-    if (editor instanceof HTMLTextAreaElement) {
-      this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
-        lineNumbers: true,
-        matchBrackets: true,
-        mode: 'application/x-httpd-php',
-        indentUnit: 2,
-        indentWithTabs: true,
-        theme: 'darcula',
-        readOnly: true,
-        lineWrapping: true,
-        viewportMargin: Infinity,
-        // matchTags: { bothTags: true },
-      });
-      this.codeMirrorInstance.getWrapperElement().classList.add('html-window');
-      return this.codeMirrorInstance;
-    }
-    throw new Error('CodeMirror not found');
+    const editor = document.querySelector<HTMLTextAreaElement>('.html-window') as HTMLTextAreaElement;
+    this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: 'application/x-httpd-php',
+      indentUnit: 2,
+      indentWithTabs: true,
+      theme: 'darcula',
+      readOnly: true,
+      lineWrapping: true,
+      viewportMargin: Infinity,
+    });
+    this.codeMirrorInstance.getWrapperElement().classList.add('html-window');
+    return this.codeMirrorInstance;
   }
 
   private load(numberLevel: number): void {

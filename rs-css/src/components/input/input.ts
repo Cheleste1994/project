@@ -55,7 +55,7 @@ class Input {
   }
 
   private editorLeft(): CodeMirror.EditorFromTextArea {
-    const editor = document.querySelector<HTMLTextAreaElement>('.css-window') as HTMLTextAreaElement;
+    const editor = document.querySelector('.css-window') as HTMLTextAreaElement;
     this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
       lineNumbers: true,
       matchBrackets: true,

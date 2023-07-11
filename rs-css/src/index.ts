@@ -4,34 +4,26 @@ import ListLevels from './assets/data/level.json';
 import { WinInfo } from './assets/data/interface';
 
 function loadSaveLevels(): void {
-  if (!localStorage.getItem('level')) {
-    localStorage.setItem('level', '0');
-  } else if (!Number(localStorage.getItem('level'))) {
-    localStorage.setItem('level', '0');
-  } else if (Number(localStorage.level) >= ListLevels.length) {
-    localStorage.setItem('level', '0');
-  } else if (localStorage.getItem('level') === '') {
+  const levelNumber = Number(localStorage.getItem('level'));
+  const isLevelOverflow = levelNumber >= ListLevels.length;
+  if (!levelNumber || isLevelOverflow) {
     localStorage.setItem('level', '0');
   }
 }
 
-function loadCollectionSaveWin(): [number, WinInfo][] {
+function loadCollectionSaveWin(): Map<number, WinInfo> {
   const save = localStorage.getItem('saveWinCollection');
   if (save) {
     const winCollection: [number, WinInfo][] = JSON.parse(save);
-    return winCollection;
+    return new Map(winCollection);
   }
-  const newCollection: [number, WinInfo][] = [];
-  ListLevels.forEach((lvl, index) => {
-    newCollection.push([index, { isWin: false, isHelp: false }]);
-  });
-  return newCollection;
+  const newCollection: [number, WinInfo][] = ListLevels.map((lvl, index) => [index, { isWin: false, isHelp: false }]);
+  return new Map(newCollection);
 }
 
 function startGame(): void {
   try {
-    const saveWin = loadCollectionSaveWin();
-    const winCollection: Map<number, WinInfo> = new Map(saveWin);
+    const winCollection = loadCollectionSaveWin();
     loadSaveLevels();
     const game = new Game(winCollection);
     game.start();
