@@ -32,7 +32,7 @@ class Input {
 
   private winCollection: Map<number, WinInfo>;
 
-  private codeMirrorInstance: CodeMirror.EditorFromTextArea | undefined;
+  private codeMirrorInstance!: CodeMirror.EditorFromTextArea;
 
   constructor(emmiter: EventEmitter<EventData>, winCollection: Map<number, WinInfo>) {
     this.emmiter = emmiter;
@@ -55,26 +55,23 @@ class Input {
   }
 
   private editorLeft(): CodeMirror.EditorFromTextArea {
-    const editor = document.querySelector('.css-window');
-    if (editor instanceof HTMLTextAreaElement) {
-      this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
-        lineNumbers: true,
-        matchBrackets: true,
-        mode: 'css',
-        indentUnit: 2,
-        indentWithTabs: true,
-        theme: '3024-day',
-        lineWrapping: true,
-        viewportMargin: Infinity,
-        firstLineNumber: 1,
-        lineWiseCopyCut: false,
-        undoDepth: 50,
-        matchTags: { bothTags: true },
-      });
-      this.codeMirrorInstance.getWrapperElement().classList.add('css-window');
-      return this.codeMirrorInstance;
-    }
-    throw new Error('CodeMirror not found');
+    const editor = document.querySelector<HTMLTextAreaElement>('.css-window') as HTMLTextAreaElement;
+    this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: 'css',
+      indentUnit: 2,
+      indentWithTabs: true,
+      theme: '3024-day',
+      lineWrapping: true,
+      viewportMargin: Infinity,
+      firstLineNumber: 1,
+      lineWiseCopyCut: false,
+      undoDepth: 50,
+      matchTags: { bothTags: true },
+    });
+    this.codeMirrorInstance.getWrapperElement().classList.add('css-window');
+    return this.codeMirrorInstance;
   }
 
   private processNumericInput(num: number): void {
@@ -85,12 +82,10 @@ class Input {
   }
 
   public addMarker(inputValue: string): void {
-    if (!inputValue) return;
-    if (typeof inputValue === 'string' && inputValue.length !== 0) {
-      if (Number(inputValue)) {
-        this.processNumericInput(Number(inputValue));
-        return;
-      }
+    if (!inputValue || inputValue.length === 0) return;
+    if (Number(inputValue)) {
+      this.processNumericInput(Number(inputValue));
+      return;
     }
 
     const tableField = document.querySelector('.table-field');
@@ -113,7 +108,7 @@ class Input {
     });
   }
 
-  private isTargetFound(): boolean {
+  public isTargetFound(): boolean {
     const target = document.querySelectorAll('.target');
     const find = document.querySelectorAll('.find');
 
@@ -172,7 +167,7 @@ class Input {
     this.emmiter.emit('levelChange');
   }
 
-  private addLevelChangeCheck(numberLevel: number): number {
+  public addLevelChangeCheck(numberLevel: number): number {
     const values = [...this.winCollection.values()];
     if (numberLevel < this.listLevels.length - 1) {
       const nextLevel = values.slice(numberLevel).findIndex((level) => level.isWin === false);
@@ -221,10 +216,8 @@ class Input {
       this.elements.selectorInputArea = document.querySelector('.css-input');
       this.elements.btnEnter = document.querySelector('.enter-button');
 
-      this.listenerEnterDown();
-      this.listenerClickDown();
-      this.listenerEnterUp();
-      this.listenerClickUp();
+      this.listenerEnter();
+      this.listenerClickEnter();
     });
   }
 
@@ -246,8 +239,9 @@ class Input {
     }
   }
 
-  private listenerEnterDown(): void {
-    document.querySelector('.CodeMirror.css-window')?.addEventListener('keydown', (event: KeyboardEvent | Event) => {
+  private listenerEnter(): void {
+    const codeMirror = document.querySelector('.CodeMirror.css-window');
+    codeMirror?.addEventListener('keydown', (event: KeyboardEvent | Event) => {
       if (event instanceof KeyboardEvent && event.code === 'Enter') {
         const inputValue = this.codeMirrorInstance?.getLine(0);
         if (inputValue) {
@@ -257,19 +251,7 @@ class Input {
         }
       }
     });
-  }
-
-  private listenerClickDown(): void {
-    this.elements.btnEnter?.addEventListener('mousedown', () => {
-      const inputValue = this.codeMirrorInstance?.getLine(0);
-      if (inputValue) {
-        this.handleInputEvent(inputValue, true);
-      }
-    });
-  }
-
-  private listenerEnterUp(): void {
-    document.querySelector('.CodeMirror.css-window')?.addEventListener('keyup', (event: KeyboardEvent | Event) => {
+    codeMirror?.addEventListener('keyup', (event: KeyboardEvent | Event) => {
       if (event instanceof KeyboardEvent && event.code === 'Enter') {
         const inputValue = this.codeMirrorInstance?.getLine(0);
         if (inputValue) {
@@ -279,7 +261,13 @@ class Input {
     });
   }
 
-  private listenerClickUp(): void {
+  private listenerClickEnter(): void {
+    this.elements.btnEnter?.addEventListener('mousedown', () => {
+      const inputValue = this.codeMirrorInstance?.getLine(0);
+      if (inputValue) {
+        this.handleInputEvent(inputValue, true);
+      }
+    });
     this.elements.btnEnter?.addEventListener('mouseup', () => {
       const inputValue = this.codeMirrorInstance?.getLine(0);
       if (inputValue) {

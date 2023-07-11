@@ -20,9 +20,8 @@ describe('EventEmitter', () => {
   it('should have the emit method', () => {
     expect(emmiter.emit).toBeInstanceOf(Function);
   });
-  it('should invoke registered handlers when the emit function is called', () => {
+  it('should call registered handlers when calling the emit function and check the number of calls', () => {
     const handler1 = jest.fn();
-    const handler2 = jest.fn();
     const events = ['help', 'changeHoverLineEditHTML', 'changeHoverELementTable'];
     const eventData = {
       element: document.createElement('div'),
@@ -31,12 +30,11 @@ describe('EventEmitter', () => {
     };
     events.forEach((event) => {
       emmiter.subscribe(event, handler1);
-      emmiter.subscribe(event, handler2);
     });
     events.forEach((event) => {
       emmiter.emit(event, eventData);
     });
+    expect(handler1).toHaveBeenCalledTimes(3);
     expect(handler1).toHaveBeenCalledWith(eventData);
-    expect(handler2).toHaveBeenCalledWith(eventData);
   });
 });

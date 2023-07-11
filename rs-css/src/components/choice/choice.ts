@@ -46,7 +46,6 @@ class Choice {
     this.addListenerLevelPrev();
     this.addListenerButtonReset();
     this.addSaveBeforeUnload();
-    this.addBacklightActiveLevel();
   }
 
   public toggleBurgerMenu(burgerIcon?: Element): void {

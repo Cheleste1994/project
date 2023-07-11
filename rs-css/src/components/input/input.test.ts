@@ -52,3 +52,72 @@ describe('Input', () => {
     }).not.toThrow();
   });
 });
+
+describe('addLevelChangeCheck', () => {
+  it('should return the index of the next non-winning level when there is one', () => {
+    const winCollection: Map<number, WinInfo> = new Map();
+    ListLevels.forEach((lvl, index) => {
+      winCollection.set(index, { isWin: false, isHelp: false });
+    });
+    winCollection.set(0, { isWin: true, isHelp: false });
+    winCollection.set(1, { isWin: true, isHelp: false });
+    winCollection.set(2, { isWin: true, isHelp: false });
+    input = new Input(emitter, winCollection);
+
+    const numberLevel = 0;
+    const expectedIndex = 3;
+    const result = input.addLevelChangeCheck(numberLevel);
+    expect(result).toBe(expectedIndex);
+  });
+
+  it('should return 0 when all levels are winning', () => {
+    const winCollection: Map<number, WinInfo> = new Map();
+    ListLevels.forEach((lvl, index) => {
+      winCollection.set(index, { isWin: true, isHelp: false });
+    });
+    input = new Input(emitter, winCollection);
+
+    const numberLevel = 1;
+    const expectedIndex = 0;
+    const result = input.addLevelChangeCheck(numberLevel);
+    expect(result).toBe(expectedIndex);
+  });
+});
+
+describe('isTargetFound', () => {
+  beforeEach(() => {
+    emitter = new EventEmitter();
+    const winCollection: Map<number, WinInfo> = new Map();
+
+    ListLevels.forEach((lvl, index) => {
+      winCollection.set(index, { isWin: lvl.isWin, isHelp: false });
+    });
+    input = new Input(emitter, winCollection);
+    document.body.innerHTML = `
+      <div class="target find"></div>
+      <div></div>
+      <div></div>
+      <div class="target find"></div>
+    `;
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    document.body.innerHTML = '';
+  });
+
+  it('should return true when the selectors target and find matched', () => {
+    const result = input.isTargetFound();
+    expect(result).toBe(true);
+  });
+
+  it('should return false when the selectors target and find did not match', () => {
+    document.body.innerHTML += `
+      <div class="target"></div>
+      <div class="target find"></div>
+      <div class="target"></div>
+    `;
+    const result = input.isTargetFound();
+    expect(result).toBe(false);
+  });
+});

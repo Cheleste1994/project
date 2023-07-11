@@ -18,7 +18,6 @@ class Game {
   public choice: Choice;
 
   constructor(winCollection: Map<number, WinInfo>) {
-    this.start();
     this.emmiter = new EventEmitter<EventData>();
     this.table = new Table(this.emmiter);
     this.input = new Input(this.emmiter, winCollection);
