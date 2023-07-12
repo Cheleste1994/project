@@ -3,7 +3,7 @@ import Game from './components/control/app';
 import ListLevels from './assets/data/level.json';
 import { WinInfo } from './assets/data/interface';
 
-function loadSaveLevels(): void {
+function checkSaveLevels(): void {
   const levelNumber = Number(localStorage.getItem('level'));
   const isLevelOverflow = levelNumber >= ListLevels.length;
   if (!levelNumber || isLevelOverflow) {
@@ -24,7 +24,7 @@ function loadCollectionSaveWin(): Map<number, WinInfo> {
 function startGame(): void {
   try {
     const winCollection = loadCollectionSaveWin();
-    loadSaveLevels();
+    checkSaveLevels();
     const game = new Game(winCollection);
     game.start();
 

@@ -51,7 +51,7 @@ class Viewer {
   }
 
   private addEditorRight(): CodeMirror.EditorFromTextArea {
-    const editor = document.querySelector<HTMLTextAreaElement>('.html-window') as HTMLTextAreaElement;
+    const editor = document.querySelector('.html-window') as HTMLTextAreaElement;
     this.codeMirrorInstance = this.codeMirror.fromTextArea(editor, {
       lineNumbers: true,
       matchBrackets: true,
