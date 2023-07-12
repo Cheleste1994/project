@@ -1,11 +1,15 @@
 import './app.css';
 import CarAdministration from '../carAdministration/carAdministration';
+import Racing from '../racing/racing';
 
 class Controller {
   private carAdministration: CarAdministration;
 
+  private racing: Racing;
+
   constructor() {
     this.carAdministration = new CarAdministration();
+    this.racing = new Racing();
   }
 
   public start(): void {
@@ -27,7 +31,8 @@ class Controller {
     body?.appendChild(header);
     body?.appendChild(main);
 
-    this.carAdministration.createHTMLElementBlock(main);
+    const addBlockCarAdministration = this.carAdministration.createHTMLElementBlock(main);
+    this.racing.createHTMLElementBlock(addBlockCarAdministration);
   }
 }
 

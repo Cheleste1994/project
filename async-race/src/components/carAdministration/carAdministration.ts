@@ -1,7 +1,7 @@
 import './carAdministration.css';
 
 class CarAdministration {
-  public createHTMLElementBlock(main: HTMLElement): void {
+  public createHTMLElementBlock(main: HTMLElement): HTMLElement {
     const divCarAdministration = document.createElement('div');
     divCarAdministration.classList.add('car-administration');
     const fieldCarInput = document.createElement('div');
@@ -9,7 +9,7 @@ class CarAdministration {
     const fieldCarUpdate = document.createElement('div');
     fieldCarUpdate.classList.add('cars-update');
     const fieldCarGenerate = document.createElement('div');
-    fieldCarUpdate.classList.add('cars-generate');
+    fieldCarGenerate.classList.add('cars-generate');
 
     const inputCreate = this.addInputCreate(fieldCarInput);
     const inputColorCreate = this.addInputColor(inputCreate, 'cars-create__color');
@@ -27,6 +27,7 @@ class CarAdministration {
     divCarAdministration.appendChild(btnUpdate);
     divCarAdministration.appendChild(btnGenerate);
     main.appendChild(divCarAdministration);
+    return main;
   }
 
   private addInputCreate(element: HTMLElement): HTMLElement {
