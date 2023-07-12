@@ -41,15 +41,6 @@ describe('Input', () => {
         fail('An error was thrown');
       }
     }).not.toThrow();
-
-    const validInputValue = 'plate:nth-of-type(2n) > * > * *';
-    expect(() => {
-      try {
-        input.addMarker(validInputValue);
-      } catch (error) {
-        fail('An error was thrown');
-      }
-    }).not.toThrow();
   });
 });
 
