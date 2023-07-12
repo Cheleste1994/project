@@ -6,6 +6,10 @@
   margin-left: 20px;
 }
 
+.car-administration_hide {
+  display: none;
+}
+
 .car-administration button {
   padding: 2px 5px;
 }
@@ -27,8 +31,3 @@
   justify-content: space-between;
 
 }
-/*
-.cars-create__color,
-.cars-update__color {
-  margin: 0 10px;
-} */

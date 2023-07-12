@@ -1,6 +1,10 @@
 import './carAdministration.css';
 
-class CarAdministration {
+class CarAdministrationView {
+  constructor(main: HTMLElement) {
+    this.createHTMLElementBlock(main);
+  }
+
   public createHTMLElementBlock(main: HTMLElement): HTMLElement {
     const divCarAdministration = document.createElement('div');
     divCarAdministration.classList.add('car-administration');
@@ -79,6 +83,16 @@ class CarAdministration {
 
     return element;
   }
+
+  public hideBlockCarAdministration(): void {
+    const carAdministration = document.querySelector('.car-administration');
+    carAdministration?.classList.add('car-administration_hide');
+  }
+
+  public visibleBlockCarAdministration(): void {
+    const carAdministration = document.querySelector('.car-administration');
+    carAdministration?.classList.remove('car-administration_hide');
+  }
 }
 
-export default CarAdministration;
+export default CarAdministrationView;

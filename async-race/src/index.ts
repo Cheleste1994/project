@@ -1,12 +1,26 @@
 import './global.css';
-import Controller from './components/appController/app';
+import App from './components/appController/app';
 
-const contrroller = new Controller();
-contrroller.start();
+function loadBody(): HTMLElement {
+  const body = document.querySelector('body');
+  const header = document.createElement('header');
+  const main = document.createElement('main');
+  const btnGarage = document.createElement('button');
+  const btnWinner = document.createElement('button');
+  header.classList.add('header');
+  main.classList.add('main');
+  btnGarage.classList.add('garage__btn');
+  btnGarage.innerText = 'TO GARAGE';
+  btnGarage.setAttribute('type', 'button');
+  btnWinner.classList.add('winner__btn');
+  btnWinner.innerText = 'TO WINNER';
+  btnWinner.setAttribute('type', 'button');
+  header.appendChild(btnGarage);
+  header.appendChild(btnWinner);
+  body?.appendChild(header);
+  body?.appendChild(main);
+  return main;
+}
 
-// async function start(): Promise<void> {
-//   const response = await fetch('http://127.0.0.1:3000/garage');
-//   console.log(response);
-// }
-
-// start();
+const app = new App(loadBody());
+app.start();

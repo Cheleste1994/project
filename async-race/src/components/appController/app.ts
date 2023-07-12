@@ -1,39 +1,26 @@
 import './app.css';
-import CarAdministration from '../carAdministration/carAdministration';
-import Racing from '../racing/racing';
+import CarAdministrationModel from '../carAdministration/carAdministrationModel';
+import RacingModel from '../racing/racingModel';
+import EventEmitter from './EventEmitter';
+import WinnersModel from '../winners/winnersModel';
 
-class Controller {
-  private carAdministration: CarAdministration;
+class App {
+  private carAdministrationModel: CarAdministrationModel;
 
-  private racing: Racing;
+  private racingModel: RacingModel;
 
-  constructor() {
-    this.carAdministration = new CarAdministration();
-    this.racing = new Racing();
+  private emitter: EventEmitter<unknown>;
+
+  private winnersModel: WinnersModel;
+
+  constructor(main: HTMLElement) {
+    this.emitter = new EventEmitter();
+    this.carAdministrationModel = new CarAdministrationModel(this.emitter, main);
+    this.racingModel = new RacingModel(this.emitter, main);
+    this.winnersModel = new WinnersModel(this.emitter, main);
   }
 
-  public start(): void {
-    const body = document.querySelector('body');
-    const header = document.createElement('header');
-    const main = document.createElement('main');
-    const btnGarage = document.createElement('button');
-    const btnWinner = document.createElement('button');
-    header.classList.add('header');
-    main.classList.add('main');
-    btnGarage.classList.add('garage__btn');
-    btnGarage.innerText = 'TO GARAGE';
-    btnGarage.setAttribute('type', 'button');
-    btnWinner.classList.add('winner__btn');
-    btnWinner.innerText = 'TO WINNER';
-    btnWinner.setAttribute('type', 'button');
-    header.appendChild(btnGarage);
-    header.appendChild(btnWinner);
-    body?.appendChild(header);
-    body?.appendChild(main);
-
-    const addBlockCarAdministration = this.carAdministration.createHTMLElementBlock(main);
-    this.racing.createHTMLElementBlock(addBlockCarAdministration);
-  }
+  public start(): void {}
 }
 
-export default Controller;
+export default App;

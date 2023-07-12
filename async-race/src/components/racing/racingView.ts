@@ -1,6 +1,10 @@
 import './racing.css';
 
-class Racing {
+class RacingView {
+  constructor(main: HTMLElement) {
+    this.createHTMLElementBlock(main);
+  }
+
   public createHTMLElementBlock(main: HTMLElement): HTMLElement {
     const divGarage = document.createElement('div');
     divGarage.classList.add('garage');
@@ -46,6 +50,16 @@ class Racing {
     btn.innerText = text;
     return btn;
   }
+
+  public hideBlocGarage(): void {
+    const garage = document.querySelector('.garage');
+    garage?.classList.add('garage_hide');
+  }
+
+  public visibleBlocGarage(): void {
+    const garage = document.querySelector('.garage');
+    garage?.classList.remove('garage_hide');
+  }
 }
 
-export default Racing;
+export default RacingView;
