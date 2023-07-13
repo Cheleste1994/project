@@ -55,6 +55,16 @@ class WinnersView {
     btn.innerText = text;
     return btn;
   }
+
+  public visibleBlockWinners(): void {
+    const winners = document.querySelector('.winners');
+    winners?.classList.add('winners_visible');
+  }
+
+  public hideBlockWinners(): void {
+    const winners = document.querySelector('.winners');
+    winners?.classList.remove('winners_visible');
+  }
 }
 
 export default WinnersView;

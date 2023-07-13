@@ -1,9 +1,12 @@
 .winners {
-  display: flex;
+  display: none;
   flex-direction: column;
   margin: 20px;
   color: aliceblue;
+}
 
+.winners_visible {
+  display: flex;
 }
 
 .winners-title {

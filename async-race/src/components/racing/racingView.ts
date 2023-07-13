@@ -1,3 +1,4 @@
+import { CarsInterface } from '../../assets/data/interface';
 import './racing.css';
 
 class RacingView {
@@ -59,6 +60,61 @@ class RacingView {
   public visibleBlocGarage(): void {
     const garage = document.querySelector('.garage');
     garage?.classList.remove('garage_hide');
+  }
+
+  public createStartFieldRace(cars: CarsInterface[]): void {
+    const racingElement = document.querySelector('.racing');
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < cars.length; i += 1) {
+      const addCar = document.createElement('div');
+      addCar.className = `cars car-${cars[i].id}`;
+      const addTitle = this.addDiv(addCar, `car__title`);
+      const btnSelect = this.createBtn(`car__btn-select`, 'SELECT');
+      const btnRemove = this.createBtn(`car__btn-remove`, 'REMOVE');
+      const nameCar = this.addHTMLElement('H4', `car__name`, `${cars[i].name}`);
+      addTitle.lastChild?.appendChild(btnSelect);
+      addTitle.lastChild?.appendChild(btnRemove);
+      addTitle.lastChild?.appendChild(nameCar);
+
+      const addFieldCar = this.addDiv(addCar, `car-field`);
+      const btnA = this.createBtn(`car__btn-start`, 'A');
+      const btnB = this.createBtn(`car__btn-stop`, 'B');
+      btnB.setAttribute('disabled', '');
+      addFieldCar.lastChild?.appendChild(btnA);
+      addFieldCar.lastChild?.appendChild(btnB);
+
+      const addFieldRace = this.addHTMLElement('div', 'field-race', '');
+      const addIcon = this.addCarIcon(addFieldRace, cars[i].color);
+      addFieldCar.lastChild?.appendChild(addIcon);
+
+      fragment.appendChild(addTitle);
+      fragment.appendChild(addFieldCar);
+    }
+    racingElement?.appendChild(fragment);
+  }
+
+  public addCarIcon(fieldRace: HTMLElement, color: string): HTMLElement {
+    const icon = document.createElement('span');
+    icon.classList.add('car-icon');
+
+    fetch('./icons/car.svg')
+      .then((response) => response.text())
+      .then((svgContent) => {
+        icon.innerHTML = svgContent;
+
+        const svg = icon.querySelector('svg');
+        if (svg) {
+          svg.style.fill = color;
+          svg.style.width = '100px';
+          svg.style.height = '50px';
+        }
+      })
+      .catch((error) => {
+        console.error('Not icon', error);
+      });
+
+    fieldRace.appendChild(icon);
+    return fieldRace;
   }
 }
 
