@@ -1,10 +1,11 @@
+import { CarsInterface } from '../../assets/data/interface';
 import EventEmitter from '../appController/EventEmitter';
 import './winners.css';
 
 class WinnersView {
-  public emitter: EventEmitter<unknown>;
+  public emitter: EventEmitter<CarsInterface>;
 
-  constructor(emitter: EventEmitter<unknown>, main: HTMLElement) {
+  constructor(emitter: EventEmitter<CarsInterface>, main: HTMLElement) {
     this.emitter = emitter;
     this.createHTMLElementBlock(main);
   }

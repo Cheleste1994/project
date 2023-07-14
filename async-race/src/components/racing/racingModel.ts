@@ -5,17 +5,20 @@ import RacingView from './racingView';
 class RacingModel {
   private racingView: RacingView;
 
-  protected emitter: EventEmitter<unknown>;
+  protected emitter: EventEmitter<CarsInterface>;
 
   private SERVER_URL: string;
 
-  constructor(emitter: EventEmitter<unknown>, main: HTMLElement, SERVER_URL: string) {
+  constructor(emitter: EventEmitter<CarsInterface>, main: HTMLElement, SERVER_URL: string) {
     this.emitter = emitter;
     this.SERVER_URL = SERVER_URL;
     this.racingView = new RacingView(main);
     this.loadCarsFromServer();
     this.emitter.subscribe('winnerBtnClick', () => this.racingView.hideBlocGarage());
     this.emitter.subscribe('garageBtnClick', () => this.racingView.visibleBlocGarage());
+    this.emitter.subscribe('createdCar', (data) => {
+      console.log(data.id);
+    });
   }
 
   private async loadCarsFromServer(): Promise<void> {

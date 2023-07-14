@@ -1,14 +1,15 @@
+import { CarsInterface } from '../../assets/data/interface';
 import EventEmitter from '../appController/EventEmitter';
 import CarAdministrationView from './carAdministrationView';
 
 class CarAdministrationModel {
   private carAdministrationView: CarAdministrationView;
 
-  private emitter: EventEmitter<unknown>;
+  private emitter: EventEmitter<CarsInterface>;
 
   private SERVER_URL: string;
 
-  constructor(emitter: EventEmitter<unknown>, main: HTMLElement, SERVER_URL: string) {
+  constructor(emitter: EventEmitter<CarsInterface>, main: HTMLElement, SERVER_URL: string) {
     this.emitter = emitter;
     this.SERVER_URL = SERVER_URL;
     this.carAdministrationView = new CarAdministrationView(main);
@@ -40,7 +41,7 @@ class CarAdministrationModel {
 
       if (response.status === 201) {
         const createdCar = await response.json();
-        this.emitter.emit('createCar', createdCar);
+        this.emitter.emit('createdCar', createdCar);
       } else {
         console.error('Failed to create car:', response.status);
       }
