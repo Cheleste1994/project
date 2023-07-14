@@ -16,9 +16,7 @@ class RacingModel {
     this.loadCarsFromServer();
     this.emitter.subscribe('winnerBtnClick', () => this.racingView.hideBlocGarage());
     this.emitter.subscribe('garageBtnClick', () => this.racingView.visibleBlocGarage());
-    this.emitter.subscribe('createdCar', (data) => {
-      console.log(data.id);
-    });
+    this.emitter.subscribe('createdCar', (data) => this.racingView.createStartFieldRace([data]));
   }
 
   private async loadCarsFromServer(): Promise<void> {
@@ -27,7 +25,6 @@ class RacingModel {
       if (response.ok) {
         const cars = (await response.json()) as CarsInterface[];
         this.racingView.createStartFieldRace(cars);
-        this.racingView.changeQuantityCar(cars);
       } else {
         console.error('Failed to fetch cars:', response.status);
       }

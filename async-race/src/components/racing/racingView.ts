@@ -91,6 +91,7 @@ class RacingView {
       fragment.appendChild(addFieldCar);
     }
     racingElement?.appendChild(fragment);
+    this.changeQuantityCar();
   }
 
   public addCarIcon(fieldRace: HTMLElement, color: string): HTMLElement {
@@ -117,8 +118,9 @@ class RacingView {
     return fieldRace;
   }
 
-  public changeQuantityCar(cars: CarsInterface[]): void {
+  public changeQuantityCar(): void {
     const titleCars = document.querySelector('.garage-title__cars') as HTMLElement;
+    const cars = document.querySelectorAll('.cars');
     titleCars.innerHTML = `(${cars.length})`;
   }
 }

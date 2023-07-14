@@ -26,6 +26,7 @@ class CarAdministrationModel {
         color: color.value,
       };
       this.addCarsServer(data);
+      input.value = '';
     }
   }
 
