@@ -1,10 +1,9 @@
 import EventEmitter from '../appController/EventEmitter';
+import WinnersModel from './winnersModel';
 
-class WinnersController {
-  public emitter: EventEmitter<unknown>;
-
-  constructor(emitter: EventEmitter<unknown>) {
-    this.emitter = emitter;
+class WinnersController extends WinnersModel {
+  constructor(emitter: EventEmitter<unknown>, main: HTMLElement, SERVER_URL: string) {
+    super(emitter, main, SERVER_URL);
     this.addListenerClickWinners();
   }
 

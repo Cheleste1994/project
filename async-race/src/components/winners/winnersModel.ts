@@ -1,18 +1,17 @@
 import EventEmitter from '../appController/EventEmitter';
-import WinnersController from './winnersController';
 import WinnersView from './winnersView';
 
 class WinnersModel {
   private winnersView: WinnersView;
 
-  private winnersController: WinnersController;
+  protected emitter: EventEmitter<unknown>;
 
-  private emitter: EventEmitter<unknown>;
+  private SERVER_URL: string;
 
-  constructor(emitter: EventEmitter<unknown>, main: HTMLElement) {
+  constructor(emitter: EventEmitter<unknown>, main: HTMLElement, SERVER_URL: string) {
     this.emitter = emitter;
+    this.SERVER_URL = SERVER_URL;
     this.winnersView = new WinnersView(emitter, main);
-    this.winnersController = new WinnersController(emitter);
 
     this.emitter.subscribe('winnerBtnClick', () => this.winnersView.visibleBlockWinners());
     this.emitter.subscribe('garageBtnClick', () => this.winnersView.hideBlockWinners());

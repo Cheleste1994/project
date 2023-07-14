@@ -17,6 +17,10 @@
   margin-left: 10px;
 }
 
+.pagination {
+margin-top: 20px;
+}
+
 .pagination > button {
   padding: 2px 5px;
   margin-right: 10px;
@@ -43,6 +47,7 @@
   width: 100%;
   border-bottom: 4px dashed;
   position: relative;
+  height: 54px;
 }
 
 .field-race::before {
@@ -66,4 +71,15 @@
 
 .car__btn-start {
   margin-right: 5px;
+}
+
+.car-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.car-icon_start {
+  transition: all 5s;
+  transform: translateX(800px);
 }

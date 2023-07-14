@@ -116,6 +116,11 @@ class RacingView {
     fieldRace.appendChild(icon);
     return fieldRace;
   }
+
+  public changeQuantityCar(cars: CarsInterface[]): void {
+    const titleCars = document.querySelector('.garage-title__cars') as HTMLElement;
+    titleCars.innerHTML = `(${cars.length})`;
+  }
 }
 
 export default RacingView;

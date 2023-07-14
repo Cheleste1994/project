@@ -1,23 +1,25 @@
 import './app.css';
-import CarAdministrationModel from '../carAdministration/carAdministrationModel';
-import RacingModel from '../racing/racingModel';
 import EventEmitter from './EventEmitter';
-import WinnersModel from '../winners/winnersModel';
+import CarAdministrationController from '../carAdministration/carAdministrationController';
+import RacingController from '../racing/racingController';
+import WinnersController from '../winners/winnersController';
+
+const SERVER_URL = 'http://127.0.0.1:3000';
 
 class App {
-  private carAdministrationModel: CarAdministrationModel;
+  private carAdministrationController: CarAdministrationController;
 
-  private racingModel: RacingModel;
+  private racingController: RacingController;
 
   private emitter: EventEmitter<unknown>;
 
-  private winnersModel: WinnersModel;
+  private winnersController: WinnersController;
 
   constructor(main: HTMLElement) {
     this.emitter = new EventEmitter();
-    this.carAdministrationModel = new CarAdministrationModel(this.emitter, main);
-    this.racingModel = new RacingModel(this.emitter, main);
-    this.winnersModel = new WinnersModel(this.emitter, main);
+    this.carAdministrationController = new CarAdministrationController(this.emitter, main, SERVER_URL);
+    this.racingController = new RacingController(this.emitter, main, SERVER_URL);
+    this.winnersController = new WinnersController(this.emitter, main, SERVER_URL);
   }
 
   public start(): void {}

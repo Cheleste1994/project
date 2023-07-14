@@ -1,10 +1,9 @@
 import EventEmitter from '../appController/EventEmitter';
+import RacingModel from './racingModel';
 
-class RacingController {
-  public emitter: EventEmitter<unknown>;
-
-  constructor(emitter: EventEmitter<unknown>) {
-    this.emitter = emitter;
+class RacingController extends RacingModel {
+  constructor(emitter: EventEmitter<unknown>, main: HTMLElement, SERVER_URL: string) {
+    super(emitter, main, SERVER_URL);
     this.addListenerClickGarage();
   }
 

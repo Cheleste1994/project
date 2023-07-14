@@ -37,7 +37,7 @@ class CarAdministrationView {
   private addInputCreate(element: HTMLElement): HTMLElement {
     const inputElement = document.createElement('input');
     inputElement.setAttribute('type', 'text');
-    inputElement.setAttribute('list', 'car');
+    inputElement.setAttribute('list', 'car-list');
     inputElement.classList.add('cars-create__input');
 
     const datalistElement = document.createElement('datalist');
