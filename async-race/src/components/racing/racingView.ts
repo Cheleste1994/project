@@ -62,10 +62,10 @@ class RacingView {
     garage?.classList.remove('garage_hide');
   }
 
-  public createStartFieldRace(cars: CarsInterface[]): void {
+  public generateRaceField(cars: CarsInterface[], firstCarPerPage = 0, lastCarPerPage = 1): void {
     const racingElement = document.querySelector('.racing');
     const fragment = document.createDocumentFragment();
-    for (let i = 0; i < cars.length; i += 1) {
+    for (let i = firstCarPerPage; i < lastCarPerPage; i += 1) {
       const addCar = document.createElement('div');
       addCar.className = `cars car-${cars[i].id}`;
       const addTitle = this.addDiv(addCar, `car__title`);
@@ -91,7 +91,6 @@ class RacingView {
       fragment.appendChild(addFieldCar);
     }
     racingElement?.appendChild(fragment);
-    this.changeQuantityCar();
   }
 
   public addCarIcon(fieldRace: HTMLElement, color: string): HTMLElement {
@@ -118,9 +117,8 @@ class RacingView {
     return fieldRace;
   }
 
-  public changeQuantityCar(): void {
+  public changeQuantityCar(cars: CarsInterface[]): void {
     const titleCars = document.querySelector('.garage-title__cars') as HTMLElement;
-    const cars = document.querySelectorAll('.cars');
     titleCars.innerHTML = `(${cars.length})`;
   }
 }
