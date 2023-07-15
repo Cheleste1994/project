@@ -45,7 +45,7 @@ class CarAdministrationView {
     return element;
   }
 
-  public addDatalistElement(carsDara: CarsInterface[]): void {
+  public addDatalistName(carsDara: CarsInterface[]): void {
     const carsCreate = document.querySelector('.cars-create');
     const datalistElement = document.createElement('datalist');
     datalistElement.id = 'car-list';
@@ -95,6 +95,22 @@ class CarAdministrationView {
   public visibleBlockCarAdministration(): void {
     const carAdministration = document.querySelector('.car-administration');
     carAdministration?.classList.remove('car-administration_hide');
+  }
+
+  public addActiveInputUpdate(carName: string): void {
+    const input = document.querySelector('.cars-update__input') as HTMLInputElement;
+    if (input) {
+      input.value = carName;
+      input.removeAttribute('disabled');
+    }
+  }
+
+  public disabledInputUpdate(): void {
+    const input = document.querySelector('.cars-update__input') as HTMLInputElement;
+    if (input) {
+      input.value = '';
+      input.setAttribute('disabled', '');
+    }
   }
 }
 

@@ -118,6 +118,20 @@ class RacingModel {
       this.emitter.emit('pageLoad');
     }
   }
+
+  protected processBtnSelect(btnIndex: number): void {
+    const carsPage = document.querySelectorAll('.cars');
+    const idCar = carsPage[btnIndex].className.split('-')[1];
+    const carsName = document.querySelectorAll('.car__name');
+    if (carsName[btnIndex]) {
+      const dataCar = {
+        id: Number(idCar),
+        name: carsName[btnIndex].innerHTML,
+        color: '',
+      };
+      this.emitter.emit('clickBtnSelect', dataCar);
+    }
+  }
 }
 
 export default RacingModel;

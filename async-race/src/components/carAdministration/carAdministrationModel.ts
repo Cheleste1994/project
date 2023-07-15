@@ -9,7 +9,7 @@ const MAX_RANDOM_COLOR = 360;
 class CarAdministrationModel {
   private carAdministrationView: CarAdministrationView;
 
-  private emitter: EventEmitter<CarsInterface>;
+  protected emitter: EventEmitter<CarsInterface>;
 
   private SERVER_URL: string;
 
@@ -72,6 +72,29 @@ class CarAdministrationModel {
     }
   }
 
+  protected async updateCarServer(dataCar: CarsInterface): Promise<CarsInterface> {
+    try {
+      const data = {
+        name: dataCar.name,
+        color: dataCar.color,
+      };
+      const response = await fetch(`${this.SERVER_URL}/garage/${dataCar.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.status === 200) {
+        const updateCar = await response.json();
+        return updateCar;
+      }
+      throw new Error('Failed to update car.');
+    } catch (error) {
+      throw new Error('Server connection error');
+    }
+  }
+
   protected processBtnGenerateCar(): void {
     for (let i = 0; i < CARS_PER_GENERATION; i += 1) {
       const data = {
@@ -99,7 +122,28 @@ class CarAdministrationModel {
 
   private async processDatalistElement(): Promise<void> {
     const carsData = await this.loadCarsFromServer();
-    this.carAdministrationView.addDatalistElement(carsData);
+    this.carAdministrationView.addDatalistName(carsData);
+  }
+
+  protected changeInputUpdate(dataCar: CarsInterface): () => CarsInterface {
+    this.carAdministrationView.addActiveInputUpdate(dataCar.name);
+    return () => {
+      this.saveUpdateCarServer(dataCar);
+      this.carAdministrationView.disabledInputUpdate();
+      return dataCar;
+    };
+  }
+
+  protected async saveUpdateCarServer(dataCar: CarsInterface): Promise<void> {
+    const inputUpdate = document.querySelector('.cars-update__input') as HTMLInputElement;
+    const color = document.querySelector('.cars-update__color') as HTMLInputElement;
+    const updateDataCar = {
+      id: dataCar.id,
+      name: inputUpdate.value,
+      color: color.value,
+    };
+    const updateCar = await this.updateCarServer(updateDataCar);
+    this.emitter.emit('updateCar', updateCar);
   }
 }
 
