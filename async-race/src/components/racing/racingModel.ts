@@ -28,7 +28,24 @@ class RacingModel {
         const carsData = (await response.json()) as CarsInterface[];
         return carsData;
       }
-      throw new Error('Failed to fetch cars:');
+      throw new Error('Server connection error');
+    } catch (error) {
+      throw new Error('Server connection error');
+    }
+  }
+
+  protected async removeCarServer(id: string): Promise<boolean> {
+    try {
+      const response = await fetch(`${this.SERVER_URL}/garage/${id}`, {
+        method: 'DELETE',
+      });
+      console.log(response);
+
+      if (response.status === 200) {
+        return response.ok;
+      }
+      console.error(`Failed to remove car: ${response.status}`);
+      return response.ok;
     } catch (error) {
       throw new Error('Server connection error');
     }
@@ -39,6 +56,7 @@ class RacingModel {
     const checkLengthCars = carsData.length > MAX_CARS_PER_PAGE ? MAX_CARS_PER_PAGE : carsData.length;
     this.racingView.generateRaceField(carsData, 0, checkLengthCars);
     this.racingView.changeQuantityCar(carsData);
+    this.emitter.emit('pageLoad');
   }
 
   private async addCarOnPage(data: CarsInterface[]): Promise<void> {
@@ -46,6 +64,7 @@ class RacingModel {
     const carsPage = document.querySelectorAll('.cars');
     if (carsPage.length < MAX_CARS_PER_PAGE) {
       this.racingView.generateRaceField(data);
+      this.emitter.emit('pageLoad');
     } else {
       this.racingView.changeQuantityCar(carsData);
     }
@@ -68,6 +87,7 @@ class RacingModel {
     const lastCar = Math.min((pageNumber + 1) * MAX_CARS_PER_PAGE, carsData.length);
     this.racingView.generateRaceField(carsData, firstCar, lastCar);
     this.racingView.addNextPage(pageNumber + 1);
+    this.emitter.emit('pageLoad');
   }
 
   protected async addPrevPage(): Promise<void> {
@@ -81,6 +101,22 @@ class RacingModel {
     const lastCar = firstCar + MAX_CARS_PER_PAGE;
     this.racingView.generateRaceField(carsData, firstCar, lastCar);
     this.racingView.addNextPage(pageNumber - 1);
+    this.emitter.emit('pageLoad');
+  }
+
+  protected async processBtnRemove(btnIndex: number): Promise<void> {
+    const carsPage = document.querySelectorAll('.cars');
+    const idCar = carsPage[btnIndex].className.split('-')[1];
+    const isRemove = await this.removeCarServer(idCar);
+    if (isRemove) {
+      const carsData = await this.loadCarsFromServer();
+      const pageNumber = this.searchNumberPage();
+      this.racingView.cleanPageRacing();
+      const firstCar = pageNumber === 1 ? 0 : pageNumber * MAX_CARS_PER_PAGE;
+      const lastCar = Math.min(carsData.length - firstCar, MAX_CARS_PER_PAGE);
+      this.racingView.generateRaceField(carsData, firstCar, lastCar);
+      this.emitter.emit('pageLoad');
+    }
   }
 }
 

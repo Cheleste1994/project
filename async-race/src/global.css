@@ -11,3 +11,7 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+
+body button {
+  user-select: none;
+}
