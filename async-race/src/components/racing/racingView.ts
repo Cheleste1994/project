@@ -135,6 +135,18 @@ class RacingView {
       racing.innerHTML = '';
     }
   }
+
+  public updateCar(dataCar: CarsInterface): void {
+    const car = document.querySelector(`.car-${dataCar.id}`);
+    const carName = car?.querySelector('.car__name');
+    const carImg = car?.querySelector('svg');
+    if (carImg) {
+      carImg.style.fill = dataCar.color;
+    }
+    if (carName) {
+      carName.innerHTML = dataCar.name;
+    }
+  }
 }
 
 export default RacingView;

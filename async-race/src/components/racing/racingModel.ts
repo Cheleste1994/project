@@ -19,6 +19,7 @@ class RacingModel {
     this.emitter.subscribe('winnerBtnClick', () => this.racingView.hideBlocGarage());
     this.emitter.subscribe('garageBtnClick', () => this.racingView.visibleBlocGarage());
     this.emitter.subscribe('createdCar', (data) => this.addCarOnPage([data]));
+    this.emitter.subscribe('updateCar', (data) => this.racingView.updateCar(data));
   }
 
   private async loadCarsFromServer(): Promise<CarsInterface[]> {
