@@ -15,7 +15,7 @@ class RacingModel {
     this.emitter = emitter;
     this.SERVER_URL = SERVER_URL;
     this.racingView = new RacingView(main);
-    this.addCarsOnPage();
+    this.addFirstPage();
     this.emitter.subscribe('winnerBtnClick', () => this.racingView.hideBlocGarage());
     this.emitter.subscribe('garageBtnClick', () => this.racingView.visibleBlocGarage());
     this.emitter.subscribe('createdCar', (data) => this.addCarOnPage([data]));
@@ -25,8 +25,8 @@ class RacingModel {
     try {
       const response = await fetch(`${this.SERVER_URL}/garage`);
       if (response.ok) {
-        const cars = (await response.json()) as CarsInterface[];
-        return cars;
+        const carsData = (await response.json()) as CarsInterface[];
+        return carsData;
       }
       throw new Error('Failed to fetch cars:');
     } catch (error) {
@@ -34,19 +34,20 @@ class RacingModel {
     }
   }
 
-  private async addCarsOnPage(): Promise<void> {
-    const cars = await this.loadCarsFromServer();
-    const checkLengthCars = cars.length > MAX_CARS_PER_PAGE ? MAX_CARS_PER_PAGE : cars.length;
-    this.racingView.generateRaceField(cars, 0, checkLengthCars);
-    this.racingView.changeQuantityCar(cars);
+  private async addFirstPage(): Promise<void> {
+    const carsData = await this.loadCarsFromServer();
+    const checkLengthCars = carsData.length > MAX_CARS_PER_PAGE ? MAX_CARS_PER_PAGE : carsData.length;
+    this.racingView.generateRaceField(carsData, 0, checkLengthCars);
+    this.racingView.changeQuantityCar(carsData);
   }
 
   private async addCarOnPage(data: CarsInterface[]): Promise<void> {
-    const cars = await this.loadCarsFromServer();
-    if (cars.length < MAX_CARS_PER_PAGE) {
+    const carsData = await this.loadCarsFromServer();
+    const carsPage = document.querySelectorAll('.cars');
+    if (carsPage.length < MAX_CARS_PER_PAGE) {
       this.racingView.generateRaceField(data);
     } else {
-      this.racingView.changeQuantityCar(cars);
+      this.racingView.changeQuantityCar(carsData);
     }
   }
 
