@@ -20,8 +20,22 @@ class CarAdministrationModel {
     this.SERVER_URL = SERVER_URL;
     this.carName = carName;
     this.carAdministrationView = new CarAdministrationView(main);
+    this.processDatalistElement();
     this.emitter.subscribe('winnerBtnClick', () => this.carAdministrationView.hideBlockCarAdministration());
     this.emitter.subscribe('garageBtnClick', () => this.carAdministrationView.visibleBlockCarAdministration());
+  }
+
+  private async loadCarsFromServer(): Promise<CarsInterface[]> {
+    try {
+      const response = await fetch(`${this.SERVER_URL}/garage`);
+      if (response.ok) {
+        const carsData = (await response.json()) as CarsInterface[];
+        return carsData;
+      }
+      throw new Error('Server connection error');
+    } catch (error) {
+      throw new Error('Server connection error');
+    }
   }
 
   protected processBtnCreate(): void {
@@ -81,6 +95,11 @@ class CarAdministrationModel {
     const randomIndexModel = Math.floor(Math.random() * model.length);
     const randomName = `${brand[randomIndexBrend]} ${model[randomIndexModel]}`;
     return randomName;
+  }
+
+  private async processDatalistElement(): Promise<void> {
+    const carsData = await this.loadCarsFromServer();
+    this.carAdministrationView.addDatalistElement(carsData);
   }
 }
 

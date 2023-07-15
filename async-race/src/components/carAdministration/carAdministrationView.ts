@@ -1,3 +1,4 @@
+import { CarsInterface } from '../../assets/data/interface';
 import './carAdministration.css';
 
 class CarAdministrationView {
@@ -40,19 +41,21 @@ class CarAdministrationView {
     inputElement.setAttribute('list', 'car-list');
     inputElement.classList.add('cars-create__input');
 
+    element.appendChild(inputElement);
+    return element;
+  }
+
+  public addDatalistElement(carsDara: CarsInterface[]): void {
+    const carsCreate = document.querySelector('.cars-create');
     const datalistElement = document.createElement('datalist');
     datalistElement.id = 'car-list';
 
-    const options = ['Tesla', 'BMW', 'Mersedes', 'Ford'];
-
-    for (let i = 0; i < options.length; i += 1) {
+    for (let i = 0; i < carsDara.length; i += 1) {
       const optionElement = document.createElement('option');
-      optionElement.value = options[i];
+      optionElement.value = carsDara[i].name;
       datalistElement.appendChild(optionElement);
     }
-    element.appendChild(inputElement);
-    element.appendChild(datalistElement);
-    return element;
+    carsCreate?.appendChild(datalistElement);
   }
 
   private addInputColor(element: HTMLElement, className: string): HTMLElement {
