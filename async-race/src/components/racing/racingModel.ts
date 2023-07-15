@@ -49,6 +49,38 @@ class RacingModel {
       this.racingView.changeQuantityCar(cars);
     }
   }
+
+  private searchNumberPage(): number {
+    const pageH3 = document.querySelector('.page-number__h3');
+    const pageNumber = Number(pageH3?.innerHTML.split('#').pop());
+    return pageNumber;
+  }
+
+  protected async addNextPage(): Promise<void> {
+    const carsData = await this.loadCarsFromServer();
+    const pageNumber = this.searchNumberPage();
+    if (Math.ceil(carsData.length / MAX_CARS_PER_PAGE) <= pageNumber) {
+      return;
+    }
+    this.racingView.cleanPageRacing();
+    const firstCar = pageNumber * MAX_CARS_PER_PAGE;
+    const lastCar = Math.min((pageNumber + 1) * MAX_CARS_PER_PAGE, carsData.length);
+    this.racingView.generateRaceField(carsData, firstCar, lastCar);
+    this.racingView.addNextPage(pageNumber + 1);
+  }
+
+  protected async addPrevPage(): Promise<void> {
+    const carsData = await this.loadCarsFromServer();
+    const pageNumber = this.searchNumberPage();
+    if (pageNumber - 1 === 0) {
+      return;
+    }
+    this.racingView.cleanPageRacing();
+    const firstCar = (pageNumber - 2) * MAX_CARS_PER_PAGE;
+    const lastCar = firstCar + MAX_CARS_PER_PAGE;
+    this.racingView.generateRaceField(carsData, firstCar, lastCar);
+    this.racingView.addNextPage(pageNumber - 1);
+  }
 }
 
 export default RacingModel;

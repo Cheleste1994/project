@@ -121,6 +121,20 @@ class RacingView {
     const titleCars = document.querySelector('.garage-title__cars') as HTMLElement;
     titleCars.innerHTML = `(${cars.length})`;
   }
+
+  public addNextPage(pageNumber: number): void {
+    const pageH3 = document.querySelector('.page-number__h3');
+    if (pageH3) {
+      pageH3.innerHTML = `Page #${pageNumber}`;
+    }
+  }
+
+  public cleanPageRacing(): void {
+    const racing = document.querySelector('.racing');
+    if (racing) {
+      racing.innerHTML = '';
+    }
+  }
 }
 
 export default RacingView;

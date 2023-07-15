@@ -44,10 +44,10 @@ class CarAdministrationModel {
         const createdCar = await response.json();
         this.emitter.emit('createdCar', createdCar);
       } else {
-        console.error('Failed to create car:', response.status);
+        throw new Error('Failed to create car:');
       }
     } catch (error) {
-      console.error('Error creating car:', error);
+      throw new Error('Server connection error');
     }
   }
 }
