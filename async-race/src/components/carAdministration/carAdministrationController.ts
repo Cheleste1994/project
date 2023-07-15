@@ -6,11 +6,18 @@ class CarAdministrationController extends CarAdministrationModel {
   constructor(emitter: EventEmitter<CarsInterface>, main: HTMLElement, SERVER_URL: string) {
     super(emitter, main, SERVER_URL);
     this.addListenerClickCarsCreate();
+    this.addListenerClickGenerateCars();
   }
 
   private addListenerClickCarsCreate(): void {
     document.querySelector('.cars-create__button')?.addEventListener('click', () => {
-      this.addCarServer();
+      this.processBtnCreate();
+    });
+  }
+
+  private addListenerClickGenerateCars(): void {
+    document.querySelector('.cars-generate__btn-generate')?.addEventListener('click', () => {
+      this.processBtnGenerateCar();
     });
   }
 }

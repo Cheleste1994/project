@@ -39,8 +39,6 @@ class RacingModel {
       const response = await fetch(`${this.SERVER_URL}/garage/${id}`, {
         method: 'DELETE',
       });
-      console.log(response);
-
       if (response.status === 200) {
         return response.ok;
       }
@@ -64,6 +62,7 @@ class RacingModel {
     const carsPage = document.querySelectorAll('.cars');
     if (carsPage.length < MAX_CARS_PER_PAGE) {
       this.racingView.generateRaceField(data);
+      this.racingView.changeQuantityCar(carsData);
       this.emitter.emit('pageLoad');
     } else {
       this.racingView.changeQuantityCar(carsData);
@@ -112,9 +111,10 @@ class RacingModel {
       const carsData = await this.loadCarsFromServer();
       const pageNumber = this.searchNumberPage();
       this.racingView.cleanPageRacing();
-      const firstCar = pageNumber === 1 ? 0 : pageNumber * MAX_CARS_PER_PAGE;
-      const lastCar = Math.min(carsData.length - firstCar, MAX_CARS_PER_PAGE);
+      const firstCar = pageNumber === 1 ? 0 : (pageNumber - 1) * MAX_CARS_PER_PAGE;
+      const lastCar = firstCar + Math.min(carsData.length - firstCar, MAX_CARS_PER_PAGE);
       this.racingView.generateRaceField(carsData, firstCar, lastCar);
+      this.racingView.changeQuantityCar(carsData);
       this.emitter.emit('pageLoad');
     }
   }
