@@ -147,6 +147,13 @@ class RacingView {
       carName.innerHTML = dataCar.name;
     }
   }
+
+  public addAnimationStartDrive(carIcon: HTMLElement, raceDistance: number, speed: string): void {
+    const icon = carIcon;
+    icon.style.transition = `all ${speed}s linear`;
+    icon.style.transform = `translateX(${raceDistance}px)`;
+    // carIcon.removeAttribute('style');
+  }
 }
 
 export default RacingView;

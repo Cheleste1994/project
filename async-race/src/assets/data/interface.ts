@@ -4,4 +4,9 @@ interface CarsInterface {
   name: string;
 }
 
-export { CarsInterface };
+interface EngineInterface {
+  velocity: number;
+  distance: number;
+}
+
+export { CarsInterface, EngineInterface };

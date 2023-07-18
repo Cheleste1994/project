@@ -1,4 +1,4 @@
-import { CarsInterface } from '../../assets/data/interface';
+import { CarsInterface, EngineInterface } from '../../assets/data/interface';
 import EventEmitter from '../appController/EventEmitter';
 import RacingView from './racingView';
 
@@ -48,6 +48,17 @@ class RacingModel {
     } catch (error) {
       throw new Error('Server connection error');
     }
+  }
+
+  protected async startOrStopEngine(id: string, status: 'started' | 'stopped'): Promise<EngineInterface> {
+    const response = await fetch(`${this.SERVER_URL}/engine?id=${id}&status=${status}`, {
+      method: 'PATCH',
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      return data;
+    }
+    throw new Error(`Error - ${response.status}`);
   }
 
   private async addFirstPage(): Promise<void> {
@@ -132,6 +143,21 @@ class RacingModel {
       };
       this.emitter.emit('clickBtnSelect', dataCar);
     }
+  }
+
+  protected async driveStart(btnIndex: number): Promise<void> {
+    const carsRace = document.querySelectorAll('.cars');
+    const carIcons = document.querySelectorAll('.car-icon');
+    const idCar = carsRace[btnIndex].className.split('-')[1];
+    const dataCar = await this.startOrStopEngine(idCar, 'started');
+    const positionRace = carsRace[btnIndex].getBoundingClientRect();
+    const positionCar = carIcons[btnIndex].getBoundingClientRect();
+    const marginLeftFieldRace = positionRace.left;
+    const sizeFieldRace = positionRace.right - positionRace.left;
+    const sizeFieldCar = positionCar.right - positionCar.left;
+    const raceDistance = sizeFieldRace - sizeFieldCar - marginLeftFieldRace;
+    const speed = (raceDistance / dataCar.velocity).toFixed(2);
+    this.racingView.addAnimationStartDrive(carIcons[btnIndex] as HTMLElement, raceDistance, speed);
   }
 }
 

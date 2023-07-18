@@ -80,6 +80,6 @@ margin-top: 20px;
 }
 
 .car-icon_start {
-  transition: all 5s;
-  transform: translateX(800px);
+  transition: all 0s;
+  transform: translateX(0px);
 }
