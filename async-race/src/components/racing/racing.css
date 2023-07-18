@@ -78,8 +78,3 @@ margin-top: 20px;
   top: 0;
   left: 0;
 }
-
-.car-icon_start {
-  transition: all 0s;
-  transform: translateX(0px);
-}

@@ -115,9 +115,14 @@ class RacingModel {
     this.emitter.emit('pageLoad');
   }
 
-  protected async processBtnRemove(btnIndex: number): Promise<void> {
+  private searchIdCar(indexCar: number): string {
     const carsPage = document.querySelectorAll('.cars');
-    const idCar = carsPage[btnIndex].className.split('-')[1];
+    const idCar = carsPage[indexCar].className.split('-')[1];
+    return idCar;
+  }
+
+  protected async processBtnRemove(btnIndex: number): Promise<void> {
+    const idCar = this.searchIdCar(btnIndex);
     const isRemove = await this.removeCarServer(idCar);
     if (isRemove) {
       const carsData = await this.loadCarsFromServer();
@@ -132,8 +137,7 @@ class RacingModel {
   }
 
   protected processBtnSelect(btnIndex: number): void {
-    const carsPage = document.querySelectorAll('.cars');
-    const idCar = carsPage[btnIndex].className.split('-')[1];
+    const idCar = this.searchIdCar(btnIndex);
     const carsName = document.querySelectorAll('.car__name');
     if (carsName[btnIndex]) {
       const dataCar = {
@@ -148,7 +152,7 @@ class RacingModel {
   protected async driveStart(btnIndex: number): Promise<void> {
     const carsRace = document.querySelectorAll('.cars');
     const carIcons = document.querySelectorAll('.car-icon');
-    const idCar = carsRace[btnIndex].className.split('-')[1];
+    const idCar = this.searchIdCar(btnIndex);
     const dataCar = await this.startOrStopEngine(idCar, 'started');
     const positionRace = carsRace[btnIndex].getBoundingClientRect();
     const positionCar = carIcons[btnIndex].getBoundingClientRect();
@@ -157,7 +161,14 @@ class RacingModel {
     const sizeFieldCar = positionCar.right - positionCar.left;
     const raceDistance = sizeFieldRace - sizeFieldCar - marginLeftFieldRace;
     const speed = (raceDistance / dataCar.velocity).toFixed(2);
-    this.racingView.addAnimationStartDrive(carIcons[btnIndex] as HTMLElement, raceDistance, speed);
+    this.racingView.addAnimationStartDrive(carsRace[btnIndex], raceDistance, speed);
+  }
+
+  protected async driveStop(btnIndex: number): Promise<void> {
+    const carsRace = document.querySelectorAll('.cars');
+    const idCar = this.searchIdCar(btnIndex);
+    await this.startOrStopEngine(idCar, 'stopped');
+    this.racingView.addAnimationStopDrive(carsRace[btnIndex]);
   }
 }
 

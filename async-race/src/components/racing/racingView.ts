@@ -148,11 +148,26 @@ class RacingView {
     }
   }
 
-  public addAnimationStartDrive(carIcon: HTMLElement, raceDistance: number, speed: string): void {
-    const icon = carIcon;
-    icon.style.transition = `all ${speed}s linear`;
-    icon.style.transform = `translateX(${raceDistance}px)`;
+  public addAnimationStartDrive(carRace: Element, raceDistance: number, speed: string): void {
+    const carIcon = carRace.querySelector('.car-icon') as HTMLElement;
+    const btnStart = carRace.querySelector('.car__btn-start');
+    const btnStop = carRace.querySelector('.car__btn-stop');
+    if (carIcon) {
+      carIcon.style.transition = `all ${speed}s linear`;
+      carIcon.style.transform = `translateX(${raceDistance}px)`;
+    }
+    btnStart?.setAttribute('disabled', '');
+    btnStop?.removeAttribute('disabled');
     // carIcon.removeAttribute('style');
+  }
+
+  public addAnimationStopDrive(carRace: Element): void {
+    const carIcon = carRace.querySelector('.car-icon') as HTMLElement;
+    const btnStart = carRace.querySelector('.car__btn-start');
+    const btnStop = carRace.querySelector('.car__btn-stop');
+    carIcon?.removeAttribute('style');
+    btnStop?.setAttribute('disabled', '');
+    btnStart?.removeAttribute('disabled');
   }
 }
 

@@ -12,6 +12,7 @@ class RacingController extends RacingModel {
       this.addListenerClickBtnRemove();
       this.addListenerClickBtnSelect();
       this.addListenerClickDriveStart();
+      this.addListenerClickDriveStop();
     });
   }
 
@@ -56,6 +57,15 @@ class RacingController extends RacingModel {
     btnsStart?.forEach((btn, index) => {
       btn.addEventListener('click', () => {
         this.driveStart(index);
+      });
+    });
+  }
+
+  private addListenerClickDriveStop(): void {
+    const btnsStart = document.querySelectorAll('.car__btn-stop');
+    btnsStart?.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        this.driveStop(index);
       });
     });
   }
