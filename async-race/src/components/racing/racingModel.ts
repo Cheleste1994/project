@@ -52,7 +52,7 @@ class RacingModel {
     }
   }
 
-  protected async startOrStopEngine(id: string, status: 'started' | 'stopped'): Promise<EngineInterface> {
+  protected async startOrStopEngine(id: string, status: string): Promise<EngineInterface> {
     const response = await fetch(`${this.SERVER_URL}/engine?id=${id}&status=${status}`, {
       method: 'PATCH',
     });
@@ -60,7 +60,7 @@ class RacingModel {
       const data = await response.json();
       return data;
     }
-    throw new Error(`Error - ${response.status}`);
+    throw new Error(`${response.status}`);
   }
 
   private async addFirstPage(): Promise<void> {
@@ -151,24 +151,39 @@ class RacingModel {
     }
   }
 
-  protected async driveStart(btnIndex: number[]): Promise<void> {
-    const promises = [...btnIndex].map((index) => {
-      const idCar = this.searchIdCar(index);
+  protected async driveStart(elemIndex: number[]): Promise<void> {
+    const promises = elemIndex.map((element) => {
+      const idCar = this.searchIdCar(element);
       return this.startOrStopEngine(idCar, 'started');
     });
     const dataCars = await Promise.all(promises);
-    for (let index = 0; index < dataCars.length; index += 1) {
+    this.switchEngineDriveMode(elemIndex);
+    for (let i = 0; i < dataCars.length; i += 1) {
       const carsRace = document.querySelectorAll('.cars');
       const carIcons = document.querySelectorAll('.car-icon');
-      const positionRace = carsRace[index].getBoundingClientRect();
-      const positionCar = carIcons[index].getBoundingClientRect();
+      const positionRace = carsRace[elemIndex[i]].getBoundingClientRect();
+      const positionCar = carIcons[elemIndex[i]].getBoundingClientRect();
       const marginLeftFieldRace = positionRace.left;
       const sizeFieldRace = positionRace.right - positionRace.left;
       const sizeFieldCar = positionCar.right - positionCar.left;
       const raceDistance = sizeFieldRace - sizeFieldCar - marginLeftFieldRace;
-      const speed = (raceDistance / dataCars[index].velocity).toFixed(2);
-      this.racingView.addAnimationStartDrive(carsRace[index], raceDistance, speed);
+      const speed = (raceDistance / dataCars[i].velocity).toFixed(2);
+      this.racingView.addAnimationStartDrive(carsRace[elemIndex[i]], raceDistance, speed);
     }
+  }
+
+  protected async switchEngineDriveMode(elemIndex: number[]): Promise<void> {
+    elemIndex.map(async (index) => {
+      try {
+        const idCar = this.searchIdCar(index);
+        await this.startOrStopEngine(idCar, 'drive');
+      } catch (error) {
+        const carsRace = document.querySelectorAll('.cars');
+        const carIcons = document.querySelectorAll('.car-icon');
+        const positionCar = carIcons[index].getBoundingClientRect();
+        this.racingView.addAnimationStartDrive(carsRace[index], positionCar.left);
+      }
+    });
   }
 
   protected async driveStop(btnIndex: number): Promise<void> {
