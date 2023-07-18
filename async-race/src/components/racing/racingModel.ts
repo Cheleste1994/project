@@ -259,10 +259,15 @@ class RacingModel {
         const idCar = this.searchIdCar(index);
         await this.startOrStopEngine(idCar, 'drive');
       } catch (error) {
-        const carsRace = document.querySelectorAll('.cars');
-        const carIcons = document.querySelectorAll('.car-icon');
-        const positionCar = carIcons[index].getBoundingClientRect();
-        this.racingView.addAnimationStartDrive(carsRace[index], positionCar.left);
+        if (error instanceof Error) {
+          const errorCode = error.message;
+          if (errorCode === '500') {
+            const carsRace = document.querySelectorAll('.cars');
+            const carIcons = document.querySelectorAll('.car-icon');
+            const positionCar = carIcons[index].getBoundingClientRect();
+            this.racingView.addAnimationStartDrive(carsRace[index], positionCar.left);
+          }
+        }
       }
     });
   }
