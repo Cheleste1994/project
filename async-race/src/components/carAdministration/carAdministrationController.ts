@@ -7,12 +7,9 @@ class CarAdministrationController extends CarAdministrationModel {
     super(emitter, main, SERVER_URL);
     this.addListenerClickCarsCreate();
     this.addListenerClickGenerateCars();
+    this.addListenerClickRaceOrReset();
     this.emitter.subscribe('clickBtnSelect', (data) => {
       this.addListenerClickBtnUpdate(data);
-    });
-    this.emitter.subscribe('pageLoad', () => {
-      this.addListenerClickRace();
-      this.addListenerClickReset();
     });
   }
 
@@ -38,15 +35,19 @@ class CarAdministrationController extends CarAdministrationModel {
     btnUodate?.addEventListener('click', event);
   }
 
-  private addListenerClickRace(): void {
-    document.querySelector('.cars-generate__btn-race')?.addEventListener('click', () => {
+  private addListenerClickRaceOrReset(): void {
+    const btnRace = document.querySelector('.cars-generate__btn-race');
+    const btnReset = document.querySelector('.cars-generate__btn-reset');
+
+    btnRace?.addEventListener('click', () => {
+      btnRace.setAttribute('disabled', '');
       this.emitter.emit('raceStart');
     });
-  }
-
-  private addListenerClickReset(): void {
-    document.querySelector('.cars-generate__btn-reset')?.addEventListener('click', () => {
-      this.emitter.emit('raceReset');
+    btnReset?.addEventListener('click', () => {
+      if (btnRace) {
+        btnRace.removeAttribute('disabled');
+        this.emitter.emit('raceReset');
+      }
     });
   }
 }
