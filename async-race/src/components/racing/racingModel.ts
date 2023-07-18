@@ -1,4 +1,4 @@
-import { CarsInterface, EngineInterface } from '../../assets/data/interface';
+import { CarsInterface, EngineInterface, WinnersInterface } from '../../assets/data/interface';
 import EventEmitter from '../appController/EventEmitter';
 import RacingView from './racingView';
 
@@ -59,6 +59,54 @@ class RacingModel {
     if (response.status === 200) {
       const data = await response.json();
       return data;
+    }
+    throw new Error(`${response.status}`);
+  }
+
+  protected async getWinnerServer(id: number): Promise<WinnersInterface> {
+    const response = await fetch(`${this.SERVER_URL}/winners/${id}`);
+
+    if (response.status === 200) {
+      const getCar = (await response.json()) as WinnersInterface;
+      return getCar;
+    }
+    throw new Error(`${response.status}`);
+  }
+
+  protected async createdWinnerServer(data: WinnersInterface): Promise<void> {
+    const response = await fetch(`${this.SERVER_URL}/winners`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.status === 201) {
+      const createdCar = await response.json();
+      this.emitter.emit('createdWinner', createdCar);
+      return;
+    }
+    throw new Error(`${response.status}`);
+  }
+
+  protected async updateWinnerServer(dataCar: WinnersInterface): Promise<void> {
+    const data = {
+      wins: dataCar.wins,
+      time: dataCar.time,
+    };
+    const response = await fetch(`${this.SERVER_URL}/winners/${dataCar.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.status === 200) {
+      const createdCar = await response.json();
+      this.emitter.emit('updateWinner', createdCar);
+      return;
     }
     throw new Error(`${response.status}`);
   }
@@ -151,24 +199,57 @@ class RacingModel {
     }
   }
 
-  protected async driveStart(elemIndex: number[]): Promise<void> {
-    const promises = elemIndex.map((element) => {
+  protected async driveStart(arrIndex: number[]): Promise<void> {
+    const promises = arrIndex.map((element) => {
       const idCar = this.searchIdCar(element);
       return this.startOrStopEngine(idCar, 'started');
     });
     const dataCars = await Promise.all(promises);
-    this.switchEngineDriveMode(elemIndex);
+    const addListenerTransition = this.addListenerTransition();
+    this.switchEngineDriveMode(arrIndex);
     for (let i = 0; i < dataCars.length; i += 1) {
       const carsRace = document.querySelectorAll('.cars');
       const carIcons = document.querySelectorAll('.car-icon');
-      const positionRace = carsRace[elemIndex[i]].getBoundingClientRect();
-      const positionCar = carIcons[elemIndex[i]].getBoundingClientRect();
+      const positionRace = carsRace[arrIndex[i]].getBoundingClientRect();
+      const positionCar = carIcons[arrIndex[i]].getBoundingClientRect();
       const marginLeftFieldRace = positionRace.left;
       const sizeFieldRace = positionRace.right - positionRace.left;
       const sizeFieldCar = positionCar.right - positionCar.left;
       const raceDistance = sizeFieldRace - sizeFieldCar - marginLeftFieldRace;
       const speed = (raceDistance / dataCars[i].velocity).toFixed(2);
-      this.racingView.addAnimationStartDrive(carsRace[elemIndex[i]], raceDistance, speed);
+      this.racingView.addAnimationStartDrive(carsRace[arrIndex[i]], raceDistance, speed);
+      addListenerTransition(carIcons[arrIndex[i]], speed, arrIndex[i]);
+    }
+  }
+
+  private addListenerTransition(): (arg0: Element, arg1: string, arg2: number) => void {
+    let isWin = false;
+    return (carIcon: Element, speed: string, index: number) => {
+      carIcon.addEventListener('transitionend', (event) => {
+        const time = (event as TransitionEvent).elapsedTime;
+        if (!isWin && time === Number(speed)) {
+          this.writeWinner(index, speed);
+          isWin = true;
+        }
+      });
+    };
+  }
+
+  private async writeWinner(index: number, speed: string): Promise<void> {
+    const winsCar = {
+      id: Number(this.searchIdCar(index)),
+      wins: 1,
+      time: Number(speed),
+    };
+    try {
+      await this.createdWinnerServer(winsCar);
+    } catch {
+      const dataCar = await this.getWinnerServer(winsCar.id);
+      winsCar.wins += dataCar.wins;
+      if (winsCar.time > dataCar.time) {
+        winsCar.time = dataCar.time;
+      }
+      this.updateWinnerServer(winsCar);
     }
   }
 

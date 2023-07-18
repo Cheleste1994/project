@@ -9,4 +9,10 @@ interface EngineInterface {
   distance: number;
 }
 
-export { CarsInterface, EngineInterface };
+interface WinnersInterface {
+  id: number;
+  wins: number;
+  time: number;
+}
+
+export { CarsInterface, EngineInterface, WinnersInterface };
