@@ -56,7 +56,7 @@ class RacingController extends RacingModel {
     const btnsStart = document.querySelectorAll('.car__btn-start');
     btnsStart?.forEach((btn, index) => {
       btn.addEventListener('click', () => {
-        this.driveStart(index);
+        this.driveStart([index]);
       });
     });
   }

@@ -10,6 +10,9 @@ class CarAdministrationController extends CarAdministrationModel {
     this.emitter.subscribe('clickBtnSelect', (data) => {
       this.addListenerClickBtnUpdate(data);
     });
+    this.emitter.subscribe('pageLoad', () => {
+      this.addListenerClickRace();
+    });
   }
 
   private addListenerClickCarsCreate(): void {
@@ -32,6 +35,12 @@ class CarAdministrationController extends CarAdministrationModel {
       btnUodate?.removeEventListener('click', event);
     };
     btnUodate?.addEventListener('click', event);
+  }
+
+  private addListenerClickRace(): void {
+    document.querySelector('.cars-generate__btn-race')?.addEventListener('click', () => {
+      this.emitter.emit('raceStart');
+    });
   }
 }
 
