@@ -12,6 +12,7 @@ class CarAdministrationController extends CarAdministrationModel {
     });
     this.emitter.subscribe('pageLoad', () => {
       this.addListenerClickRace();
+      this.addListenerClickReset();
     });
   }
 
@@ -40,6 +41,12 @@ class CarAdministrationController extends CarAdministrationModel {
   private addListenerClickRace(): void {
     document.querySelector('.cars-generate__btn-race')?.addEventListener('click', () => {
       this.emitter.emit('raceStart');
+    });
+  }
+
+  private addListenerClickReset(): void {
+    document.querySelector('.cars-generate__btn-reset')?.addEventListener('click', () => {
+      this.emitter.emit('raceReset');
     });
   }
 }

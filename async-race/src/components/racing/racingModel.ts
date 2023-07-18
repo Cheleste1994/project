@@ -21,6 +21,7 @@ class RacingModel {
     this.emitter.subscribe('createdCar', (data) => this.addCarOnPage([data]));
     this.emitter.subscribe('updateCar', (data) => this.racingView.updateCar(data));
     this.emitter.subscribe('raceStart', () => this.raceStart());
+    this.emitter.subscribe('raceReset', () => this.raceReset());
   }
 
   private async loadCarsFromServer(): Promise<CarsInterface[]> {
@@ -177,9 +178,14 @@ class RacingModel {
     this.racingView.addAnimationStopDrive(carsRace[btnIndex]);
   }
 
-  private async raceStart(): Promise<void> {
+  private raceStart(): void {
     const carsRace = document.querySelectorAll('.cars');
     this.driveStart(Object.keys(carsRace).map(Number));
+  }
+
+  private raceReset(): void {
+    const carsRace = document.querySelectorAll('.cars');
+    carsRace.forEach((car, index) => this.driveStop(index));
   }
 }
 
