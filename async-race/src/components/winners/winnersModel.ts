@@ -86,6 +86,22 @@ class WinnersModel {
     const { data, totalCount } = await this.loadWinnersFromServer(queryParams);
     this.winnersView.fillBodyTableWinners(data, requestFromCar);
     this.winnersView.addTitleWinners(totalCount);
+    this.winnersView.changePage(page);
+  }
+
+  protected async changePageClick(direction: string): Promise<void> {
+    const pageNumber = document.querySelector('.winners-page__number');
+    const number = Number(pageNumber?.innerHTML.split('#')[1]);
+    const { totalCount } = await this.loadWinnersFromServer({ limit: MAX_WINNERS_PER_PAGE });
+    if (direction === 'next') {
+      if (Math.ceil(totalCount / MAX_WINNERS_PER_PAGE) > number) {
+        this.addBodyTableWinners(number + 1);
+        return;
+      }
+    }
+    if (number > 0) {
+      this.addBodyTableWinners(number - 1);
+    }
   }
 }
 

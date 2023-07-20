@@ -106,7 +106,6 @@ class WinnersView {
     cars: WinnersInterface[],
     requestFromCar: (arg0: number) => Promise<CarsInterface>,
   ): void {
-    const tableBody = document.querySelector('.body-table');
     const fragment = document.createDocumentFragment();
 
     for (let index = 0; index < cars.length; index += 1) {
@@ -121,8 +120,11 @@ class WinnersView {
 
       fragment.appendChild(row);
     }
-
-    tableBody?.appendChild(fragment);
+    const tableBody = document.querySelector('.body-table');
+    if (tableBody) {
+      tableBody.innerHTML = '';
+      tableBody.appendChild(fragment);
+    }
   }
 
   private async createCellElement(
@@ -162,6 +164,13 @@ class WinnersView {
     const title = document.querySelector('.winners-title__cars');
     if (title) {
       title.innerHTML = `(${num})`;
+    }
+  }
+
+  public changePage(pageNumber: number): void {
+    const pageH3 = document.querySelector('.winners-page__number');
+    if (pageH3) {
+      pageH3.innerHTML = `Page #${pageNumber}`;
     }
   }
 
