@@ -99,7 +99,7 @@ class WinnersModel {
         return;
       }
     }
-    if (number > 0) {
+    if (number > 1) {
       this.addBodyTableWinners(number - 1);
     }
   }
