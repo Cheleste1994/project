@@ -29,3 +29,7 @@
 .winners-pagination > button:hover { background-color: rgb(4, 255, 150);}
 .winners-pagination > button:active { background-color: rgba(4, 255, 150, 0.747);}
 
+.header-table tr{
+  background-color: aliceblue;
+  color: black;
+}

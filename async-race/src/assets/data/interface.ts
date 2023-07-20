@@ -15,4 +15,16 @@ interface WinnersInterface {
   time: number;
 }
 
-export { CarsInterface, EngineInterface, WinnersInterface };
+interface QueryParamsWinners {
+  page?: number;
+  limit?: number;
+  sort?: 'id' | 'wins' | 'time';
+  order?: 'ASC' | 'DESC';
+}
+
+interface WinnersResponse {
+  data: WinnersInterface[];
+  totalCount: number;
+}
+
+export { CarsInterface, EngineInterface, WinnersInterface, QueryParamsWinners, WinnersResponse };

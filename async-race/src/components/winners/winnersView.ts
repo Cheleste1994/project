@@ -1,6 +1,15 @@
-import { CarsInterface } from '../../assets/data/interface';
+import { CarsInterface, WinnersInterface } from '../../assets/data/interface';
 import EventEmitter from '../appController/EventEmitter';
 import './winners.css';
+
+enum TableHeaders {
+  Number = 'header-table__number',
+  ID = 'header-table__car-id',
+  Car = 'header-table__car',
+  Win = 'header-table__win',
+  Name = 'header-table__name',
+  'Best Time (seconds)' = 'header-table__time',
+}
 
 class WinnersView {
   public emitter: EventEmitter<CarsInterface>;
@@ -65,6 +74,78 @@ class WinnersView {
   public hideBlockWinners(): void {
     const winners = document.querySelector('.winners');
     winners?.classList.remove('winners_visible');
+  }
+
+  public addTableWinners(): void {
+    const fragment = document.createDocumentFragment();
+
+    const thead = document.createElement('thead');
+    thead.classList.add('header-table');
+    const headerRow = document.createElement('tr');
+
+    const headers = Object.entries(TableHeaders);
+    headers.forEach(([key, value]) => {
+      const th = this.addHTMLElement('th', value, key);
+      headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    fragment.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    tbody.classList.add('body-table');
+
+    fragment.appendChild(tbody);
+    const table = document.createElement('table');
+    table.appendChild(fragment);
+    const winnersList = document.querySelector('.winners-list');
+    winnersList?.appendChild(table);
+  }
+
+  public fillBodyTableWinners(cars: WinnersInterface[]): void {
+    const tableBody = document.querySelector('.body-table');
+    const fragment = document.createDocumentFragment();
+    const headers = Object.keys(TableHeaders);
+
+    for (let i = 0; i < cars.length; i += 1) {
+      const row = document.createElement('tr');
+      headers.forEach((key) => {
+        const cell = document.createElement('td');
+        switch (key) {
+          case 'Number':
+            cell.innerText = `${i + 1}`;
+            break;
+          case 'ID':
+            cell.innerText = `${cars[i].id}`;
+            break;
+          case 'Car':
+            cell.innerText = `img`;
+            break;
+          case 'Win':
+            cell.innerText = `${cars[i].wins}`;
+            break;
+          case 'Name':
+            cell.innerText = `name`;
+            break;
+          case 'Best Time (seconds)':
+            cell.innerText = `${cars[i].time}`;
+            break;
+          default:
+            break;
+        }
+        row.appendChild(cell);
+      });
+
+      fragment.appendChild(row);
+    }
+    tableBody?.appendChild(fragment);
+  }
+
+  public addTitleWinners(num: number): void {
+    const title = document.querySelector('.winners-title__cars');
+    if (title) {
+      title.innerHTML = `(${num})`;
+    }
   }
 }
 
