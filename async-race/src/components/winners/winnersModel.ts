@@ -54,6 +54,16 @@ class WinnersModel {
     };
   }
 
+  protected async getCarServer(id: number): Promise<CarsInterface> {
+    const response = await fetch(`${this.SERVER_URL}/garage/${id}`);
+
+    if (response.status === 200) {
+      const getCar = (await response.json()) as CarsInterface;
+      return getCar;
+    }
+    throw new Error(`${response.status}`);
+  }
+
   private addWinnersOnPage(): void {
     window.addEventListener('load', () => {
       this.winnersView.addTableWinners();
@@ -72,9 +82,9 @@ class WinnersModel {
       sort,
       order,
     };
-
+    const requestFromCar = (id: number): Promise<CarsInterface> => this.getCarServer(id);
     const { data, totalCount } = await this.loadWinnersFromServer(queryParams);
-    this.winnersView.fillBodyTableWinners(data);
+    this.winnersView.fillBodyTableWinners(data, requestFromCar);
     this.winnersView.addTitleWinners(totalCount);
   }
 }

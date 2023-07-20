@@ -102,43 +102,60 @@ class WinnersView {
     winnersList?.appendChild(table);
   }
 
-  public fillBodyTableWinners(cars: WinnersInterface[]): void {
+  public fillBodyTableWinners(
+    cars: WinnersInterface[],
+    requestFromCar: (arg0: number) => Promise<CarsInterface>,
+  ): void {
     const tableBody = document.querySelector('.body-table');
     const fragment = document.createDocumentFragment();
-    const headers = Object.keys(TableHeaders);
 
-    for (let i = 0; i < cars.length; i += 1) {
+    for (let index = 0; index < cars.length; index += 1) {
       const row = document.createElement('tr');
-      headers.forEach((key) => {
-        const cell = document.createElement('td');
-        switch (key) {
-          case 'Number':
-            cell.innerText = `${i + 1}`;
-            break;
-          case 'ID':
-            cell.innerText = `${cars[i].id}`;
-            break;
-          case 'Car':
-            cell.innerText = `img`;
-            break;
-          case 'Win':
-            cell.innerText = `${cars[i].wins}`;
-            break;
-          case 'Name':
-            cell.innerText = `name`;
-            break;
-          case 'Best Time (seconds)':
-            cell.innerText = `${cars[i].time}`;
-            break;
-          default:
-            break;
-        }
-        row.appendChild(cell);
+      const cellPromises = Object.keys(TableHeaders).map((key) =>
+        this.createCellElement(key, cars[index], requestFromCar, index),
+      );
+
+      Promise.all(cellPromises).then((cells) => {
+        cells.forEach((cell) => row.appendChild(cell));
       });
 
       fragment.appendChild(row);
     }
+
     tableBody?.appendChild(fragment);
+  }
+
+  private async createCellElement(
+    key: string,
+    car: WinnersInterface,
+    requestFromCar: (arg0: number) => Promise<CarsInterface>,
+    index: number,
+  ): Promise<HTMLElement> {
+    const carData = await requestFromCar(car.id);
+    const cell = document.createElement('td');
+    switch (key) {
+      case 'Number':
+        cell.innerText = `${index + 1}`;
+        break;
+      case 'ID':
+        cell.innerText = `${car.id}`;
+        break;
+      case 'Car':
+        await this.addIconWinners(cell, carData.color, car.id);
+        break;
+      case 'Win':
+        cell.innerText = `${car.wins}`;
+        break;
+      case 'Name':
+        cell.innerText = carData.name;
+        break;
+      case 'Best Time (seconds)':
+        cell.innerText = `${car.time}`;
+        break;
+      default:
+        break;
+    }
+    return cell;
   }
 
   public addTitleWinners(num: number): void {
@@ -146,6 +163,30 @@ class WinnersView {
     if (title) {
       title.innerHTML = `(${num})`;
     }
+  }
+
+  public async addIconWinners(fieldRace: HTMLElement, color: string, carId: number): Promise<HTMLElement> {
+    const icon = document.createElement('span');
+    icon.classList.add(`winners__id=${carId}`);
+
+    try {
+      const response = await fetch('./icons/car.svg');
+      const svgContent = await response.text();
+      icon.innerHTML = svgContent;
+
+      const svg = icon.querySelector('svg');
+      if (svg) {
+        svg.style.fill = color;
+        svg.style.width = '50px';
+        svg.style.height = '20px';
+      }
+
+      fieldRace.appendChild(icon);
+    } catch (error) {
+      console.error('Not icon', error);
+    }
+
+    return fieldRace;
   }
 }
 

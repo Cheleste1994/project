@@ -33,3 +33,7 @@
   background-color: aliceblue;
   color: black;
 }
+
+.winners-list td{
+  padding-left: 10px;
+}
