@@ -105,13 +105,14 @@ class WinnersView {
   public fillBodyTableWinners(
     cars: WinnersInterface[],
     requestFromCar: (arg0: number) => Promise<CarsInterface>,
+    firstNumberCar: number,
   ): void {
     const fragment = document.createDocumentFragment();
 
     for (let index = 0; index < cars.length; index += 1) {
       const row = document.createElement('tr');
       const cellPromises = Object.keys(TableHeaders).map((key) =>
-        this.createCellElement(key, cars[index], requestFromCar, index),
+        this.createCellElement(key, cars[index], requestFromCar, firstNumberCar + index),
       );
 
       Promise.all(cellPromises).then((cells) => {
@@ -131,13 +132,13 @@ class WinnersView {
     key: string,
     car: WinnersInterface,
     requestFromCar: (arg0: number) => Promise<CarsInterface>,
-    index: number,
+    numberCar: number,
   ): Promise<HTMLElement> {
     const carData = await requestFromCar(car.id);
     const cell = document.createElement('td');
     switch (key) {
       case 'Number':
-        cell.innerText = `${index + 1}`;
+        cell.innerText = `${numberCar}`;
         break;
       case 'ID':
         cell.innerText = `${car.id}`;

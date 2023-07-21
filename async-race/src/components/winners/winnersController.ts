@@ -13,7 +13,9 @@ class WinnersController extends WinnersModel {
 
   private addListeners(): void {
     window.addEventListener('load', () => {
+      this.addListenerClickIdSort();
       this.addListenerClickWinSort();
+      this.addListenerClickTimeSort();
     });
   }
 
@@ -35,10 +37,24 @@ class WinnersController extends WinnersModel {
     });
   }
 
+  private addListenerClickIdSort(): void {
+    document.querySelector('.header-table__car-id')?.addEventListener('click', (event) => {
+      const element = event.target as HTMLElement;
+      this.addSortOnId(element);
+    });
+  }
+
   private addListenerClickWinSort(): void {
     document.querySelector('.header-table__win')?.addEventListener('click', (event) => {
       const element = event.target as HTMLElement;
       this.addSortOnSumWins(element);
+    });
+  }
+
+  private addListenerClickTimeSort(): void {
+    document.querySelector('.header-table__time')?.addEventListener('click', (event) => {
+      const element = event.target as HTMLElement;
+      this.addSortOnTime(element);
     });
   }
 }

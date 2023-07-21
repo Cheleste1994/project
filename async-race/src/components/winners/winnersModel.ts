@@ -102,7 +102,8 @@ class WinnersModel {
     };
     const requestFromCar = (id: number): Promise<CarsInterface> => this.getCarServer(id);
     const { data, totalCount } = await this.loadWinnersFromServer(queryParams);
-    this.winnersView.fillBodyTableWinners(data, requestFromCar);
+    const firstNumberCar = page === 1 ? 1 : (page - 1) * MAX_WINNERS_PER_PAGE + 1;
+    this.winnersView.fillBodyTableWinners(data, requestFromCar, firstNumberCar);
     this.winnersView.addTitleWinners(totalCount);
     this.winnersView.changePage(page);
   }
@@ -118,32 +119,116 @@ class WinnersModel {
     this.addBodyTableWinners(numberPage);
   }
 
+  private searchArrowSort(): QueryParamsWinners {
+    const arrowUp = document.querySelector('.sort-arrow__up');
+    const arrowDown = document.querySelector('.sort-arrow__down');
+    const queryParams: QueryParamsWinners = {
+      page: undefined,
+      sort: undefined,
+      order: undefined,
+    };
+    if (arrowUp?.innerHTML.includes('ID')) {
+      queryParams.order = 'ASC';
+      queryParams.sort = 'id';
+      return queryParams;
+    }
+    if (arrowDown?.innerHTML.includes('ID')) {
+      queryParams.order = 'DESC';
+      queryParams.sort = 'id';
+      return queryParams;
+    }
+    if (arrowUp?.innerHTML.includes('Win')) {
+      queryParams.order = 'ASC';
+      queryParams.sort = 'wins';
+      return queryParams;
+    }
+    if (arrowDown?.innerHTML.includes('Win')) {
+      queryParams.order = 'DESC';
+      queryParams.sort = 'wins';
+      return queryParams;
+    }
+    if (arrowUp?.innerHTML.includes('Time')) {
+      queryParams.order = 'ASC';
+      queryParams.sort = 'time';
+      return queryParams;
+    }
+    if (arrowDown?.innerHTML.includes('Time')) {
+      queryParams.order = 'DESC';
+      queryParams.sort = 'time';
+      return queryParams;
+    }
+    return queryParams;
+  }
+
   protected async changePageClick(direction: string): Promise<void> {
     const pageNumber = this.searchNumberPage();
     const { totalCount } = await this.loadWinnersFromServer({ limit: MAX_WINNERS_PER_PAGE });
+    const { sort, order } = this.searchArrowSort();
     if (direction === 'next') {
       if (Math.ceil(totalCount / MAX_WINNERS_PER_PAGE) > pageNumber) {
-        this.addBodyTableWinners(pageNumber + 1);
+        this.addBodyTableWinners(pageNumber + 1, sort, order);
       }
       return;
     }
     if (pageNumber > 1) {
-      this.addBodyTableWinners(pageNumber - 1);
+      this.searchArrowSort();
+      this.addBodyTableWinners(pageNumber - 1, sort, order);
+    }
+  }
+
+  private changeArrowSort(element: HTMLElement): void {
+    const arrowUp = document.querySelectorAll('.sort-arrow__up');
+    arrowUp?.forEach((arrow) => {
+      if (arrow.innerHTML !== element.innerHTML) {
+        arrow.classList.remove('sort-arrow__up');
+      }
+    });
+    const arrowDown = document.querySelectorAll('.sort-arrow__down');
+    arrowDown?.forEach((arrow) => {
+      if (arrow.innerHTML !== element.innerHTML) {
+        arrow.classList.remove('sort-arrow__down');
+      }
+    });
+    if (element.classList.contains('sort-arrow__up')) {
+      element.classList.add('sort-arrow__down');
+      element.classList.remove('sort-arrow__up');
+    } else {
+      element.classList.add('sort-arrow__up');
+      element.classList.remove('sort-arrow__down');
     }
   }
 
   protected addSortOnSumWins(element: HTMLElement): void {
     const numberPage = this.searchNumberPage();
     if (element.classList.contains('sort-arrow__up')) {
-      element.classList.add('sort-arrow__down');
-      element.classList.remove('sort-arrow__up');
+      this.changeArrowSort(element);
       this.addBodyTableWinners(numberPage, 'wins', 'DESC');
     } else {
-      element.classList.add('sort-arrow__up');
-      element.classList.remove('sort-arrow__down');
+      this.changeArrowSort(element);
       this.addBodyTableWinners(numberPage, 'wins', 'ASC');
     }
-    console.log(element);
+  }
+
+  protected addSortOnTime(element: HTMLElement): void {
+    const numberPage = this.searchNumberPage();
+    if (element.classList.contains('sort-arrow__up')) {
+      this.changeArrowSort(element);
+      this.addBodyTableWinners(numberPage, 'time', 'DESC');
+    } else {
+      this.changeArrowSort(element);
+      this.addBodyTableWinners(numberPage, 'time', 'ASC');
+    }
+  }
+
+  protected addSortOnId(element: HTMLElement): void {
+    const numberPage = this.searchNumberPage();
+    if (element.classList.contains('sort-arrow__up')) {
+      this.changeArrowSort(element);
+      this.addBodyTableWinners(numberPage, 'id', 'DESC');
+    } else {
+      this.changeArrowSort(element);
+      this.addBodyTableWinners(numberPage, 'id', 'ASC');
+    }
   }
 }
 
