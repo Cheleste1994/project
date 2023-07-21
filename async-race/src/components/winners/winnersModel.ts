@@ -18,6 +18,15 @@ class WinnersModel {
     this.addWinnersOnPage();
     this.emitter.subscribe('winnerBtnClick', () => this.winnersView.visibleBlockWinners());
     this.emitter.subscribe('garageBtnClick', () => this.winnersView.hideBlockWinners());
+    this.emitter.subscribe('createdWinner', () => this.updatePageWinner());
+    this.emitter.subscribe('updateWinner', () => this.updatePageWinner());
+    this.emitter.subscribe('updateCar', () => this.updatePageWinner());
+    this.emitter.subscribe('carRemove', async (data) => {
+      const isDelete = await this.deleteWinnerFromServer(data.id);
+      if (isDelete) {
+        this.updatePageWinner();
+      }
+    });
   }
 
   private async loadWinnersFromServer(queryParams: QueryParamsWinners = {}): Promise<WinnersResponse> {
@@ -54,9 +63,18 @@ class WinnersModel {
     };
   }
 
+  private async deleteWinnerFromServer(id: number): Promise<boolean> {
+    const response = await fetch(`${this.SERVER_URL}/winners/${id}`, {
+      method: 'DELETE',
+    });
+    if (response.status === 200) {
+      return true;
+    }
+    return false;
+  }
+
   protected async getCarServer(id: number): Promise<CarsInterface> {
     const response = await fetch(`${this.SERVER_URL}/garage/${id}`);
-
     if (response.status === 200) {
       const getCar = (await response.json()) as CarsInterface;
       return getCar;
@@ -89,18 +107,28 @@ class WinnersModel {
     this.winnersView.changePage(page);
   }
 
-  protected async changePageClick(direction: string): Promise<void> {
+  private searchNumberPage(): number {
     const pageNumber = document.querySelector('.winners-page__number');
-    const number = Number(pageNumber?.innerHTML.split('#')[1]);
+    const number = Number(pageNumber?.innerHTML.split('#').pop());
+    return number;
+  }
+
+  private updatePageWinner(): void {
+    const numberPage = this.searchNumberPage();
+    this.addBodyTableWinners(numberPage);
+  }
+
+  protected async changePageClick(direction: string): Promise<void> {
+    const pageNumber = this.searchNumberPage();
     const { totalCount } = await this.loadWinnersFromServer({ limit: MAX_WINNERS_PER_PAGE });
     if (direction === 'next') {
-      if (Math.ceil(totalCount / MAX_WINNERS_PER_PAGE) > number) {
-        this.addBodyTableWinners(number + 1);
-        return;
+      if (Math.ceil(totalCount / MAX_WINNERS_PER_PAGE) > pageNumber) {
+        this.addBodyTableWinners(pageNumber + 1);
       }
+      return;
     }
-    if (number > 1) {
-      this.addBodyTableWinners(number - 1);
+    if (pageNumber > 1) {
+      this.addBodyTableWinners(pageNumber - 1);
     }
   }
 }

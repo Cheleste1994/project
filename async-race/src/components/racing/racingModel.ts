@@ -43,6 +43,8 @@ class RacingModel {
         method: 'DELETE',
       });
       if (response.status === 200) {
+        const dataCar = { color: '', id: Number(id), name: '' };
+        this.emitter.emit('carRemove', dataCar);
         return response.ok;
       }
       console.error(`Failed to remove car: ${response.status}`);
