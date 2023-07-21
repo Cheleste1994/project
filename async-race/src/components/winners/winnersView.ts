@@ -6,8 +6,8 @@ enum TableHeaders {
   Number = 'header-table__number',
   ID = 'header-table__car-id',
   Car = 'header-table__car',
-  Win = 'header-table__win',
   Name = 'header-table__name',
+  Win = 'header-table__win',
   'Best Time (seconds)' = 'header-table__time',
 }
 

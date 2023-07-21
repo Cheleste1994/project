@@ -8,6 +8,13 @@ class WinnersController extends WinnersModel {
     this.addListenerClickWinners();
     this.addListenerClickNextBtn();
     this.addListenerClickPrevBtn();
+    this.addListeners();
+  }
+
+  private addListeners(): void {
+    window.addEventListener('load', () => {
+      this.addListenerClickWinSort();
+    });
   }
 
   private addListenerClickWinners(): void {
@@ -25,6 +32,13 @@ class WinnersController extends WinnersModel {
   private addListenerClickPrevBtn(): void {
     document.querySelector('.winners-pagination__prev')?.addEventListener('click', () => {
       this.changePageClick('prev');
+    });
+  }
+
+  private addListenerClickWinSort(): void {
+    document.querySelector('.header-table__win')?.addEventListener('click', (event) => {
+      const element = event.target as HTMLElement;
+      this.addSortOnSumWins(element);
     });
   }
 }

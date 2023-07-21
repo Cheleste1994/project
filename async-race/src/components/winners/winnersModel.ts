@@ -131,6 +131,20 @@ class WinnersModel {
       this.addBodyTableWinners(pageNumber - 1);
     }
   }
+
+  protected addSortOnSumWins(element: HTMLElement): void {
+    const numberPage = this.searchNumberPage();
+    if (element.classList.contains('sort-arrow__up')) {
+      element.classList.add('sort-arrow__down');
+      element.classList.remove('sort-arrow__up');
+      this.addBodyTableWinners(numberPage, 'wins', 'DESC');
+    } else {
+      element.classList.add('sort-arrow__up');
+      element.classList.remove('sort-arrow__down');
+      this.addBodyTableWinners(numberPage, 'wins', 'ASC');
+    }
+    console.log(element);
+  }
 }
 
 export default WinnersModel;

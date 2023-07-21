@@ -32,8 +32,26 @@
 .header-table tr{
   background-color: aliceblue;
   color: black;
+  user-select: none;
 }
 
 .winners-list td{
   padding-left: 10px;
+}
+
+.header-table__win,
+.header-table__time {
+  cursor: pointer;
+  padding: 0 10px;
+  position: relative;
+}
+
+.sort-arrow__down::after {
+  content: ' ↓';
+  position: absolute;
+}
+
+.sort-arrow__up::after {
+  content: ' ↑';
+  position: absolute;
 }
