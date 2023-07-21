@@ -148,7 +148,7 @@ class RacingView {
     }
   }
 
-  public addAnimationStartDrive(carRace: Element, raceDistance: number, speed = '1'): void {
+  public addAnimationStartDrive(carRace: Element, raceDistance: number, speed = '0.3'): void {
     const carIcon = carRace.querySelector('.car-icon') as HTMLElement;
     const btnStart = carRace.querySelector('.car__btn-start');
     const btnStop = carRace.querySelector('.car__btn-stop');

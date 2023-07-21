@@ -267,7 +267,8 @@ class RacingModel {
             const carsRace = document.querySelectorAll('.cars');
             const carIcons = document.querySelectorAll('.car-icon');
             const positionCar = carIcons[index].getBoundingClientRect();
-            this.racingView.addAnimationStartDrive(carsRace[index], positionCar.left);
+            const positionCarLeft = positionCar.left === 20 ? 0 : positionCar.left;
+            this.racingView.addAnimationStartDrive(carsRace[index], positionCarLeft);
           }
         }
       }
