@@ -45,14 +45,18 @@ class CarAdministrationView {
     return element;
   }
 
-  public addDatalistName(carsDara: CarsInterface[]): void {
+  public addDatalistName(carsData: CarsInterface[]): void {
     const carsCreate = document.querySelector('.cars-create');
+    const datalist = document.querySelector('#car-list');
+    if (datalist) {
+      datalist.remove();
+    }
     const datalistElement = document.createElement('datalist');
     datalistElement.id = 'car-list';
 
-    for (let i = 0; i < carsDara.length; i += 1) {
+    for (let i = 0; i < carsData.length; i += 1) {
       const optionElement = document.createElement('option');
-      optionElement.value = carsDara[i].name;
+      optionElement.value = carsData[i].name;
       datalistElement.appendChild(optionElement);
     }
     carsCreate?.appendChild(datalistElement);

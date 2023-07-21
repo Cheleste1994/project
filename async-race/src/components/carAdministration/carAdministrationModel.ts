@@ -23,6 +23,14 @@ class CarAdministrationModel {
     this.processDatalistElement();
     this.emitter.subscribe('winnerBtnClick', () => this.carAdministrationView.hideBlockCarAdministration());
     this.emitter.subscribe('garageBtnClick', () => this.carAdministrationView.visibleBlockCarAdministration());
+    this.emitter.subscribe('createdCar', async () => {
+      const dataCar = await this.loadCarsFromServer();
+      this.carAdministrationView.addDatalistName(dataCar);
+    });
+    this.emitter.subscribe('carRemove', async () => {
+      const dataCar = await this.loadCarsFromServer();
+      this.carAdministrationView.addDatalistName(dataCar);
+    });
   }
 
   private async loadCarsFromServer(): Promise<CarsInterface[]> {
