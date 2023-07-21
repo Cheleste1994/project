@@ -267,8 +267,15 @@ class RacingModel {
             const carsRace = document.querySelectorAll('.cars');
             const carIcons = document.querySelectorAll('.car-icon');
             const positionCar = carIcons[index].getBoundingClientRect();
-            const positionCarLeft = positionCar.left === 20 ? 0 : positionCar.left;
-            this.racingView.addAnimationStartDrive(carsRace[index], positionCarLeft);
+            const garage = document.querySelector('.garage');
+            if (garage) {
+              const stylesGarage = window.getComputedStyle(garage);
+              if (positionCar.left === parseInt(stylesGarage.marginLeft, 10)) {
+                await this.driveStop(index);
+                return;
+              }
+            }
+            this.racingView.addAnimationStartDrive(carsRace[index], positionCar.left);
           }
         }
       }
