@@ -94,18 +94,22 @@ class WinnersModel {
     sort: QueryParamsWinners['sort'] = 'id',
     order: QueryParamsWinners['order'] = 'ASC',
   ): Promise<void> {
-    const queryParams: QueryParamsWinners = {
-      page,
-      limit: MAX_WINNERS_PER_PAGE,
-      sort,
-      order,
-    };
-    const requestFromCar = (id: number): Promise<CarsInterface> => this.getCarServer(id);
-    const { data, totalCount } = await this.loadWinnersFromServer(queryParams);
-    const firstNumberCar = page === 1 ? 1 : (page - 1) * MAX_WINNERS_PER_PAGE + 1;
-    this.winnersView.fillBodyTableWinners(data, requestFromCar, firstNumberCar);
-    this.winnersView.addTitleWinners(totalCount);
-    this.winnersView.changePage(page);
+    try {
+      const queryParams: QueryParamsWinners = {
+        page,
+        limit: MAX_WINNERS_PER_PAGE,
+        sort,
+        order,
+      };
+      const requestFromCar = (id: number): Promise<CarsInterface> => this.getCarServer(id);
+      const { data, totalCount } = await this.loadWinnersFromServer(queryParams);
+      const firstNumberCar = page === 1 ? 1 : (page - 1) * MAX_WINNERS_PER_PAGE + 1;
+      this.winnersView.fillBodyTableWinners(data, requestFromCar, firstNumberCar);
+      this.winnersView.addTitleWinners(totalCount);
+      this.winnersView.changePage(page);
+    } catch (error) {
+      console.error(`Server connection error. Status - ${error}`);
+    }
   }
 
   private searchNumberPage(): number {

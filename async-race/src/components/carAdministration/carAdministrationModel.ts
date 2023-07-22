@@ -34,29 +34,23 @@ class CarAdministrationModel {
   }
 
   private async loadCarsFromServer(): Promise<CarsInterface[]> {
-    try {
-      const response = await fetch(`${this.SERVER_URL}/garage`);
-      if (response.ok) {
-        const carsData = (await response.json()) as CarsInterface[];
-        return carsData;
-      }
-      throw new Error('Server connection error');
-    } catch (error) {
-      throw new Error('Server connection error');
+    const response = await fetch(`${this.SERVER_URL}/garage`);
+    if (response.status === 200) {
+      const carsData = (await response.json()) as CarsInterface[];
+      return carsData;
     }
+    throw new Error(`Server connection error: ${response.status}`);
   }
 
-  protected processBtnCreate(): void {
+  protected async processBtnCreate(): Promise<void> {
     const input = document.querySelector('.cars-create__input') as HTMLInputElement;
     const color = document.querySelector('.cars-create__color') as HTMLInputElement;
-    if (input.value) {
-      const data = {
-        name: input.value,
-        color: color.value,
-      };
-      this.addCarsServer(data);
-      input.value = '';
-    }
+    const data = {
+      name: input.value,
+      color: color.value,
+    };
+    await this.addCarsServer(data);
+    input.value = '';
   }
 
   protected async addCarsServer(data: { name: string; color: string }): Promise<void> {
@@ -72,35 +66,29 @@ class CarAdministrationModel {
       if (response.status === 201) {
         const createdCar = await response.json();
         this.emitter.emit('createdCar', createdCar);
-      } else {
-        throw new Error('Failed to create car:');
       }
-    } catch (error) {
-      throw new Error('Server connection error');
+    } catch {
+      console.error('Server connection error. Run server.');
     }
   }
 
   protected async updateCarServer(dataCar: CarsInterface): Promise<CarsInterface> {
-    try {
-      const data = {
-        name: dataCar.name,
-        color: dataCar.color,
-      };
-      const response = await fetch(`${this.SERVER_URL}/garage/${dataCar.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.status === 200) {
-        const updateCar = await response.json();
-        return updateCar;
-      }
-      throw new Error('Failed to update car.');
-    } catch (error) {
-      throw new Error('Server connection error');
+    const data = {
+      name: dataCar.name,
+      color: dataCar.color,
+    };
+    const response = await fetch(`${this.SERVER_URL}/garage/${dataCar.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.status === 200) {
+      const updateCar = await response.json();
+      return updateCar;
     }
+    throw new Error('Server connection error');
   }
 
   protected processBtnGenerateCar(): void {
@@ -129,8 +117,12 @@ class CarAdministrationModel {
   }
 
   private async processDatalistElement(): Promise<void> {
-    const carsData = await this.loadCarsFromServer();
-    this.carAdministrationView.addDatalistName(carsData);
+    try {
+      const carsData = await this.loadCarsFromServer();
+      this.carAdministrationView.addDatalistName(carsData);
+    } catch {
+      console.error('Server connection error. Run server.');
+    }
   }
 
   protected changeInputUpdate(dataCar: CarsInterface): () => CarsInterface {

@@ -25,16 +25,12 @@ class RacingModel {
   }
 
   private async loadCarsFromServer(): Promise<CarsInterface[]> {
-    try {
-      const response = await fetch(`${this.SERVER_URL}/garage`);
-      if (response.ok) {
-        const carsData = (await response.json()) as CarsInterface[];
-        return carsData;
-      }
-      throw new Error('Server connection error');
-    } catch (error) {
-      throw new Error('Server connection error');
+    const response = await fetch(`${this.SERVER_URL}/garage`);
+    if (response.ok) {
+      const carsData = (await response.json()) as CarsInterface[];
+      return carsData;
     }
+    throw new Error('Server connection error. Run server.');
   }
 
   protected async removeCarServer(id: string): Promise<boolean> {
@@ -47,10 +43,9 @@ class RacingModel {
         this.emitter.emit('carRemove', dataCar);
         return response.ok;
       }
-      console.error(`Failed to remove car: ${response.status}`);
       return response.ok;
-    } catch (error) {
-      throw new Error('Server connection error');
+    } catch {
+      throw new Error('Server connection error. Run server.');
     }
   }
 
@@ -75,7 +70,7 @@ class RacingModel {
     throw new Error(`${response.status}`);
   }
 
-  protected async createdWinnerServer(data: WinnersInterface): Promise<void> {
+  protected async createdWinnerServer(data: WinnersInterface): Promise<boolean> {
     const response = await fetch(`${this.SERVER_URL}/winners`, {
       method: 'POST',
       headers: {
@@ -87,9 +82,9 @@ class RacingModel {
     if (response.status === 201) {
       const createdCar = await response.json();
       this.emitter.emit('createdWinner', createdCar);
-      return;
+      return response.ok;
     }
-    throw new Error(`${response.status}`);
+    return response.ok;
   }
 
   protected async updateWinnerServer(dataCar: WinnersInterface): Promise<void> {
@@ -114,22 +109,30 @@ class RacingModel {
   }
 
   private async addFirstPage(): Promise<void> {
-    const carsData = await this.loadCarsFromServer();
-    const checkLengthCars = carsData.length > MAX_CARS_PER_PAGE ? MAX_CARS_PER_PAGE : carsData.length;
-    this.racingView.generateRaceField(carsData, 0, checkLengthCars);
-    this.racingView.changeQuantityCar(carsData);
-    this.emitter.emit('pageLoad');
+    try {
+      const carsData = await this.loadCarsFromServer();
+      const checkLengthCars = carsData.length > MAX_CARS_PER_PAGE ? MAX_CARS_PER_PAGE : carsData.length;
+      this.racingView.generateRaceField(carsData, 0, checkLengthCars);
+      this.racingView.changeQuantityCar(carsData);
+      this.emitter.emit('pageLoad');
+    } catch {
+      console.error('Server connection error. Run server.');
+    }
   }
 
   private async addCarOnPage(data: CarsInterface[]): Promise<void> {
-    const carsData = await this.loadCarsFromServer();
-    const carsPage = document.querySelectorAll('.cars');
-    if (carsPage.length < MAX_CARS_PER_PAGE) {
-      this.racingView.generateRaceField(data);
-      this.racingView.changeQuantityCar(carsData);
-      this.emitter.emit('pageLoad');
-    } else {
-      this.racingView.changeQuantityCar(carsData);
+    try {
+      const carsData = await this.loadCarsFromServer();
+      const carsPage = document.querySelectorAll('.cars');
+      if (carsPage.length < MAX_CARS_PER_PAGE) {
+        this.racingView.generateRaceField(data);
+        this.racingView.changeQuantityCar(carsData);
+        this.emitter.emit('pageLoad');
+      } else {
+        this.racingView.changeQuantityCar(carsData);
+      }
+    } catch {
+      console.error('Server connection error. Run server.');
     }
   }
 
@@ -174,17 +177,21 @@ class RacingModel {
   }
 
   protected async processBtnRemove(btnIndex: number): Promise<void> {
-    const idCar = this.searchIdCar(btnIndex);
-    const isRemove = await this.removeCarServer(idCar);
-    if (isRemove) {
-      const carsData = await this.loadCarsFromServer();
-      const pageNumber = this.searchNumberPage();
-      this.racingView.cleanPageRacing();
-      const firstCar = pageNumber === 1 ? 0 : (pageNumber - 1) * MAX_CARS_PER_PAGE;
-      const lastCar = firstCar + Math.min(carsData.length - firstCar, MAX_CARS_PER_PAGE);
-      this.racingView.generateRaceField(carsData, firstCar, lastCar);
-      this.racingView.changeQuantityCar(carsData);
-      this.emitter.emit('pageLoad');
+    try {
+      const idCar = this.searchIdCar(btnIndex);
+      const isRemove = await this.removeCarServer(idCar);
+      if (isRemove) {
+        const carsData = await this.loadCarsFromServer();
+        const pageNumber = this.searchNumberPage();
+        this.racingView.cleanPageRacing();
+        const firstCar = pageNumber === 1 ? 0 : (pageNumber - 1) * MAX_CARS_PER_PAGE;
+        const lastCar = firstCar + Math.min(carsData.length - firstCar, MAX_CARS_PER_PAGE);
+        this.racingView.generateRaceField(carsData, firstCar, lastCar);
+        this.racingView.changeQuantityCar(carsData);
+        this.emitter.emit('pageLoad');
+      }
+    } catch {
+      console.error('Server connection error. Run server.');
     }
   }
 
@@ -243,9 +250,8 @@ class RacingModel {
       wins: 1,
       time: Number(speed),
     };
-    try {
-      await this.createdWinnerServer(winsCar);
-    } catch {
+    const isCreatedWinner = await this.createdWinnerServer(winsCar);
+    if (!isCreatedWinner) {
       const dataCar = await this.getWinnerServer(winsCar.id);
       winsCar.wins += dataCar.wins;
       if (winsCar.time > dataCar.time) {
