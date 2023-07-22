@@ -227,7 +227,9 @@ class RacingModel {
       const raceDistance = sizeFieldRace - sizeFieldCar - marginLeftFieldRace;
       const speed = (raceDistance / dataCars[i].velocity).toFixed(2);
       this.racingView.addAnimationStartDrive(carsRace[arrIndex[i]], raceDistance, speed);
-      addListenerTransition(carIcons[arrIndex[i]], speed, arrIndex[i]);
+      if (dataCars.length > 1) {
+        addListenerTransition(carIcons[arrIndex[i]], speed, arrIndex[i]);
+      }
     }
   }
 
@@ -237,22 +239,27 @@ class RacingModel {
       carIcon.addEventListener('transitionend', (event) => {
         const time = (event as TransitionEvent).elapsedTime;
         if (!isWin && time === Number(speed)) {
-          this.writeWinner(index, speed);
+          this.proccesWinner(index, speed);
           isWin = true;
         }
       });
     };
   }
 
-  private async writeWinner(index: number, speed: string): Promise<void> {
+  private async proccesWinner(index: number, speed: string): Promise<void> {
+    const carsRace = document.querySelectorAll('.cars');
+    const carName = carsRace[index].querySelector('.car__name');
     const winsCar = {
       id: Number(this.searchIdCar(index)),
       wins: 1,
       time: Number(speed),
     };
+    if (carName) {
+      this.racingView.addAnimationFinishCar(winsCar, carName.innerHTML);
+    }
     const isCreatedWinner = await this.createdWinnerServer(winsCar);
+    const dataCar = await this.getWinnerServer(winsCar.id);
     if (!isCreatedWinner) {
-      const dataCar = await this.getWinnerServer(winsCar.id);
       winsCar.wins += dataCar.wins;
       if (winsCar.time > dataCar.time) {
         winsCar.time = dataCar.time;

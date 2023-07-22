@@ -1,4 +1,4 @@
-import { CarsInterface } from '../../assets/data/interface';
+import { CarsInterface, WinnersInterface } from '../../assets/data/interface';
 import './racing.css';
 
 class RacingView {
@@ -25,8 +25,11 @@ class RacingView {
     const addNextPagination = this.createBtn('pagination__next', 'Next');
     addPagination.lastChild?.appendChild(addPrevPagination);
     addPagination.lastChild?.appendChild(addNextPagination);
+    const addBlockCarFinish = this.addDiv(addPagination, 'finish');
+    const finishCar = this.addHTMLElement('span', 'finish__title', '');
+    addBlockCarFinish.lastChild?.appendChild(finishCar);
 
-    main.appendChild(addPagination);
+    main.appendChild(addBlockCarFinish);
     return main;
   }
 
@@ -167,6 +170,15 @@ class RacingView {
     carIcon?.removeAttribute('style');
     btnStop?.setAttribute('disabled', '');
     btnStart?.removeAttribute('disabled');
+  }
+
+  public addAnimationFinishCar(winsCar: WinnersInterface, carName: string): void {
+    const finishTitle = document.querySelector('.finish__title');
+    const finishElement = document.querySelector('.finish');
+    finishElement?.classList.add('finish_active');
+    if (finishTitle) {
+      finishTitle.innerHTML = `${carName} finished first! Time: ${winsCar.time}s.`;
+    }
   }
 }
 

@@ -8,6 +8,7 @@ class RacingController extends RacingModel {
     this.addListenerClickGarage();
     this.addListenerClickNextBtn();
     this.addListenerClickPrevBtn();
+    this.addListenerClickFinish();
     this.emitter.subscribe('pageLoad', () => {
       this.addListenerClickBtnRemove();
       this.addListenerClickBtnSelect();
@@ -31,6 +32,13 @@ class RacingController extends RacingModel {
   private addListenerClickPrevBtn(): void {
     document.querySelector('.pagination__prev')?.addEventListener('click', () => {
       this.addPrevPage();
+    });
+  }
+
+  private addListenerClickFinish(): void {
+    const finishElement = document.querySelector('.finish');
+    finishElement?.addEventListener('click', () => {
+      finishElement.classList.remove('finish_active');
     });
   }
 
