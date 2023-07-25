@@ -1,7 +1,8 @@
-import { CarsInterface } from '../../assets/data/interface';
+import { CarsInterface, DataService } from '../../assets/data/interface';
 import EventEmitter from '../appController/EventEmitter';
 import CarAdministrationView from './carAdministrationView';
 import carName from '../../assets/data/carName.json';
+import makeRequest from '../appController/data-service';
 
 const CARS_PER_GENERATION = 100;
 const MAX_RANDOM_COLOR = 360;
@@ -15,31 +16,35 @@ class CarAdministrationModel {
 
   private carName: { brand: string[]; model: string[] }[];
 
+  private makeRequest: <T>(
+    url: string,
+    method: string,
+    data?: DataService | undefined,
+  ) => Promise<{ data: T; header: string | null }>;
+
   constructor(emitter: EventEmitter<CarsInterface>, main: HTMLElement, SERVER_URL: string) {
     this.emitter = emitter;
+    this.makeRequest = makeRequest;
     this.SERVER_URL = SERVER_URL;
     this.carName = carName;
     this.carAdministrationView = new CarAdministrationView(main);
     this.processDatalistElement();
-    this.emitter.subscribe('winnerBtnClick', () => this.carAdministrationView.hideBlockCarAdministration());
-    this.emitter.subscribe('garageBtnClick', () => this.carAdministrationView.visibleBlockCarAdministration());
-    this.emitter.subscribe('createdCar', async () => {
-      const dataCar = await this.loadCarsFromServer();
-      this.carAdministrationView.addDatalistName(dataCar);
-    });
-    this.emitter.subscribe('carRemove', async () => {
-      const dataCar = await this.loadCarsFromServer();
+    this.emitter.subscribe('winnerBtnClick', this.carAdministrationView.hideBlockCarAdministration);
+    this.emitter.subscribe('garageBtnClick', this.carAdministrationView.visibleBlockCarAdministration);
+    this.emitter.subscribe('updateDatalist', async () => {
+      const dataCar = await this.loadCars();
       this.carAdministrationView.addDatalistName(dataCar);
     });
   }
 
-  private async loadCarsFromServer(): Promise<CarsInterface[]> {
-    const response = await fetch(`${this.SERVER_URL}/garage`);
-    if (response.status === 200) {
-      const carsData = (await response.json()) as CarsInterface[];
-      return carsData;
+  private async loadCars(): Promise<CarsInterface[]> {
+    try {
+      const url = `${this.SERVER_URL}/garage`;
+      const carsData = await this.makeRequest<CarsInterface[]>(url, 'GET');
+      return carsData.data;
+    } catch (error) {
+      throw new Error(`Server connection error. Status: ${error}`);
     }
-    throw new Error(`Server connection error: ${response.status}`);
   }
 
   protected async processBtnCreate(): Promise<void> {
@@ -49,56 +54,47 @@ class CarAdministrationModel {
       name: input.value,
       color: color.value,
     };
-    await this.addCarsServer(data);
+    await this.addCars([data]);
     input.value = '';
   }
 
-  protected async addCarsServer(data: { name: string; color: string }): Promise<void> {
+  protected async addCars(dataCars: { name: string; color: string }[]): Promise<void> {
     try {
-      const response = await fetch(`${this.SERVER_URL}/garage`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+      const url = `${this.SERVER_URL}/garage`;
+      const carPromises = dataCars.map(async (data) => {
+        const createdCar = await this.makeRequest<CarsInterface>(url, 'POST', data);
+        this.emitter.emit('createdCar', createdCar.data);
+        this.emitter.emit('updateDatalist', createdCar.data);
       });
-
-      if (response.status === 201) {
-        const createdCar = await response.json();
-        this.emitter.emit('createdCar', createdCar);
-      }
+      await Promise.all(carPromises);
     } catch {
       console.error('Server connection error. Run server.');
     }
   }
 
-  protected async updateCarServer(dataCar: CarsInterface): Promise<CarsInterface> {
-    const data = {
-      name: dataCar.name,
-      color: dataCar.color,
-    };
-    const response = await fetch(`${this.SERVER_URL}/garage/${dataCar.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    if (response.status === 200) {
-      const updateCar = await response.json();
-      return updateCar;
+  protected async requestCarUpdate(dataCar: CarsInterface): Promise<CarsInterface> {
+    try {
+      const url = `${this.SERVER_URL}/garage/${dataCar.id}`;
+      const updateCar = await this.makeRequest<CarsInterface>(url, 'PUT', {
+        name: dataCar.name,
+        color: dataCar.color,
+      });
+      return updateCar.data;
+    } catch (error) {
+      throw new Error(`Server connection error. Status: ${error}`);
     }
-    throw new Error('Server connection error');
   }
 
   protected processBtnGenerateCar(): void {
+    const dataCars = [];
     for (let i = 0; i < CARS_PER_GENERATION; i += 1) {
       const data = {
         name: this.generateRandomName(),
         color: this.generateRandomColor(),
       };
-      this.addCarsServer(data);
+      dataCars.push(data);
     }
+    this.addCars(dataCars);
   }
 
   private generateRandomColor(): string {
@@ -108,8 +104,7 @@ class CarAdministrationModel {
   }
 
   private generateRandomName(): string {
-    const { brand } = this.carName[0];
-    const { model } = this.carName[0];
+    const { brand, model } = this.carName[0];
     const randomIndexBrend = Math.floor(Math.random() * brand.length);
     const randomIndexModel = Math.floor(Math.random() * model.length);
     const randomName = `${brand[randomIndexBrend]} ${model[randomIndexModel]}`;
@@ -118,31 +113,31 @@ class CarAdministrationModel {
 
   private async processDatalistElement(): Promise<void> {
     try {
-      const carsData = await this.loadCarsFromServer();
+      const carsData = await this.loadCars();
       this.carAdministrationView.addDatalistName(carsData);
     } catch {
       console.error('Server connection error. Run server.');
     }
   }
 
-  protected changeInputUpdate(dataCar: CarsInterface): () => CarsInterface {
-    this.carAdministrationView.addActiveInputUpdate(dataCar.name);
-    return () => {
-      this.saveUpdateCarServer(dataCar);
-      this.carAdministrationView.disabledInputUpdate();
-      return dataCar;
-    };
+  protected addActiveInput(name: string): void {
+    const input = document.querySelector('.cars-update__input') as HTMLInputElement;
+    if (input) {
+      input.value = name;
+      input.removeAttribute('disabled');
+    }
   }
 
-  protected async saveUpdateCarServer(dataCar: CarsInterface): Promise<void> {
+  protected async applyCarUpdate(carId: number): Promise<void> {
     const inputUpdate = document.querySelector('.cars-update__input') as HTMLInputElement;
     const color = document.querySelector('.cars-update__color') as HTMLInputElement;
     const updateDataCar = {
-      id: dataCar.id,
+      id: carId,
       name: inputUpdate.value,
       color: color.value,
     };
-    const updateCar = await this.updateCarServer(updateDataCar);
+    const updateCar = await this.requestCarUpdate(updateDataCar);
+    this.carAdministrationView.disabledInput();
     this.emitter.emit('updateCar', updateCar);
   }
 }

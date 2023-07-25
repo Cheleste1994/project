@@ -1,5 +1,6 @@
 import { CarsInterface, WinnersInterface } from '../../assets/data/interface';
 import EventEmitter from '../appController/EventEmitter';
+import { addBtn, addDiv, addHTMLElement } from '../appController/helpers';
 import './winners.css';
 
 enum TableHeaders {
@@ -14,8 +15,22 @@ enum TableHeaders {
 class WinnersView {
   public emitter: EventEmitter<CarsInterface>;
 
+  private addBtn: (
+    element: HTMLElement,
+    className: string,
+    text: string,
+    attributes: { [key: string]: string }[],
+  ) => HTMLElement;
+
+  private addHTMLElement: (elementName: string, className: string, text: string) => HTMLElement;
+
+  private addDiv: (element: HTMLElement, className: string) => HTMLElement;
+
   constructor(emitter: EventEmitter<CarsInterface>, main: HTMLElement) {
     this.emitter = emitter;
+    this.addHTMLElement = addHTMLElement;
+    this.addBtn = addBtn;
+    this.addDiv = addDiv;
     this.createHTMLElementBlock(main);
   }
 
@@ -35,35 +50,14 @@ class WinnersView {
 
     const addBlockRacing = this.addDiv(winnersBlock, 'winners-list');
     const addPagination = this.addDiv(addBlockRacing, 'winners-pagination');
-    const addPrevPagination = this.createBtn('winners-pagination__prev', 'Previous');
-    const addNextPagination = this.createBtn('winners-pagination__next', 'Next');
-    addPagination.lastChild?.appendChild(addPrevPagination);
-    addPagination.lastChild?.appendChild(addNextPagination);
+    if (addPagination.lastChild) {
+      const attribute = [{ type: 'button' }];
+      this.addBtn(addPagination.lastChild as HTMLElement, 'winners-pagination__prev', 'Previous', attribute);
+      this.addBtn(addPagination.lastChild as HTMLElement, 'winners-pagination__next', 'Next', attribute);
+    }
 
     main.appendChild(winnersBlock);
     return main;
-  }
-
-  private addDiv(divWinners: HTMLElement, className: string): HTMLElement {
-    const divElement = document.createElement('div');
-    divElement.classList.add(className);
-    divWinners.appendChild(divElement);
-    return divWinners;
-  }
-
-  private addHTMLElement(element: string, className: string, text: string): HTMLElement {
-    const divElement = document.createElement(element);
-    divElement.classList.add(className);
-    divElement.innerText = text;
-    return divElement;
-  }
-
-  private createBtn(className: string, text: string): HTMLElement {
-    const btn = document.createElement('button');
-    btn.setAttribute('type', 'button');
-    btn.classList.add(className);
-    btn.innerText = text;
-    return btn;
   }
 
   public visibleBlockWinners(): void {

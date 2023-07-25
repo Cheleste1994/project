@@ -4,6 +4,19 @@ interface CarsInterface {
   name: string;
 }
 
+interface CarsResponse {
+  data: CarsInterface[];
+  totalCount: number;
+}
+
+interface DataService {
+  color?: string;
+  id?: number;
+  name?: string;
+  wins?: number;
+  time?: number;
+}
+
 interface EngineInterface {
   velocity: number;
   distance: number;
@@ -27,4 +40,17 @@ interface WinnersResponse {
   totalCount: number;
 }
 
-export { CarsInterface, EngineInterface, WinnersInterface, QueryParamsWinners, WinnersResponse };
+type ElementAttributes = {
+  [key: string]: string;
+};
+
+export {
+  CarsInterface,
+  EngineInterface,
+  WinnersInterface,
+  QueryParamsWinners,
+  WinnersResponse,
+  DataService,
+  CarsResponse,
+  ElementAttributes,
+};

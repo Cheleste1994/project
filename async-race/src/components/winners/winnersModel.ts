@@ -1,4 +1,11 @@
-import { CarsInterface, QueryParamsWinners, WinnersInterface, WinnersResponse } from '../../assets/data/interface';
+import {
+  CarsInterface,
+  DataService,
+  QueryParamsWinners,
+  WinnersInterface,
+  WinnersResponse,
+} from '../../assets/data/interface';
+import makeRequest from '../appController/data-service';
 import EventEmitter from '../appController/EventEmitter';
 import WinnersView from './winnersView';
 
@@ -11,8 +18,15 @@ class WinnersModel {
 
   private SERVER_URL: string;
 
+  private makeRequest: <T>(
+    url: string,
+    method: string,
+    data?: DataService | undefined,
+  ) => Promise<{ data: T; header: string | null }>;
+
   constructor(emitter: EventEmitter<CarsInterface>, main: HTMLElement, SERVER_URL: string) {
     this.emitter = emitter;
+    this.makeRequest = makeRequest;
     this.SERVER_URL = SERVER_URL;
     this.winnersView = new WinnersView(emitter, main);
     this.addWinnersOnPage();
@@ -22,14 +36,14 @@ class WinnersModel {
     this.emitter.subscribe('updateWinner', () => this.updatePageWinner());
     this.emitter.subscribe('updateCar', () => this.updatePageWinner());
     this.emitter.subscribe('carRemove', async (data) => {
-      const isDelete = await this.deleteWinnerFromServer(data.id);
+      const isDelete = await this.deleteWinner(data.id);
       if (isDelete) {
         this.updatePageWinner();
       }
     });
   }
 
-  private async loadWinnersFromServer(queryParams: QueryParamsWinners = {}): Promise<WinnersResponse> {
+  private async loadWinners(queryParams: QueryParamsWinners = {}): Promise<WinnersResponse> {
     const baseUrl = `${this.SERVER_URL}/winners`;
     const params = new URLSearchParams();
 
@@ -45,41 +59,39 @@ class WinnersModel {
     if (queryParams.order) {
       params.append('_order', queryParams.order);
     }
+    try {
+      const url = `${baseUrl}${`?${params.toString()}` || ''}`;
+      const loadCars = await this.makeRequest<WinnersInterface[]>(url, 'GET');
+      const totalCount = loadCars.header ? Number(loadCars.header) : 0;
+      const { data } = loadCars;
 
-    const url = `${baseUrl}${`?${params.toString()}` || ''}`;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
+      return {
+        data,
+        totalCount,
+      };
+    } catch (error) {
+      throw new Error(`${error}`);
     }
-
-    const totalCountHeader = response.headers.get('X-Total-Count');
-    const totalCount = totalCountHeader ? Number(totalCountHeader) : 0;
-    const data: WinnersInterface[] = await response.json();
-
-    return {
-      data,
-      totalCount,
-    };
   }
 
-  private async deleteWinnerFromServer(id: number): Promise<boolean> {
-    const response = await fetch(`${this.SERVER_URL}/winners/${id}`, {
-      method: 'DELETE',
-    });
-    if (response.status === 200) {
+  private async deleteWinner(id: number): Promise<boolean> {
+    try {
+      const url = `${this.SERVER_URL}/winners/${id}`;
+      await this.makeRequest(url, 'DELETE');
       return true;
+    } catch {
+      return false;
     }
-    return false;
   }
 
-  protected async getCarServer(id: number): Promise<CarsInterface> {
-    const response = await fetch(`${this.SERVER_URL}/garage/${id}`);
-    if (response.status === 200) {
-      const getCar = (await response.json()) as CarsInterface;
-      return getCar;
+  protected async getCar(id: number): Promise<CarsInterface> {
+    try {
+      const url = `${this.SERVER_URL}/garage/${id}`;
+      const getCar = await this.makeRequest<CarsInterface>(url, 'GET');
+      return getCar.data;
+    } catch (error) {
+      throw new Error(`Server connection error. Status: ${error}`);
     }
-    throw new Error(`${response.status}`);
   }
 
   private addWinnersOnPage(): void {
@@ -101,8 +113,8 @@ class WinnersModel {
         sort,
         order,
       };
-      const requestFromCar = (id: number): Promise<CarsInterface> => this.getCarServer(id);
-      const { data, totalCount } = await this.loadWinnersFromServer(queryParams);
+      const requestFromCar = (id: number): Promise<CarsInterface> => this.getCar(id);
+      const { data, totalCount } = await this.loadWinners(queryParams);
       const firstNumberCar = page === 1 ? 1 : (page - 1) * MAX_WINNERS_PER_PAGE + 1;
       this.winnersView.fillBodyTableWinners(data, requestFromCar, firstNumberCar);
       this.winnersView.addTitleWinners(totalCount);
@@ -166,7 +178,7 @@ class WinnersModel {
 
   protected async changePageClick(direction: string): Promise<void> {
     const pageNumber = this.searchNumberPage();
-    const { totalCount } = await this.loadWinnersFromServer({ limit: MAX_WINNERS_PER_PAGE });
+    const { totalCount } = await this.loadWinners({ limit: MAX_WINNERS_PER_PAGE });
     const { sort, order } = this.searchArrowSort();
     if (direction === 'next') {
       if (Math.ceil(totalCount / MAX_WINNERS_PER_PAGE) > pageNumber) {
@@ -204,35 +216,23 @@ class WinnersModel {
 
   protected addSortOnSumWins(element: HTMLElement): void {
     const numberPage = this.searchNumberPage();
-    if (element.classList.contains('sort-arrow__up')) {
-      this.changeArrowSort(element);
-      this.addBodyTableWinners(numberPage, 'wins', 'DESC');
-    } else {
-      this.changeArrowSort(element);
-      this.addBodyTableWinners(numberPage, 'wins', 'ASC');
-    }
+    const sortOrder = element.classList.contains('sort-arrow__up') ? 'DESC' : 'ASC';
+    this.changeArrowSort(element);
+    this.addBodyTableWinners(numberPage, 'wins', sortOrder);
   }
 
   protected addSortOnTime(element: HTMLElement): void {
     const numberPage = this.searchNumberPage();
-    if (element.classList.contains('sort-arrow__up')) {
-      this.changeArrowSort(element);
-      this.addBodyTableWinners(numberPage, 'time', 'DESC');
-    } else {
-      this.changeArrowSort(element);
-      this.addBodyTableWinners(numberPage, 'time', 'ASC');
-    }
+    const sortOrder = element.classList.contains('sort-arrow__up') ? 'DESC' : 'ASC';
+    this.changeArrowSort(element);
+    this.addBodyTableWinners(numberPage, 'time', sortOrder);
   }
 
   protected addSortOnId(element: HTMLElement): void {
     const numberPage = this.searchNumberPage();
-    if (element.classList.contains('sort-arrow__up')) {
-      this.changeArrowSort(element);
-      this.addBodyTableWinners(numberPage, 'id', 'DESC');
-    } else {
-      this.changeArrowSort(element);
-      this.addBodyTableWinners(numberPage, 'id', 'ASC');
-    }
+    const sortOrder = element.classList.contains('sort-arrow__up') ? 'DESC' : 'ASC';
+    this.changeArrowSort(element);
+    this.addBodyTableWinners(numberPage, 'id', sortOrder);
   }
 }
 

@@ -1,4 +1,12 @@
-import { CarsInterface, EngineInterface, WinnersInterface } from '../../assets/data/interface';
+import {
+  CarsInterface,
+  CarsResponse,
+  DataService,
+  EngineInterface,
+  QueryParamsWinners,
+  WinnersInterface,
+} from '../../assets/data/interface';
+import makeRequest from '../appController/data-service';
 import EventEmitter from '../appController/EventEmitter';
 import RacingView from './racingView';
 
@@ -11,109 +19,106 @@ class RacingModel {
 
   private SERVER_URL: string;
 
+  private makeRequest: <T>(
+    url: string,
+    method: string,
+    data?: DataService | undefined,
+  ) => Promise<{ data: T; header: string | null }>;
+
   constructor(emitter: EventEmitter<CarsInterface>, main: HTMLElement, SERVER_URL: string) {
     this.emitter = emitter;
+    this.makeRequest = makeRequest;
     this.SERVER_URL = SERVER_URL;
     this.racingView = new RacingView(main);
     this.addFirstPage();
-    this.emitter.subscribe('winnerBtnClick', () => this.racingView.hideBlocGarage());
-    this.emitter.subscribe('garageBtnClick', () => this.racingView.visibleBlocGarage());
+    this.emitter.subscribe('winnerBtnClick', this.racingView.hideBlocGarage);
+    this.emitter.subscribe('garageBtnClick', this.racingView.visibleBlocGarage);
     this.emitter.subscribe('createdCar', (data) => this.addCarOnPage([data]));
     this.emitter.subscribe('updateCar', (data) => this.racingView.updateCar(data));
     this.emitter.subscribe('raceStart', () => this.raceStart());
     this.emitter.subscribe('raceReset', () => this.raceReset());
   }
 
-  private async loadCarsFromServer(): Promise<CarsInterface[]> {
-    const response = await fetch(`${this.SERVER_URL}/garage`);
-    if (response.ok) {
-      const carsData = (await response.json()) as CarsInterface[];
-      return carsData;
+  private async loadCars(queryParams: QueryParamsWinners = {}): Promise<CarsResponse> {
+    const baseUrl = `${this.SERVER_URL}/garage`;
+    const params = new URLSearchParams();
+    if (queryParams.page) {
+      params.append('_page', String(queryParams.page));
     }
-    throw new Error('Server connection error. Run server.');
+    if (queryParams.limit) {
+      params.append('_limit', String(queryParams.limit));
+    }
+    const url = `${baseUrl}${`?${params.toString()}` || ''}`;
+    try {
+      const carsData = await this.makeRequest<CarsInterface[]>(url, 'GET');
+      const totalCount = carsData.header ? Number(carsData.header) : 0;
+      const { data } = carsData;
+      return {
+        data,
+        totalCount,
+      };
+    } catch (error) {
+      throw new Error(`Server connection error. Status: ${error}`);
+    }
   }
 
-  protected async removeCarServer(id: string): Promise<boolean> {
+  protected async removeCar(id: string): Promise<void> {
     try {
-      const response = await fetch(`${this.SERVER_URL}/garage/${id}`, {
-        method: 'DELETE',
-      });
-      if (response.status === 200) {
-        const dataCar = { color: '', id: Number(id), name: '' };
-        this.emitter.emit('carRemove', dataCar);
-        return response.ok;
-      }
-      return response.ok;
-    } catch {
-      throw new Error('Server connection error. Run server.');
+      const url = `${this.SERVER_URL}/garage/${id}`;
+      await this.makeRequest(url, 'DELETE');
+      const dataCar = { color: '', id: Number(id), name: '' };
+      this.emitter.emit('carRemove', dataCar);
+      this.emitter.emit('updateDatalist', dataCar);
+    } catch (error) {
+      throw new Error(`Server connection error. Status: ${error}`);
     }
   }
 
   protected async startOrStopEngine(id: string, status: string): Promise<EngineInterface> {
-    const response = await fetch(`${this.SERVER_URL}/engine?id=${id}&status=${status}`, {
-      method: 'PATCH',
-    });
-    if (response.status === 200) {
-      const data = await response.json();
-      return data;
-    }
-    throw new Error(`${response.status}`);
+    const url = `${this.SERVER_URL}/engine?id=${id}&status=${status}`;
+    const dataEngine = await this.makeRequest<EngineInterface>(url, 'PATCH');
+    return dataEngine.data;
   }
 
-  protected async getWinnerServer(id: number): Promise<WinnersInterface> {
-    const response = await fetch(`${this.SERVER_URL}/winners/${id}`);
-
-    if (response.status === 200) {
-      const getCar = (await response.json()) as WinnersInterface;
-      return getCar;
+  protected async getWinner(id: number): Promise<WinnersInterface> {
+    try {
+      const url = `${this.SERVER_URL}/winners/${id}`;
+      const getCar = await this.makeRequest<WinnersInterface>(url, 'GET');
+      return getCar.data;
+    } catch (error) {
+      throw new Error(`Server connection error. Status: ${error}`);
     }
-    throw new Error(`${response.status}`);
   }
 
-  protected async createdWinnerServer(data: WinnersInterface): Promise<boolean> {
-    const response = await fetch(`${this.SERVER_URL}/winners`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (response.status === 201) {
-      const createdCar = await response.json();
-      this.emitter.emit('createdWinner', createdCar);
-      return response.ok;
+  protected async createdWinner(data: WinnersInterface): Promise<boolean> {
+    try {
+      const url = `${this.SERVER_URL}/winners/`;
+      await this.makeRequest(url, 'POST', data);
+      this.emitter.emit('createdWinner');
+      return true;
+    } catch {
+      return false;
     }
-    return response.ok;
   }
 
-  protected async updateWinnerServer(dataCar: WinnersInterface): Promise<void> {
-    const data = {
-      wins: dataCar.wins,
-      time: dataCar.time,
-    };
-    const response = await fetch(`${this.SERVER_URL}/winners/${dataCar.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (response.status === 200) {
-      const createdCar = await response.json();
-      this.emitter.emit('updateWinner', createdCar);
-      return;
+  protected async updateWinner(dataCar: WinnersInterface): Promise<void> {
+    try {
+      const url = `${this.SERVER_URL}/winners/${dataCar.id}`;
+      await this.makeRequest(url, 'PUT', {
+        wins: dataCar.wins,
+        time: dataCar.time,
+      });
+      this.emitter.emit('updateWinner');
+    } catch (error) {
+      throw new Error(`Server connection error. Status: ${error}`);
     }
-    throw new Error(`${response.status}`);
   }
 
   private async addFirstPage(): Promise<void> {
     try {
-      const carsData = await this.loadCarsFromServer();
-      const checkLengthCars = carsData.length > MAX_CARS_PER_PAGE ? MAX_CARS_PER_PAGE : carsData.length;
-      this.racingView.generateRaceField(carsData, 0, checkLengthCars);
-      this.racingView.changeQuantityCar(carsData);
+      const carsData = await this.loadCars({ page: 1, limit: MAX_CARS_PER_PAGE });
+      this.racingView.generateRaceField(carsData.data, 0, carsData.data.length);
+      this.racingView.changeQuantityCar(carsData.totalCount);
       this.emitter.emit('pageLoad');
     } catch {
       console.error('Server connection error. Run server.');
@@ -122,14 +127,14 @@ class RacingModel {
 
   private async addCarOnPage(data: CarsInterface[]): Promise<void> {
     try {
-      const carsData = await this.loadCarsFromServer();
+      const carsData = await this.loadCars({ limit: MAX_CARS_PER_PAGE });
       const carsPage = document.querySelectorAll('.cars');
       if (carsPage.length < MAX_CARS_PER_PAGE) {
         this.racingView.generateRaceField(data);
-        this.racingView.changeQuantityCar(carsData);
+        this.racingView.changeQuantityCar(carsData.totalCount);
         this.emitter.emit('pageLoad');
       } else {
-        this.racingView.changeQuantityCar(carsData);
+        this.racingView.changeQuantityCar(carsData.totalCount);
       }
     } catch {
       console.error('Server connection error. Run server.');
@@ -143,30 +148,23 @@ class RacingModel {
   }
 
   protected async addNextPage(): Promise<void> {
-    const carsData = await this.loadCarsFromServer();
     const pageNumber = this.searchNumberPage();
-    if (Math.ceil(carsData.length / MAX_CARS_PER_PAGE) <= pageNumber) {
+    const carsData = await this.loadCars({ page: pageNumber + 1, limit: MAX_CARS_PER_PAGE });
+    if (!carsData.data.length) {
       return;
     }
     this.racingView.cleanPageRacing();
-    const firstCar = pageNumber * MAX_CARS_PER_PAGE;
-    const lastCar = Math.min((pageNumber + 1) * MAX_CARS_PER_PAGE, carsData.length);
-    this.racingView.generateRaceField(carsData, firstCar, lastCar);
+    this.racingView.generateRaceField(carsData.data, 0, carsData.data.length);
     this.racingView.addNextPage(pageNumber + 1);
     this.emitter.emit('pageLoad');
   }
 
   protected async addPrevPage(): Promise<void> {
-    const carsData = await this.loadCarsFromServer();
     const pageNumber = this.searchNumberPage();
-    if (pageNumber - 1 === 0) {
-      return;
-    }
+    const carsData = await this.loadCars({ page: pageNumber - 1 || 1, limit: MAX_CARS_PER_PAGE });
     this.racingView.cleanPageRacing();
-    const firstCar = (pageNumber - 2) * MAX_CARS_PER_PAGE;
-    const lastCar = firstCar + MAX_CARS_PER_PAGE;
-    this.racingView.generateRaceField(carsData, firstCar, lastCar);
-    this.racingView.addNextPage(pageNumber - 1);
+    this.racingView.generateRaceField(carsData.data, 0, carsData.data.length);
+    this.racingView.addNextPage(pageNumber - 1 || 1);
     this.emitter.emit('pageLoad');
   }
 
@@ -176,20 +174,23 @@ class RacingModel {
     return idCar;
   }
 
-  protected async processBtnRemove(btnIndex: number): Promise<void> {
+  protected async processBtnRemove(btnIndex: number, page = 0): Promise<void> {
     try {
-      const idCar = this.searchIdCar(btnIndex);
-      const isRemove = await this.removeCarServer(idCar);
-      if (isRemove) {
-        const carsData = await this.loadCarsFromServer();
-        const pageNumber = this.searchNumberPage();
-        this.racingView.cleanPageRacing();
-        const firstCar = pageNumber === 1 ? 0 : (pageNumber - 1) * MAX_CARS_PER_PAGE;
-        const lastCar = firstCar + Math.min(carsData.length - firstCar, MAX_CARS_PER_PAGE);
-        this.racingView.generateRaceField(carsData, firstCar, lastCar);
-        this.racingView.changeQuantityCar(carsData);
-        this.emitter.emit('pageLoad');
+      if (page === 0) {
+        const idCar = this.searchIdCar(btnIndex);
+        await this.removeCar(idCar);
       }
+      const pageNumber = page === 0 ? this.searchNumberPage() : page - 1;
+      const carsData = await this.loadCars({ page: pageNumber || 1, limit: MAX_CARS_PER_PAGE });
+      if (!carsData.data.length && carsData.totalCount) {
+        this.racingView.addNextPage(pageNumber - 1 || 1);
+        this.processBtnRemove(btnIndex, pageNumber || 1);
+        return;
+      }
+      this.racingView.cleanPageRacing();
+      this.racingView.generateRaceField(carsData.data, 0, carsData.data.length);
+      this.racingView.changeQuantityCar(carsData.totalCount);
+      this.emitter.emit('pageLoad');
     } catch {
       console.error('Server connection error. Run server.');
     }
@@ -257,14 +258,14 @@ class RacingModel {
     if (carName) {
       this.racingView.addAnimationFinishCar(winsCar, carName.innerHTML);
     }
-    const isCreatedWinner = await this.createdWinnerServer(winsCar);
-    const dataCar = await this.getWinnerServer(winsCar.id);
+    const isCreatedWinner = await this.createdWinner(winsCar);
+    const dataCar = await this.getWinner(winsCar.id);
     if (!isCreatedWinner) {
       winsCar.wins += dataCar.wins;
       if (winsCar.time > dataCar.time) {
         winsCar.time = dataCar.time;
       }
-      this.updateWinnerServer(winsCar);
+      this.updateWinner(winsCar);
     }
   }
 

@@ -26,13 +26,8 @@ class CarAdministrationController extends CarAdministrationModel {
   }
 
   private addListenerClickBtnUpdate(data: CarsInterface): void {
-    const activeInput = this.changeInputUpdate(data);
-    const btnUodate = document.querySelector('.cars-update__button') as HTMLElement;
-    const event = (): void => {
-      activeInput();
-      btnUodate?.removeEventListener('click', event);
-    };
-    btnUodate?.addEventListener('click', event);
+    this.addActiveInput(data.name);
+    document.querySelector('.cars-update__button')?.addEventListener('click', () => this.applyCarUpdate(data.id));
   }
 
   private addListenerClickRaceOrReset(): void {

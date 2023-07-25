@@ -1,8 +1,20 @@
-import { CarsInterface } from '../../assets/data/interface';
+import { CarsInterface, ElementAttributes } from '../../assets/data/interface';
+import { addBtn, addInput } from '../appController/helpers';
 import './carAdministration.css';
 
 class CarAdministrationView {
+  private addBtn: (
+    element: HTMLElement,
+    className: string,
+    text: string,
+    attributes: ElementAttributes[],
+  ) => HTMLElement;
+
+  private addInput: (element: HTMLElement, className: string, attributes: { [key: string]: string }[]) => HTMLElement;
+
   constructor(main: HTMLElement) {
+    this.addBtn = addBtn;
+    this.addInput = addInput;
     this.createHTMLElementBlock(main);
   }
 
@@ -15,34 +27,32 @@ class CarAdministrationView {
     fieldCarUpdate.classList.add('cars-update');
     const fieldCarGenerate = document.createElement('div');
     fieldCarGenerate.classList.add('cars-generate');
+    const attributesCreate: ElementAttributes[] = [{ type: 'text' }, { list: 'car-list' }];
+    const inputCreate = this.addInput(fieldCarInput, 'cars-create__input', attributesCreate);
 
-    const inputCreate = this.addInputCreate(fieldCarInput);
-    const inputColorCreate = this.addInputColor(inputCreate, 'cars-create__color');
-    const btnCreate = this.addBtn(inputColorCreate, 'cars-create__button', 'CREATE');
+    const attributesBtn = [{ type: 'button' }];
 
-    const inputUpdate = this.addInputUpdate(fieldCarUpdate);
-    const inputColorUpdate = this.addInputColor(inputUpdate, 'cars-update__color');
-    const btnUpdate = this.addBtn(inputColorUpdate, 'cars-update__button', 'UPDATE');
+    const attributesColor: ElementAttributes[] = [{ type: 'color' }];
+    const inputColorCreate = this.addInput(inputCreate, 'cars-create__color', attributesColor);
 
-    const btnRace = this.addBtn(fieldCarGenerate, 'cars-generate__btn-race', 'RACE');
-    const btnReset = this.addBtn(btnRace, 'cars-generate__btn-reset', 'RESET');
-    const btnGenerate = this.addBtn(btnReset, 'cars-generate__btn-generate', 'GENERATE CARS');
+    const btnCreate = this.addBtn(inputColorCreate, 'cars-create__button', 'CREATE', attributesBtn);
+
+    const attributesInputUpdate: ElementAttributes[] = [{ type: 'text', disabled: '' }];
+    const inputUpdate = this.addInput(fieldCarUpdate, 'cars-update__input', attributesInputUpdate);
+
+    const inputColorUpdate = this.addInput(inputUpdate, 'cars-update__color', attributesColor);
+
+    const btnUpdate = this.addBtn(inputColorUpdate, 'cars-update__button', 'UPDATE', attributesBtn);
+
+    const btnRace = this.addBtn(fieldCarGenerate, 'cars-generate__btn-race', 'RACE', attributesBtn);
+    const btnReset = this.addBtn(btnRace, 'cars-generate__btn-reset', 'RESET', attributesBtn);
+    const btnGenerate = this.addBtn(btnReset, 'cars-generate__btn-generate', 'GENERATE CARS', attributesBtn);
 
     divCarAdministration.appendChild(btnCreate);
     divCarAdministration.appendChild(btnUpdate);
     divCarAdministration.appendChild(btnGenerate);
     main.appendChild(divCarAdministration);
     return main;
-  }
-
-  private addInputCreate(element: HTMLElement): HTMLElement {
-    const inputElement = document.createElement('input');
-    inputElement.setAttribute('type', 'text');
-    inputElement.setAttribute('list', 'car-list');
-    inputElement.classList.add('cars-create__input');
-
-    element.appendChild(inputElement);
-    return element;
   }
 
   public addDatalistName(carsData: CarsInterface[]): void {
@@ -62,35 +72,6 @@ class CarAdministrationView {
     carsCreate?.appendChild(datalistElement);
   }
 
-  private addInputColor(element: HTMLElement, className: string): HTMLElement {
-    const inputElement = document.createElement('input');
-    inputElement.setAttribute('type', 'color');
-    inputElement.classList.add(className);
-    element.appendChild(inputElement);
-
-    return element;
-  }
-
-  private addBtn(element: HTMLElement, className: string, text: string): HTMLElement {
-    const btnCreate = document.createElement('button');
-    btnCreate.setAttribute('type', 'button');
-    btnCreate.classList.add(className);
-    btnCreate.innerText = text;
-    element.appendChild(btnCreate);
-
-    return element;
-  }
-
-  private addInputUpdate(element: HTMLElement): HTMLElement {
-    const inputElement = document.createElement('input');
-    inputElement.setAttribute('type', 'text');
-    inputElement.classList.add('cars-update__input');
-    inputElement.setAttribute('disabled', '');
-    element.appendChild(inputElement);
-
-    return element;
-  }
-
   public hideBlockCarAdministration(): void {
     const carAdministration = document.querySelector('.car-administration');
     carAdministration?.classList.add('car-administration_hide');
@@ -101,15 +82,7 @@ class CarAdministrationView {
     carAdministration?.classList.remove('car-administration_hide');
   }
 
-  public addActiveInputUpdate(carName: string): void {
-    const input = document.querySelector('.cars-update__input') as HTMLInputElement;
-    if (input) {
-      input.value = carName;
-      input.removeAttribute('disabled');
-    }
-  }
-
-  public disabledInputUpdate(): void {
+  public disabledInput(): void {
     const input = document.querySelector('.cars-update__input') as HTMLInputElement;
     if (input) {
       input.value = '';
