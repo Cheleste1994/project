@@ -1,0 +1,141 @@
+body {
+    color: #fff;
+    background: #17181c;
+    font-family: sans-serif;
+}
+
+header {
+    padding: 10px 30px;
+}
+
+.menu {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.dropdown:last-child {
+  margin-left: 50px;
+}
+
+.dropbtn {
+  background: none;
+  border: 2px solid #30c5ff;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 0.5em 0.5em;
+  color: #70d6ff;
+  transition: 0.25s;
+  cursor: pointer;
+  width: 100%;
+  max-width: 150px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 150px;
+}
+
+.dropdown-language,
+.dropdown-category {
+  display: none;
+  position: absolute;
+  color: #70d6ff;
+  z-index: 10;
+}
+
+.dropdown:hover .dropdown-language {
+  display: flex;
+  flex-direction: column;
+  background: #4e5355ce;
+  width: 100%;
+  max-width: 100px;
+}
+
+.dropdown:hover .dropdown-category {
+  display: flex;
+  flex-direction: column;
+  background: #4e5355ce;
+  width: 100%;
+  max-width: 150px;
+}
+
+.language,
+.category {
+  border: 2px solid #30c5ff;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 0.5em 0.5em;
+  color: #70d6ff;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.language:hover,
+.language:focus,
+.category:hover,
+.category:focus {
+    border-color: #3fcc59;
+    color: #69db7e;
+    box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
+    transform: translateY(-0.25em);
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+main {
+  display: flex;
+}
+
+header h1 {
+    font-size: 40px;
+    font-weight: 800;
+    text-align: center;
+}
+
+footer {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+footer .creation {
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+}
+footer .creation a {
+    color: #444;
+}
+footer .creation a:hover {
+    color: #555;
+}
+footer .copyright:before {
+    content: '©';
+}
+
+footer .rsschool {
+  margin: 0 auto 10px auto;
+  filter: invert(0.8);
+}
+
+footer .creation img {
+  width: 80px;
+}
+
+
+@media (max-width: 400px) {
+  .dropdown-category,
+  .dropdown-language {
+   font: 300 0.5em 'Fira Sans', sans-serif;
+  }
+
+
+}
