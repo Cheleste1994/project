@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <link rel="stylesheet" href="css/owfont-regular.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>momentum</title>
+</head>
+<body>
+  <header class="header">
+    <div class="links">
+      <div class="tag-links">Links</div>
+      <div class="links-menu">
+        
+        <ul class="links-all">
+
+        </ul>
+        
+        <div class="add-links">+ New Link</div>
+       
+      </div>
+      <div class="add-links-menu">
+        <div class="links-back">
+          <span class="back-links-create">Back</span>
+        </div>
+        <div class="add-links-name">
+          <span class="add-links-text">NAME</span>
+          <input type="text" class="add-links-name-btn">
+        </div>
+        <div class="add-links-site">
+          <span class="add-links-text">LINKS</span>
+          <input type="text" class="add-links-site-btn" placeholder="example.com">
+        </div>
+        <div class="links-create">
+          <span class="add-links-create">Create</span>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="player">
+      <div class="player-controls">
+        <button class="play-prev player-icon"></button>
+        <button class="play player-icon"></button>
+        <button class="play-next player-icon"></button>
+      </div>
+      <ul class="play-list"></ul>
+    </div>
+
+    <div class="player-controls-active">
+      
+      <div class="player-controls-active-artist"></div>
+      <input 
+      type="range" 
+      id="progress-bar" 
+      min="0" 
+      max="" 
+      value="0" 
+      />
+      
+      <div class="player-controls-active-time">
+        <div class="player-controls-period-start"></div>
+        <div class="player-controls-active-icon">
+          <button class="play-prev-player player-icon-next"></button>
+          <button class="play-player player-icon"></button>
+          <button class="play-next-player player-icon-next"></button>
+        </div>
+        <div class="player-volume-icon"></div>
+        <div class="player-volume">
+          <input 
+          type="range" 
+          id="progress-volume" 
+          min="0" 
+          max="" 
+          value="0" 
+          />
+        </div>
+        <div class="player-controls-period-end"></div>
+        
+      </div>
+    </div>
+    <div class="weather">
+      <input type="text" class="city"/>
+      <i class="weather-icon owf"></i>
+      <div class="weather-error"></div>
+      <div class="description-container">
+        <span class="temperature"></span>
+        <span class="weather-description"></span>
+      </div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button class="slide-prev slider-icon"></button>
+      <button class="slide-next slider-icon"></button>
+    </div>
+    <time class="time"></time>
+    <date class="date"></date>
+    <div class="greeting-container">
+      <span class="greeting"></span>
+      <input type="text" class="name" placeholder=""/>
+    </div>
+  </main>
+  <footer class="footer">
+    <button class="change-quote"></button>
+    <div class="quoteAll">
+      <div class="quote"></div>
+      <div class="author"></div>
+    </div>
+    <div class="settings">
+      
+      <div class="app-settings"></div>
+      <div class="settings-none">
+        <div class="settings-text">Settings</div>
+        <div class="switch-player">
+          <span class="switch-btn-value pleylist-text">Pleylist</span>
+          <span class="switch-btn pleylistBtn"></span>
+          <span class="switch-btn-value player-text">Player</span>
+          <span class="switch-btn playerBtn"></span>
+        </div>
+        <div class="switch-weather">
+          <span class="switch-btn-value weather-text">Weather</span>
+          <span class="switch-btn weatherBtn"></span>
+        </div>
+        <div class="switch-time">
+          <span class="switch-btn-value time-text">Time</span>
+          <span class="switch-btn timeBtn"></span>
+        </div>
+        <div class="switch-date">
+          <span class="switch-btn-value date-text">Date</span>
+          <span class="switch-btn dateBtn"></span>
+        </div>
+        <div class="switch-greeting">
+          <span class="switch-btn-value greeting-text">Greeting</span>
+          <span class="switch-btn greetingBtn"></span>
+        </div>
+        <div class="switch-quote">
+          <span class="switch-btn-value quote-text">Quote</span>
+          <span class="switch-btn quoteBtn"></span>
+        </div>
+        <div class="switch-quote">
+          <span class="switch-btn-value links-text">Links</span>
+          <span class="switch-btn linksBtn"></span>
+        </div>
+        <div class="switch-slider">
+          <div class="settings-collections-text">Background collections</div>
+            <div class="settings-collections">
+              <span class="switch-btn-value github-text">GitHub</span>
+              <span class="switch-btn githubBtn"></span>
+              <span class="switch-btn-value flickr-text">Flickr API</span>
+              <span class="switch-btn flickrBtn"></span>
+              <span class="switch-btn-value unsplash-text">Unsplash API</span>
+              <span class="switch-btn unsplashBtn"></span>
+              <div class="tag-text-open">
+                <span class="tag-text">Tag for </span>
+                <input type="text" class="tagAPI">
+              </div>
+
+              <div class="footer__section-git">
+                <div class="footer_rsschool">
+                  <a href="https://rs.school/js/" class="rsschool"><img src="http://www.google.com/s2/favicons?domain=rs.school" alt="favicon" class="rsschool-icon">
+                  </a>
+                </div>
+                <span class="footer__year">Ⓒ</span>
+                <span class="footer__year_progect">2023</span>
+                <span class="footer__github"><a href="https://github.com/Cheleste1994/" class="footer__year-link">GitHub</a></span>
+
+
+            </div>
+            </div>
+          
+
+        </div>
+        <div class="switch-lang">
+          <span class="switch-lang-en-ru">Ry/En</span>
+          <span class="switch-lang-en-by">Be/En</span>
+        </div>
+      </div>
+      <div class="lang-settings">
+        <div class="lang-ru">Ru</div>
+        <div class="lang-slash">/</div>
+        <div class="lang-en">En</div>
+      </div>
+    </div>
+
+  </footer>
+  <script src="js/watch.js"></script>
+  <script type="module" src="js/greeting.js"></script>
+  <script type="module" src="js/slider.js"></script>
+  <script type="module" src="js/weather.js"></script>
+  <script type="module" src="js/quotes.js"></script>
+  <script type="module" src="js/player.js"></script>
+  <script type="module" src="js/settings.js"></script>
+  <script type="module" src="js/links.js"></script>
+
+</body>
+</html>
